@@ -1,0 +1,42 @@
+---
+// Contact form. Until the site is linked to Wix Forms (see SETUP.md), sending opens the visitor's e-mail
+// app with the message addressed to Connectas. Nothing is stored by this page.
+import { COMPANY } from "../company";
+import type { Lang } from "../lib/routes";
+const { lang = "EN", topic = "" } = Astro.props as { lang?: Lang; topic?: string };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const interests: [string, string][] = [
+  ["plan", L("Business plan", "Plano de negócios")], ["register", L("Company registration & structuring", "Abertura e estruturação de empresa")],
+  ["market", L("Market entry strategy", "Estratégia de entrada no mercado")], ["relocation", L("Relocation", "Realocação")],
+  ["tech", L("Websites, systems & apps", "Sites, sistemas e apps")], ["marketing", L("Marketing & branding", "Marketing e branding")],
+  ["platform", L("Relocation & property platform (white label)", "Plataforma de realocação e imóveis (white label)")], ["other", L("Something else", "Outro assunto")],
+];
+---
+<form class="form cnx-form" data-to={COMPANY.email} data-subject={L("Website enquiry", "Contato pelo site")} data-ok={L("Your e-mail app has opened with your message. Just press send — we reply within two business days.", "Seu aplicativo de e-mail abriu com a mensagem pronta. É só enviar — respondemos em até dois dias úteis.")} novalidate>
+  <div class="field"><input id="f-first" name="first" placeholder=" " autocomplete="given-name" required /><label for="f-first">{L("First name *", "Nome *")}</label></div>
+  <div class="field"><input id="f-last" name="last" placeholder=" " autocomplete="family-name" /><label for="f-last">{L("Last name", "Sobrenome")}</label></div>
+  <div class="field"><input id="f-email" name="email" type="email" placeholder=" " autocomplete="email" required /><label for="f-email">{L("E-mail *", "E-mail *")}</label></div>
+  <div class="field"><input id="f-phone" name="phone" type="tel" placeholder=" " autocomplete="tel" /><label for="f-phone">{L("Phone", "Telefone")}</label></div>
+  <div class="field full"><input id="f-company" name="company" placeholder=" " autocomplete="organization" /><label for="f-company">{L("Company name", "Empresa")}</label></div>
+  <div class="field full"><select id="f-int" name="interest">{interests.map(([k, t]) => <option value={t} selected={k === topic}>{t}</option>)}</select><label for="f-int">{L("I'm interested in", "Tenho interesse em")}</label></div>
+  <div class="field full"><textarea id="f-msg" name="message" placeholder=" " required></textarea><label for="f-msg">{L("Where are you today, and where do you want to go? *", "Onde você está hoje e aonde quer chegar? *")}</label></div>
+  <p class="note full">{L("We use your details only to reply to you. See our ", "Usamos seus dados apenas para responder ao seu contato. Veja a nossa ")}<a href={pt ? "/pt/politica-de-privacidade" : "/privacy-policy"}>{L("Privacy Policy", "Política de Privacidade")}</a>.</p>
+  <div class="full"><button class="btn" type="submit">{L("Connect with Us", "Fale Conosco")}<span class="arr">→</span></button></div>
+  <p class="form-err note full" hidden style="color:#B00020">{L("Please fill in your name, a valid e-mail and your message.", "Preencha seu nome, um e-mail válido e a mensagem.")}</p>
+</form>
+<script is:inline>
+  (function () {
+    if (window.__cnxForm) return; window.__cnxForm = true;
+    document.addEventListener("submit", function (e) {
+      var f = e.target; if (!f.classList || !f.classList.contains("cnx-form")) return;
+      e.preventDefault();
+      var d = new FormData(f), err = f.querySelector(".form-err");
+      var ok = (d.get("first") || "").trim() && /.+@.+\..+/.test(d.get("email") || "") && (d.get("message") || "").trim();
+      err.hidden = !!ok; if (!ok) return;
+      var body = ["Name: " + d.get("first") + " " + (d.get("last") || ""), "E-mail: " + d.get("email"), "Phone: " + (d.get("phone") || "-"), "Company: " + (d.get("company") || "-"), "Interest: " + d.get("interest"), "", d.get("message")].join("\n");
+      window.location.href = "mailto:" + f.dataset.to + "?subject=" + encodeURIComponent(f.dataset.subject + " · " + d.get("interest")) + "&body=" + encodeURIComponent(body);
+      var m = document.createElement("div"); m.className = "form-ok full"; m.textContent = f.dataset.ok; f.appendChild(m);
+    });
+  })();
+</script>

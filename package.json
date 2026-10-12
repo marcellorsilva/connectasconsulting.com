@@ -1,0 +1,15 @@
+{
+  "name": "connectas-website",
+  "version": "1.0.0",
+  "description": "Connectas Enterprises LLC website (connectasconsulting.com)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4330",
+    "build": "astro build",
+    "preview": "astro preview --port 4330"
+  },
+  "dependencies": {
+    "astro": "^5.18.2"
+  }
+}

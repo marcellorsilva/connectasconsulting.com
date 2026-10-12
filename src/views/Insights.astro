@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+import { postUrl, type Lang } from "../lib/routes";
+import { POSTS } from "../blog/posts";
+const { lang } = Astro.props as { lang: Lang };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const list = [...POSTS].sort((a, b) => b.date.localeCompare(a.date));
+const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt-BR" : "en-US", { day: "numeric", month: "long", year: "numeric" });
+const [first, ...rest] = list;
+---
+<Base lang={lang} page="insights" title={L("Connectas · Market Insights", "Connectas · Insights de Mercado")}
+  description={L("News and analysis on business opportunities in Guyana, Brazil and the United States: infrastructure, hotels, economy and trade.", "Notícias e análises sobre oportunidades de negócios na Guiana, no Brasil e nos Estados Unidos: infraestrutura, hotelaria, economia e comércio.")}>
+  <section class="phero" style="padding-bottom:50px">
+    <div class="wrap">
+      <span class="eyebrow fade-up">{L("Market insights", "Insights de mercado")}</span>
+      <h1><span class="mask-line"><span style="--d:100ms">{L("What's moving the market.", "O que está movendo o mercado.")}</span></span></h1>
+      <p class="lead fade-up" style="--d:400ms">{L("Infrastructure, hospitality, economy and trade between Guyana, Brazil and the United States — with sources for every figure.", "Infraestrutura, hotelaria, economia e comércio entre Guiana, Brasil e Estados Unidos — com fonte para cada número.")}</p>
+    </div>
+  </section>
+  <section style="padding-top:20px">
+    <div class="wrap">
+      <div class="posts">
+        <a class="post-card feature reveal" href={postUrl(lang, first.slug)}><div class="img-frame"><img src={first.img} alt={first.alt[lang]} /></div>
+          <div class="stack"><span class="meta"><span>{fmt(first.date)}</span><span>·</span><span>{first.tag[lang]}</span></span><h3>{first.title[lang]}</h3><p>{first.excerpt[lang]}</p></div></a>
+        {rest.map((p, i) => <a class="post-card reveal" style={`--d:${(i % 3) * 100}ms`} href={postUrl(lang, p.slug)}><div class="img-frame"><img src={p.img} alt={p.alt[lang]} loading="lazy" /></div><span class="meta"><span>{fmt(p.date)}</span><span>·</span><span>{p.tag[lang]}</span></span><h3>{p.title[lang]}</h3><p>{p.excerpt[lang]}</p></a>)}
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import Network from "../components/Network.astro";
+import { ROUTES, type Lang } from "../lib/routes";
+import { IMG } from "../company";
+const { lang } = Astro.props as { lang: Lang };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const R = ROUTES[lang];
+---
+<Base lang={lang} page="about" title={L("Connectas · Meet the Founder", "Connectas · Conheça o Fundador")}
+  description={L("Marcello Silva has more than 20 years of international experience across England, Brazil, Guyana and the United States.", "Marcello Silva tem mais de 20 anos de experiência internacional entre Inglaterra, Brasil, Guiana e Estados Unidos.")}>
+  <section class="phero">
+    <Network density={0.6} />
+    <div class="wrap">
+      <span class="eyebrow fade-up">{L("Meet the founder", "Conheça o fundador")}</span>
+      <h1><span class="mask-line"><span style="--d:100ms">{L("Meet Marcello.", "Conheça o Marcello.")}</span></span></h1>
+    </div>
+  </section>
+  <section style="padding-top:10px">
+    <div class="wrap split top">
+      <div class="reveal"><div class="img-frame" style="aspect-ratio:1/1;display:grid;place-items:center;background:#000"><img src={IMG.globe} alt="" style="width:78%;height:auto;object-fit:contain;filter:invert(1)" /></div></div>
+      <div class="reveal" style="--d:150ms">
+        <p class="big-quote">{L("Connecting people and opportunities beyond borders.", "Conectando pessoas e oportunidades além das fronteiras.")}</p>
+        <p class="lead">{L("With over 20 years of international experience across England, Brazil, Guyana and the United States, Marcello Silva has built his career around connecting people and opportunities beyond borders.", "Com mais de 20 anos de experiência internacional entre Inglaterra, Brasil, Guiana e Estados Unidos, Marcello Silva construiu sua carreira conectando pessoas e oportunidades além das fronteiras.")}</p>
+        <p>{L("In São Paulo, he worked with multinational corporations and led global mobility projects in Brazil and Guyana, helping expatriates adapt and thrive. He is also the founder of multiple businesses operating in Brazil, Guyana and the United States, giving him first-hand insight into the challenges and rewards of building across markets.", "Em São Paulo, trabalhou com multinacionais e liderou projetos de mobilidade global no Brasil e na Guiana, ajudando expatriados a se adaptar e prosperar. Também é fundador de diversas empresas no Brasil, na Guiana e nos Estados Unidos, o que lhe dá uma visão prática dos desafios e das recompensas de empreender em vários mercados.")}</p>
+        <p>{L("From Brazil, he expanded his vision to the world — and today, through Connectas, he helps others do the same.", "Do Brasil, ele expandiu sua visão para o mundo — e hoje, com a Connectas, ajuda outras pessoas a fazer o mesmo.")}</p>
+        <a class="btn" href={`${R.home}#contact`} style="margin-top:14px">{L("Talk to Marcello's team", "Fale com a equipe do Marcello")}<span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import { COMPANY } from "../company";
+import type { Lang, PageKey } from "../lib/routes";
+import { Content as Terms } from "../legal/terms.md";
+import { Content as TermsPt } from "../legal/terms.pt.md";
+import { Content as Privacy } from "../legal/privacy.md";
+import { Content as PrivacyPt } from "../legal/privacy.pt.md";
+import { Content as Cookies } from "../legal/cookies.md";
+import { Content as CookiesPt } from "../legal/cookies.pt.md";
+import { Content as Refunds } from "../legal/refunds.md";
+import { Content as RefundsPt } from "../legal/refunds.pt.md";
+import { Content as Dp } from "../legal/data-protection.md";
+import { Content as DpPt } from "../legal/data-protection.pt.md";
+import { Content as Ethics } from "../legal/ethics.md";
+import { Content as EthicsPt } from "../legal/ethics.pt.md";
+import { Content as A11y } from "../legal/accessibility.md";
+import { Content as A11yPt } from "../legal/accessibility.pt.md";
+
+const { lang, page } = Astro.props as { lang: Lang; page: PageKey };
+const pt = lang === "PT";
+const DOCS: Partial<Record<PageKey, { EN: [string, any]; PT: [string, any] }>> = {
+  terms: { EN: ["Terms of Service", Terms], PT: ["Termos de Serviço", TermsPt] },
+  privacy: { EN: ["Privacy Policy", Privacy], PT: ["Política de Privacidade", PrivacyPt] },
+  cookies: { EN: ["Cookie Policy", Cookies], PT: ["Política de Cookies", CookiesPt] },
+  refunds: { EN: ["Cancellation & Refund Policy", Refunds], PT: ["Política de Cancelamento e Reembolso", RefundsPt] },
+  dataprotection: { EN: ["Data Protection & Information Security Policy", Dp], PT: ["Política de Proteção de Dados e Segurança da Informação", DpPt] },
+  ethics: { EN: ["Compliance & Ethics Policy", Ethics], PT: ["Política de Ética e Compliance", EthicsPt] },
+  accessibility: { EN: ["Accessibility Statement", A11y], PT: ["Declaração de Acessibilidade", A11yPt] },
+};
+const [title, Content] = DOCS[page]![lang];
+---
+<Base lang={lang} page={page} title={`${title} · Connectas`} description={`${title} — ${COMPANY.legal}`}>
+  <section class="legal">
+    <div class="wrap">
+      <span class="eyebrow fade-up">{COMPANY.legal}</span>
+      <h1><span class="mask-line"><span style="--d:80ms">{title}</span></span></h1>
+      <p class="upd fade-up" style="--d:250ms">{pt ? "Última atualização" : "Last updated"}: {COMPANY.updated[lang]}</p>
+      {pt && <p class="note fade-up" style="--d:300ms">Tradução para conveniência. Em caso de divergência, prevalece a versão em inglês.</p>}
+      <div class="fade-up" style="--d:350ms"><Content /></div>
+    </div>
+  </section>
+</Base>

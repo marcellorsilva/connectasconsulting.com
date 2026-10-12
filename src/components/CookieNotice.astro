@@ -1,0 +1,64 @@
+---
+// First-visit cookie notice with preferences. The choice is kept for a year in the cnx_consent cookie
+// as "e" (essential only) or a list like "e,m,k" (essential, measurement, marketing).
+// Today the site only sets essential cookies. Any measurement or marketing tool added later must check
+// window.cnxConsent.measurement / .marketing before it runs. Any [data-cookie-settings] element reopens it.
+import { ROUTES, type Lang } from "../lib/routes";
+const { lang = "EN" } = Astro.props as { lang?: Lang };
+const pt = lang === "PT";
+const t = pt
+  ? { title: "Sua privacidade", body: "Usamos cookies essenciais para o site funcionar com segurança. Com a sua permissão, também podemos usar cookies de medição (para entender como o site é usado) e de marketing. Você escolhe — e pode mudar quando quiser.",
+      policy: "Política de cookies", privacy: "Política de privacidade", accept: "Aceitar todos", reject: "Só os essenciais", prefs: "Preferências", save: "Salvar preferências",
+      ess: "Essenciais", essD: "Necessários para o site funcionar: segurança, idioma e a sua escolha de cookies. Sempre ligados.",
+      mea: "Medição", meaD: "Estatísticas anônimas de visitas para melhorar o site.", mkt: "Marketing", mktD: "Medir campanhas e mostrar conteúdo relevante em outras plataformas.", always: "Sempre ligado" }
+  : { title: "Your privacy", body: "We use essential cookies to keep this site secure and working. With your permission, we may also use measurement cookies (to understand how the site is used) and marketing cookies. It's your choice — and you can change it at any time.",
+      policy: "Cookie policy", privacy: "Privacy policy", accept: "Accept all", reject: "Essential only", prefs: "Preferences", save: "Save preferences",
+      ess: "Essential", essD: "Needed for the site to work: security, language and your cookie choice. Always on.",
+      mea: "Measurement", meaD: "Anonymous visit statistics to improve the site.", mkt: "Marketing", mktD: "Measure campaigns and show relevant content on other platforms.", always: "Always on" };
+const R = ROUTES[lang];
+---
+<div id="cnx-consent" role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
+  <div class="cc-box">
+    <strong id="cc-title">{t.title}</strong>
+    <p>{t.body}</p>
+    <p class="cc-links"><a href={R.cookies}>{t.policy}</a> · <a href={R.privacy}>{t.privacy}</a></p>
+    <div class="cc-prefs" hidden>
+      <label class="cc-row"><span><b>{t.ess}</b><small>{t.essD}</small></span><span class="cc-always">{t.always}</span></label>
+      <label class="cc-row"><span><b>{t.mea}</b><small>{t.meaD}</small></span><input type="checkbox" data-k="m" /><i class="cc-sw" aria-hidden="true"></i></label>
+      <label class="cc-row"><span><b>{t.mkt}</b><small>{t.mktD}</small></span><input type="checkbox" data-k="k" /><i class="cc-sw" aria-hidden="true"></i></label>
+    </div>
+    <div class="cc-actions">
+      <button type="button" class="cc-btn ghost" data-act="prefs">{t.prefs}</button>
+      <button type="button" class="cc-btn ghost" data-act="reject">{t.reject}</button>
+      <button type="button" class="cc-btn" data-act="accept">{t.accept}</button>
+      <button type="button" class="cc-btn" data-act="save" hidden>{t.save}</button>
+    </div>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    if (window.__cnxConsentBound) return; window.__cnxConsentBound = true;
+    function box() { return document.getElementById("cnx-consent"); }
+    function read() { var m = document.cookie.match(/(?:^|;\s*)cnx_consent=([^;]+)/); return m ? decodeURIComponent(m[1]) : ""; }
+    function apply(v) { var a = (v || "").split(","); window.cnxConsent = { essential: true, measurement: a.indexOf("m") > -1, marketing: a.indexOf("k") > -1, choice: v }; }
+    function save(v) { document.cookie = "cnx_consent=" + encodeURIComponent(v) + "; max-age=31536000; path=/; SameSite=Lax"; apply(v); close(); }
+    function close() { var b = box(); if (!b) return; b.classList.remove("open"); setTimeout(function () { b.hidden = true; }, 350); }
+    function open(prefs) {
+      var b = box(); if (!b) return; var v = read();
+      b.querySelectorAll("input[data-k]").forEach(function (i) { i.checked = v.indexOf(i.getAttribute("data-k")) > -1; });
+      b.querySelector(".cc-prefs").hidden = !prefs; b.querySelector("[data-act=save]").hidden = !prefs; b.querySelector("[data-act=prefs]").hidden = !!prefs;
+      b.hidden = false; requestAnimationFrame(function () { b.classList.add("open"); });
+    }
+    apply(read());
+    document.addEventListener("click", function (e) {
+      var el = e.target.closest && e.target.closest("[data-act],[data-cookie-settings]"); if (!el) return;
+      if (el.hasAttribute("data-cookie-settings")) { e.preventDefault(); open(true); return; }
+      var a = el.getAttribute("data-act");
+      if (a === "accept") save("e,m,k");
+      else if (a === "reject") save("e");
+      else if (a === "prefs") open(true);
+      else if (a === "save") { var v = ["e"]; box().querySelectorAll("input[data-k]:checked").forEach(function (i) { v.push(i.getAttribute("data-k")); }); save(v.join(",")); }
+    });
+    document.addEventListener("astro:page-load", function () { if (!read()) open(false); });
+  })();
+</script>

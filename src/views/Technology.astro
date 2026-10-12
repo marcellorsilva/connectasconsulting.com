@@ -1,0 +1,80 @@
+---
+import Base from "../layouts/Base.astro";
+import Network from "../components/Network.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { ROUTES, type Lang } from "../lib/routes";
+import { ICON } from "../lib/icons";
+const { lang } = Astro.props as { lang: Lang };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const R = ROUTES[lang];
+const mods: [keyof typeof ICON, string, string][] = [
+  ["people", L("Relocation management", "Gestão de realocação"), L("Cases, assignees and families, documents, timelines and messages — with portals for the client's HR team and for every assignee.", "Processos, expatriados e famílias, documentos, prazos e mensagens — com portais para o RH do cliente e para cada expatriado.")],
+  ["home", L("Property management", "Gestão de imóveis"), L("Leases, inspections with photo reports, work orders and portals for landlords, agents and service partners.", "Contratos de locação, vistorias com relatório fotográfico, ordens de serviço e portais para proprietários, corretores e prestadores.")],
+  ["bed", L("Housekeeping & stays", "Hospedagem e housekeeping"), L("Occupancy calendar, bookings for rotational staff, cleaning tasks and a mobile app for the housekeeping team.", "Calendário de ocupação, reservas para equipes em rodízio, tarefas de limpeza e app para a equipe de housekeeping.")],
+  ["money", L("Finance & client funds", "Financeiro e fundos de clientes"), L("Invoices, bills, advance funds and approvals — amounts visible only to those who should see them.", "Faturas, contas, fundos adiantados e aprovações — valores visíveis só para quem deve vê-los.")],
+  ["chart", L("Reports & allowances", "Relatórios e ajudas de custo"), L("Expiry reports for leases and documents, cost-of-living allowance (COLA) calculations and client dashboards.", "Relatórios de vencimentos de contratos e documentos, cálculo de ajuda de custo de vida (COLA) e painéis para clientes.")],
+  ["phone", L("White-label systems & apps", "Sistemas e apps white label"), L("Web portal plus iPhone and Android apps under the customer's own brand, with sign-in by Face ID.", "Portal web e apps para iPhone e Android com a marca do cliente, com login por Face ID.")],
+];
+const sec: [keyof typeof ICON, string, string][] = [
+  ["shield", L("Separate data", "Dados separados"), L("Each customer's data is isolated from every other customer's, enforced by the database itself.", "Os dados de cada cliente ficam isolados dos demais, por regra do próprio banco de dados.")],
+  ["key", L("Confirmed access", "Acesso confirmado"), L("Access by invitation only. Nobody gets in before confirming their e-mail. 2-step verification for staff and HR, Face ID on the apps.", "Acesso só por convite. Ninguém entra antes de confirmar o e-mail. Verificação em duas etapas para equipe e RH, Face ID nos apps.")],
+  ["people", L("Right people, right data", "Cada um vê o que é seu"), L("Access by role: HR, assignees, landlords and partners only see what belongs to them. Every change is recorded.", "Acesso por perfil: RH, expatriados, proprietários e parceiros só veem o que é deles. Toda alteração fica registrada.")],
+  ["card", L("Payments by Stripe", "Pagamentos pelo Stripe"), L("Card details are entered only on Stripe's secure pages. We never see or store card numbers.", "Os dados do cartão são digitados apenas nas páginas seguras do Stripe. Nunca vemos nem guardamos números de cartão.")],
+];
+---
+<Base lang={lang} page="technology" title={L("Connectas · Technology: white-label systems & apps", "Connectas · Tecnologia: sistemas e apps white label")}
+  description={L("A complete white-label platform for relocation and property-management companies — web portal and mobile apps under your brand, sold as a monthly subscription by module.", "Uma plataforma white label completa para empresas de realocação e gestão de imóveis — portal web e apps com a sua marca, por assinatura mensal por módulo.")}>
+  <section class="phero black">
+    <Network dark density={0.8} />
+    <div class="wrap">
+      <span class="eyebrow fade-up">{L("Connectas Technology", "Tecnologia Connectas")}</span>
+      <h1><span class="mask-line"><span style="--d:100ms">{L("Software that runs relocation", "Software que faz empresas de realocação")}</span></span><span class="mask-line"><span style="--d:250ms">{L("and property companies.", "e de imóveis funcionarem.")}</span></span></h1>
+      <p class="lead fade-up" style="--d:500ms">{L("Beyond the websites and apps we build for each client, Connectas offers its own platform: a complete system for relocation and property-management companies, delivered under each customer's brand and sold as a monthly subscription.", "Além dos sites e apps que criamos para cada cliente, a Connectas oferece sua própria plataforma: um sistema completo para empresas de realocação e gestão de imóveis, entregue com a marca de cada cliente e vendido por assinatura mensal.")}</p>
+      <div class="fade-up" style="--d:650ms;margin-top:30px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn light" href="#demo">{L("Request a demo", "Peça uma demonstração")}<span class="arr">→</span></a><a class="btn light" style="--b:transparent;color:#fff;border-color:#555" href="#pricing">{L("Pricing", "Preços")}</a></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:50px"><span class="eyebrow">{L("The platform", "A plataforma")}</span><h2>{L("Choose the modules you need.", "Escolha os módulos de que precisa.")}</h2><p class="lead">{L("Everything works together, in one place, for staff, clients, assignees and partners.", "Tudo funciona junto, em um só lugar, para equipe, clientes, expatriados e parceiros.")}</p></div>
+      <div class="cards reveal" data-stagger>{mods.map(([ic, t, d]) => <div class="card"><span class="ic" set:html={ICON[ic]} /><h3>{t}</h3><p>{d}</p></div>)}</div>
+    </div>
+  </section>
+
+  <section class="grey">
+    <div class="wrap split">
+      <div class="reveal"><span class="eyebrow">{L("White label", "White label")}</span><h2>{L("Your brand. Our technology.", "Sua marca. Nossa tecnologia.")}</h2></div>
+      <div class="reveal" style="--d:120ms"><p class="lead">{L("Your logo, your colours, your domain, your system and your app in the stores. Your clients see your brand — Connectas stays behind the scenes.", "Seu logo, suas cores, seu domínio, seu sistema e seu app nas lojas. Seus clientes veem a sua marca — a Connectas fica nos bastidores.")}</p>
+        <ul class="checks"><li>{L("Portals for HR, assignees, landlords, agents and service partners", "Portais para RH, expatriados, proprietários, corretores e prestadores")}</li><li>{L("iPhone and Android apps published under your company", "Apps para iPhone e Android publicados em nome da sua empresa")}</li><li>{L("In English and Portuguese", "Em inglês e português")}</li></ul></div>
+    </div>
+  </section>
+
+  <section id="pricing" style="scroll-margin-top:90px">
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:50px"><span class="eyebrow">{L("Pricing", "Preços")}</span><h2>{L("A monthly subscription, by module.", "Uma assinatura mensal, por módulo.")}</h2><p class="lead">{L("You pay only for the modules you switch on. Prices are in US dollars and are always shown to you before you pay.", "Você paga apenas pelos módulos que ativar. Os preços são em dólares americanos e sempre aparecem antes do pagamento.")}</p></div>
+      <div class="price-grid reveal" data-stagger>
+        <div class="price main"><span class="tag" style="color:#A8A8A8">{L("Required", "Obrigatório")}</span><h3>{L("Base subscription", "Assinatura base")}</h3><p>{L("Monthly fee plus an amount per active assignee.", "Mensalidade mais um valor por expatriado ativo.")}</p>
+          <ul><li>{L("HR and assignee portals, cases, documents, messages", "Portais de RH e de expatriados, processos, documentos, mensagens")}</li><li>{L("Users, roles and audit log", "Usuários, perfis e registro de auditoria")}</li><li>{L("Your brand and domain", "Sua marca e seu domínio")}</li></ul></div>
+        <div class="price"><span class="tag">{L("Optional", "Opcional")}</span><h3>{L("Add-on modules", "Módulos adicionais")}</h3><p>{L("Each module has its own monthly price.", "Cada módulo tem sua própria mensalidade.")}</p>
+          <ul><li>{L("Property management · Housekeeping & stays", "Gestão de imóveis · Hospedagem e housekeeping")}</li><li>{L("Furniture · Finance · Client funds · COLA", "Mobiliário · Financeiro · Fundos de clientes · COLA")}</li><li>{L("SMS alerts and assistant requests, billed by use", "Alertas por SMS e pedidos ao assistente, cobrados por uso")}</li></ul></div>
+        <div class="price"><span class="tag">{L("One-time + monthly", "Única + mensal")}</span><h3>{L("Your own app", "Seu próprio app")}</h3><p>{L("Setup fee plus a monthly fee to publish and maintain your branded apps in the App Store and Google Play.", "Taxa de implantação mais mensalidade para publicar e manter seus apps com a sua marca na App Store e no Google Play.")}</p></div>
+      </div>
+      <p class="fine reveal"><b>{L("How payment works.", "Como funciona o pagamento.")}</b> {L("Subscriptions are charged automatically every month to a credit or debit card. Card payments are processed by Stripe — card details never pass through our systems. Modules can be added from inside the platform and start right away. A free trial may be offered before the first payment. If a payment fails, the customer has 7 days to pay before access is paused; data is always kept. Any module, or the whole plan, can be cancelled from inside the platform with 30 days' notice — see our", "As assinaturas são cobradas automaticamente todo mês em cartão de crédito ou débito. Os pagamentos com cartão são processados pelo Stripe — os dados do cartão nunca passam pelos nossos sistemas. Módulos podem ser adicionados dentro da plataforma e começam na hora. Pode haver um período de teste gratuito antes do primeiro pagamento. Se um pagamento falhar, o cliente tem 7 dias para pagar antes de o acesso ser pausado; os dados são sempre mantidos. Qualquer módulo, ou o plano inteiro, pode ser cancelado dentro da plataforma com aviso prévio de 30 dias — veja a nossa")} <a href={R.refunds}>{L("Cancellation & Refund Policy", "Política de Cancelamento e Reembolso")}</a>. {L("A quote for your company is available on request.", "Fazemos um orçamento para a sua empresa sob consulta.")}</p>
+    </div>
+  </section>
+
+  <section class="grey">
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:50px"><span class="eyebrow">{L("Security", "Segurança")}</span><h2>{L("Designed to protect people's data.", "Feita para proteger os dados das pessoas.")}</h2><p class="lead">{L("Relocation means passports, leases, addresses and family details. The platform treats them that way.", "Realocação envolve passaportes, contratos, endereços e dados de família. A plataforma os trata com esse cuidado.")}</p></div>
+      <div class="cards reveal" data-stagger>{sec.map(([ic, t, d]) => <div class="card"><span class="ic" set:html={ICON[ic]} /><h3>{t}</h3><p>{d}</p></div>)}</div>
+    </div>
+  </section>
+
+  <section id="demo" style="scroll-margin-top:90px">
+    <div class="wrap contact-grid">
+      <div class="reveal"><span class="eyebrow">{L("Request a demo", "Peça uma demonstração")}</span><h2>{L("See it working with your brand.", "Veja funcionando com a sua marca.")}</h2><p class="lead">{L("Tell us about your company and we'll show you the platform and send a quote.", "Conte sobre a sua empresa e mostramos a plataforma e enviamos um orçamento.")}</p></div>
+      <div class="reveal" style="--d:150ms"><ContactForm lang={lang} topic="platform" /></div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,99 @@
+---
+import Base from "../layouts/Base.astro";
+import Network from "../components/Network.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { ROUTES, postUrl, type Lang } from "../lib/routes";
+import { SERVICES } from "../lib/services";
+import { POSTS } from "../blog/posts";
+const { lang, country } = Astro.props as { lang: Lang; country: "guyana" | "brazil" | "usa" };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const R = ROUTES[lang];
+
+const C = {
+  guyana: {
+    name: L("Guyana", "Guiana"),
+    h1: L("Doing business in Guyana.", "Fazer negócios na Guiana."),
+    lead: L("One of the fastest-growing economies in the world, the only English-speaking country in South America — and Brazil's neighbour by road.", "Uma das economias que mais crescem no mundo, o único país de língua inglesa da América do Sul — e vizinho do Brasil por estrada."),
+    facts: [["19%+", L("Real GDP growth in 2025", "Crescimento real do PIB em 2025"), "IMF, 2026"], ["~14%", L("Non-oil economy growth in 2025", "Crescimento da economia não petrolífera em 2025"), "IMF, 2026"], [L("English", "Inglês"), L("Official language — common law system", "Idioma oficial — sistema de common law"), ""]],
+    why: [
+      L("Infrastructure is changing the map: a new four-lane Demerara River bridge, and a paved road advancing towards Brazil.", "A infraestrutura está mudando o mapa: uma nova ponte de quatro faixas sobre o rio Demerara e uma estrada asfaltada avançando em direção ao Brasil."),
+      L("International hotel brands — Marriott, Hilton and Hyatt — are committing to Georgetown.", "Grandes redes hoteleiras — Marriott, Hilton e Hyatt — estão apostando em Georgetown."),
+      L("Construction, agriculture, mining, manufacturing and services are growing alongside oil.", "Construção, agricultura, mineração, indústria e serviços crescem junto com o petróleo."),
+      L("Local content rules reward companies that are properly registered and work with Guyanese partners.", "As regras de conteúdo local favorecem empresas devidamente registradas e que trabalham com parceiros guianenses."),
+    ],
+    how: L("We register your company in Guyana, find local partners, house and relocate your team, and set up your website, systems and launch marketing — with people on the ground in Georgetown.", "Registramos sua empresa na Guiana, encontramos parceiros locais, cuidamos da moradia e da realocação da sua equipe e montamos seu site, seus sistemas e o marketing de lançamento — com gente presente em Georgetown."),
+  },
+  brazil: {
+    name: L("Brazil", "Brasil"),
+    h1: L("Doing business in Brazil.", "Fazer negócios no Brasil."),
+    lead: L("Latin America's largest market — with its own rules, taxes and culture. We help U.S. and Guyanese companies get it right from the start.", "O maior mercado da América Latina — com regras, impostos e cultura próprios. Ajudamos empresas americanas e guianenses a acertar desde o início."),
+    facts: [["#1", L("Largest economy in Latin America", "Maior economia da América Latina"), ""], ["213M+", L("People — a huge consumer market", "Habitantes — um enorme mercado consumidor"), "IBGE, 2025"], [L("Portuguese", "Português"), L("Official language — local partners make the difference", "Idioma oficial — parceiros locais fazem a diferença"), ""]],
+    why: [
+      L("A deep consumer and industrial market, with strong agribusiness, energy, technology and services sectors.", "Um mercado consumidor e industrial profundo, com agronegócio, energia, tecnologia e serviços fortes."),
+      L("A land border with Guyana through Roraima — and a road corridor that is being paved.", "Fronteira terrestre com a Guiana por Roraima — e um corredor rodoviário sendo asfaltado."),
+      L("A complex tax and regulatory system that rewards careful structuring.", "Um sistema tributário e regulatório complexo, que premia uma estruturação cuidadosa."),
+      L("Business runs on relationships: the right introductions save months.", "Os negócios andam por relacionamento: as apresentações certas economizam meses."),
+    ],
+    how: L("We prepare your business plan with real Brazilian costs and taxes, coordinate company formation with licensed local professionals, introduce you to partners and clients, and launch your brand in Portuguese.", "Preparamos seu plano de negócios com custos e impostos brasileiros reais, coordenamos a abertura da empresa com profissionais locais habilitados, apresentamos você a parceiros e clientes e lançamos sua marca em português."),
+  },
+  usa: {
+    name: L("United States", "Estados Unidos"),
+    h1: L("Doing business in the United States.", "Fazer negócios nos Estados Unidos."),
+    lead: L("The world's largest economy — and our home base in Florida. We help Brazilian and Guyanese companies set up, and U.S. companies expand nationwide.", "A maior economia do mundo — e a nossa base na Flórida. Ajudamos empresas brasileiras e guianenses a se instalar, e empresas americanas a expandir pelo país."),
+    facts: [["#1", L("Largest economy in the world", "Maior economia do mundo"), ""], ["50", L("States, each with its own rules for companies", "Estados, cada um com suas regras para empresas"), ""], [L("Florida", "Flórida"), L("Our head office — a gateway to Latin America", "Nossa sede — uma porta de entrada para a América Latina"), ""]],
+    why: [
+      L("Access to the largest consumer market and the deepest capital markets in the world.", "Acesso ao maior mercado consumidor e aos maiores mercados de capitais do mundo."),
+      L("Florida connects the U.S. with Brazil and the Caribbean, by air and by business culture.", "A Flórida conecta os EUA ao Brasil e ao Caribe, por via aérea e pela cultura de negócios."),
+      L("Choosing the right state and company type affects taxes, banking and growth.", "Escolher o estado e o tipo de empresa certos afeta impostos, bancos e crescimento."),
+      L("A U.S. company can open doors to investors and clients across the Americas.", "Uma empresa americana pode abrir portas para investidores e clientes em todas as Américas."),
+    ],
+    how: L("We help you choose the right structure and state, coordinate company formation, tax registration and banking with licensed professionals, and build the website, systems and marketing for your U.S. launch.", "Ajudamos você a escolher a estrutura e o estado certos, coordenamos a abertura da empresa, a inscrição fiscal e a conta bancária com profissionais habilitados, e criamos o site, os sistemas e o marketing do seu lançamento nos EUA."),
+  },
+}[country];
+const posts = country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
+---
+<Base lang={lang} page={country} title={`Connectas · ${C.h1.replace(/\.$/, "")}`} description={C.lead}>
+  <section class="phero black">
+    <Network dark density={0.7} />
+    <div class="wrap">
+      <span class="eyebrow fade-up">{L("Countries", "Países")} · {C.name}</span>
+      <h1><span class="mask-line"><span style="--d:100ms">{C.h1}</span></span></h1>
+      <p class="lead fade-up" style="--d:400ms">{C.lead}</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="facts reveal" data-stagger>{C.facts.map(([v, l, s]) => <div><div class="v">{v}</div><div class="l">{l}</div>{s && <div class="s">{L("Source", "Fonte")}: {s}</div>}</div>)}</div>
+    </div>
+  </section>
+
+  <section class="grey">
+    <div class="wrap split top">
+      <div class="reveal"><span class="eyebrow">{L(`Why ${C.name}`, `Por que ${C.name}`)}</span><h2>{L("The opportunity, in plain words.", "A oportunidade, em poucas palavras.")}</h2></div>
+      <ul class="checks reveal" data-stagger style="--d:120ms">{C.why.map((w) => <li class="lead" style="font-size:18px">{w}</li>)}</ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap split top">
+      <div class="reveal"><span class="eyebrow">{L("How Connectas helps", "Como a Connectas ajuda")}</span><h2>{L("One plan. One team.", "Um plano. Uma equipe.")}</h2><p class="lead">{C.how}</p></div>
+      <div class="rows reveal" style="--d:120ms">{SERVICES.map((s) => <a href={`${R.solutions}#${s.key}`} class="srow" style="grid-template-columns:1fr auto;padding:22px 0;text-decoration:none"><h3 style="margin:0;font-size:20px">{s.title[lang]}</h3><span class="muted">→</span></a>)}</div>
+    </div>
+  </section>
+
+  {posts.length > 0 && <section class="grey">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:46px"><span class="eyebrow">{L("Market insights", "Insights de mercado")}</span><h2>{L("Latest from Guyana.", "O mais recente da Guiana.")}</h2></div>
+      <div class="posts reveal" data-stagger>{posts.map((p) => <a class="post-card" href={postUrl(lang, p.slug)}><div class="img-frame"><img src={p.img} alt={p.alt[lang]} loading="lazy" /></div><span class="meta">{p.tag[lang]}</span><h3>{p.title[lang]}</h3></a>)}</div>
+    </div>
+  </section>}
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal"><span class="eyebrow">{L("Contact", "Contato")}</span><h2>{L(`Let's talk about ${C.name}.`, `Vamos falar sobre ${country === "usa" ? "os " : country === "brazil" ? "o " : "a "}${C.name}.`)}</h2><p class="lead">{L("Tell us what you have in mind. We reply within two business days.", "Conte o que você tem em mente. Respondemos em até dois dias úteis.")}</p></div>
+      <div class="reveal" style="--d:150ms"><ContactForm lang={lang} topic="market" /></div>
+    </div>
+  </section>
+</Base>

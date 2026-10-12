@@ -1,0 +1,32 @@
+---
+import Base from "../layouts/Base.astro";
+import { ROUTES, postUrl, type Lang } from "../lib/routes";
+import { POSTS, POST_CTA } from "../blog/posts";
+const { lang, slug } = Astro.props as { lang: Lang; slug: string };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const p = POSTS.find((x) => x.slug === slug)!;
+const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt-BR" : "en-US", { day: "numeric", month: "long", year: "numeric" });
+const more = [...POSTS].filter((x) => x.slug !== slug).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
+const alt = { EN: postUrl("EN", slug), PT: postUrl("PT", slug) };
+---
+<Base lang={lang} page="insights" alt={alt} title={`${p.title[lang]} · Connectas`} description={p.excerpt[lang]}>
+  <article class="article">
+    <div class="wrap">
+      <a class="back fade-up" href={ROUTES[lang].insights}>← {L("Market insights", "Insights de mercado")}</a>
+      <div class="meta fade-up" style="--d:80ms">{fmt(p.date)} · {p.tag[lang]}</div>
+      <h1><span class="mask-line"><span style="--d:120ms">{p.title[lang]}</span></span></h1>
+      <p class="lead fade-up" style="--d:350ms">{p.excerpt[lang]}</p>
+      <figure class="fade-up" style="--d:450ms"><div class="img-frame"><img src={p.img} alt={p.alt[lang]} /></div><figcaption>{p.alt[lang]} — {L("Photo", "Foto")}: {p.credit}</figcaption></figure>
+      <div class="body reveal" set:html={p.body[lang] + POST_CTA[lang]} />
+      <div class="sources"><b>{L("Sources", "Fontes")}</b><ul>{p.sources.map(([t, u]) => <li><a href={u} target="_blank" rel="noopener">{t}</a></li>)}</ul>
+        <p>{L("This article summarises public information for general guidance. It is not legal, tax or investment advice.", "Este artigo resume informações públicas como orientação geral. Não é consultoria jurídica, tributária ou de investimentos.")}</p></div>
+    </div>
+  </article>
+  <section class="grey">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:40px"><span class="eyebrow">{L("Keep reading", "Continue lendo")}</span><h2>{L("More insights.", "Mais insights.")}</h2></div>
+      <div class="posts reveal" data-stagger>{more.map((m) => <a class="post-card" href={postUrl(lang, m.slug)}><div class="img-frame"><img src={m.img} alt={m.alt[lang]} loading="lazy" /></div><span class="meta">{fmt(m.date)} · {m.tag[lang]}</span><h3>{m.title[lang]}</h3></a>)}</div>
+    </div>
+  </section>
+</Base>
