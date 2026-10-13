@@ -14,14 +14,18 @@ const R = ROUTES[lang];
     <Network density={0.6} />
     <div class="wrap">
       <span class="eyebrow fade-up">{L("Meet the founder", "Conheça o fundador")}</span>
-      <h1><span class="mask-line"><span style="--d:100ms">{L("Meet Marcello.", "Conheça o Marcello.")}</span></span></h1>
+      <h1><span class="mask-line"><span style="--d:100ms">{L("Meet Marcello Silva.", "Conheça Marcello Silva.")}</span></span></h1>
     </div>
   </section>
-  <section style="padding-top:10px">
+  <section style="padding-top:10px;padding-bottom:0">
+    <div class="wrap"><figure class="pband reveal" style="aspect-ratio:16/9"><img src={PHOTO.founder} alt="Marcello Silva" style="object-position:50% 24%" /></figure></div>
+  </section>
+  <section>
     <div class="wrap split at">
-      <div class="reveal"><div class="img-frame" style="aspect-ratio:4/5"><img src={PHOTO.founder} alt="Marcello Silva" style="object-position:center 30%" /></div></div>
-      <div class="reveal" style="--d:150ms">
+      <div class="reveal">
         <p class="big-quote">{L("Connecting people and opportunities beyond borders.", "Conectando pessoas e oportunidades além das fronteiras.")}</p>
+      </div>
+      <div class="reveal" style="--d:150ms">
         <p class="lead">{L("With over 20 years of international experience across England, Brazil, Guyana and the United States, Marcello Silva has built his career around connecting people and opportunities beyond borders.", "Com mais de 20 anos de experiência internacional entre Inglaterra, Brasil, Guiana e Estados Unidos, Marcello Silva construiu sua carreira conectando pessoas e oportunidades além das fronteiras.")}</p>
         <p>{L("In São Paulo, he worked with multinational corporations and led global mobility projects in Brazil and Guyana, helping expatriates adapt and thrive. He is also the founder of multiple businesses operating in Brazil, Guyana and the United States, giving him first-hand insight into the challenges and rewards of building across markets.", "Em São Paulo, trabalhou com multinacionais e liderou projetos de mobilidade global no Brasil e na Guiana, ajudando expatriados a se adaptar e prosperar. Também é fundador de diversas empresas no Brasil, na Guiana e nos Estados Unidos, o que lhe dá uma visão prática dos desafios e das recompensas de empreender em vários mercados.")}</p>
         <p>{L("His path includes global mobility companies such as Sirva in the United States and Aires in the United Kingdom, work with the oil and gas industry in Brazil, and technology roles at Oracle and Microsoft — the mix of people, process and systems that Connectas brings to every project.", "Sua trajetória inclui empresas de mobilidade global como a Sirva, nos Estados Unidos, e a Aires, no Reino Unido, atuação com a indústria de óleo e gás no Brasil e passagens pela área de tecnologia na Oracle e na Microsoft — a combinação de pessoas, processos e sistemas que a Connectas leva a cada projeto.")}</p>
