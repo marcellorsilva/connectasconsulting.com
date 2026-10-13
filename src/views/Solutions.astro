@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import Network from "../components/Network.astro";
 import { ROUTES, serviceUrl, type Lang } from "../lib/routes";
 import { SERVICES } from "../lib/services";
 import { ICON } from "../lib/icons";
@@ -12,7 +11,6 @@ const R = ROUTES[lang];
 <Base lang={lang} page="solutions" title={L("Connectas · Solutions beyond borders", "Connectas · Soluções além das fronteiras")}
   description={L("Business plans, company registration and structuring, market entry, relocation, websites, systems and apps, marketing and operational support across the United States, Brazil and Guyana.", "Plano de negócios, abertura e estruturação de empresas, entrada no mercado, realocação, sites, sistemas e apps, marketing e suporte operacional entre Estados Unidos, Brasil e Guiana.")}>
   <section class="phero">
-    <Network density={0.7} />
     <div class="wrap">
       <span class="eyebrow fade-up">{L("Solutions", "Soluções")}</span>
       <h1><span class="mask-line"><span style="--d:100ms">{L("Beyond borders.", "Além das fronteiras.")}</span></span></h1>

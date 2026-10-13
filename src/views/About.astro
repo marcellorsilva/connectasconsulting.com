@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import Network from "../components/Network.astro";
 import { ROUTES, type Lang } from "../lib/routes";
 import { PHOTO } from "../company";
 const { lang } = Astro.props as { lang: Lang };
@@ -11,7 +10,6 @@ const R = ROUTES[lang];
 <Base lang={lang} page="about" title={L("Connectas · Meet the Founder", "Connectas · Conheça o Fundador")}
   description={L("Marcello Silva: 20+ years helping companies and people succeed in new countries, with a background in IT, an MBA in Commercial Management and global mobility leadership.", "Marcello Silva: mais de 20 anos ajudando empresas e pessoas a terem sucesso em novos países, com formação em TI, MBA em Gestão Comercial e liderança em mobilidade global.")}>
   <section class="phero">
-    <Network density={0.6} />
     <div class="wrap">
       <span class="eyebrow fade-up">{L("Meet the founder", "Conheça o fundador")}</span>
       <h1><span class="mask-line"><span style="--d:100ms">{L("Meet Marcello Silva.", "Conheça Marcello Silva.")}</span></span></h1>
