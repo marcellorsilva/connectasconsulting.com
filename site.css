@@ -925,3 +925,5 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .elist .d { position: static; grid-column: 2; max-width: none; text-align: left; transform: translateY(-4px); max-height: 0; overflow: hidden; margin-left: 0; font-size: 14px; transition: opacity .5s, transform .5s var(--ease), max-height .5s var(--ease), margin .5s var(--ease); }
 .elist li.hot .d { transform: none; max-height: 40px; margin-top: 6px; }
 @media (max-width: 560px) { .elist li.hot .d { padding-left: 0; } }
+/* Phones: photo heroes fill the whole first screen (no white strip under them) */
+@media (max-width: 760px) { .chero, .home-hero { min-height: 100svh; min-height: 100dvh; } }
