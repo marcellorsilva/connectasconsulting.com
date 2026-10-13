@@ -1,8 +1,18 @@
 ---
-// Realistic device frames: an iMac (real 27" iMac image — Matthieu Riegler, CC BY 3.0, Wikimedia Commons — with the screen cut out) and an iPhone
+// Realistic device frames: an iMac (real iMac photo seen at an angle; the screen is mapped into it in perspective) and an iPhone
 // (iPhone 17: aluminium band, Dynamic Island, Action button, volume, side button, Camera Control). Pass an image src, or put HTML inside the slot.
 const { kind, src, alt = "", cls = "" } = Astro.props as { kind: "imac" | "iphone"; src?: string; alt?: string; cls?: string };
 ---
 {kind === "imac"
-  ? <figure class:list={["dev-imac", cls]}><div class="imac-screen">{src ? <img src={src} alt={alt} loading="lazy" /> : <slot />}</div><img class="imac-frame" src="/devices/imac-frame.webp" alt="" aria-hidden="true" loading="lazy" /></figure>
+  ? <figure class:list={["dev-imac", cls]}><div class="imac-stage"><div class="imac-screen">{src ? <img src={src} alt={alt} loading="lazy" /> : <slot />}</div><img class="imac-frame" src="/devices/imac-frame.webp" alt="" aria-hidden="true" /></div></figure>
   : <figure class:list={["dev-iphone", cls]}><span class="ip-btn ip-a"></span><span class="ip-btn ip-b"></span><span class="ip-btn ip-c"></span><span class="ip-btn ip-d"></span><span class="ip-btn ip-e"></span><div class="ip-frame"><div class="ip-screen"><span class="ip-status" aria-hidden="true"><b>9:41</b><i class="ip-sig"></i><i class="ip-wifi"></i><i class="ip-bat"></i></span>{src ? <img class="ip-shot" src={src} alt={alt} loading="lazy" /> : <div class="ip-app"><slot /></div>}<span class="ip-island"></span></div></div></figure>}
+
+<script is:inline>
+  // Scale each iMac stage (drawn at 820×770) to the width of its figure
+  (function () {
+    if (window.__imacFit) return; window.__imacFit = true;
+    var ro = new ResizeObserver(function (es) { es.forEach(function (e) { var st = e.target.querySelector(".imac-stage"); if (st) st.style.transform = "scale(" + e.contentRect.width / 820 + ")"; }); });
+    function bind() { document.querySelectorAll(".dev-imac").forEach(function (f) { if (!f.__fit) { f.__fit = 1; ro.observe(f); } }); }
+    document.addEventListener("astro:page-load", bind); bind();
+  })();
+</script>
