@@ -893,3 +893,10 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 /* Dropdown menus keep dark text even when the header is white-on-photo */
 .top .sub, .top .mega { color: var(--ink, #0A0A0A); }
 .top .sub a { color: #0A0A0A; }
+/* Three key numbers over the building video */
+.bigstat-trio { max-width: none; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 4vw, 56px); }
+.bigstat-trio > div { border-top: 1px solid rgba(255,255,255,.35); padding-top: 18px; }
+.bigstat-trio .v { font-size: clamp(56px, 7.5vw, 112px); }
+.bigstat-trio p { font-size: 17px; margin-top: 10px; }
+.bigstat:has(.bigstat-trio)::after { background: linear-gradient(180deg, rgba(10,10,10,.15) 20%, rgba(10,10,10,.78) 100%); }
+@media (max-width: 700px) { .bigstat-trio { grid-template-columns: 1fr; gap: 18px; } .bigstat-trio .v { font-size: 64px; } }

@@ -152,9 +152,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     <div class="wrap">
       <div class="bigstat reveal">
         <video class="bigstat-video" muted loop playsinline preload="none" poster={PHOTO.stat} data-src="/video/building.mp4" aria-hidden="true"></video>
-        <div class="bigstat-in"><div class="v"><span data-count="3">3</span></div><p>{L("countries, one team — the business plan, the company, the people and the technology handled together, so your business opens and grows without loose ends.", "países, um só time — plano de negócios, empresa, pessoas e tecnologia cuidados juntos, para o seu negócio abrir e crescer sem pontas soltas.")}</p></div>
-      </div>
-      <div class="stats-row reveal" data-stagger>{stats.map(([v, suf, l]) => <div><div class="v"><span data-count={v}>{v}</span>{suf}</div><div class="l">{l}</div></div>)}</div>
+        <div class="bigstat-in bigstat-trio">{stats.map(([v, suf, l]) => <div><div class="v"><span data-count={v}>{v}</span>{suf}</div><p>{l}</p></div>)}</div>)}</div>
     </div>
   </section>
 
