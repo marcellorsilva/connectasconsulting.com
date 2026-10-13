@@ -17,7 +17,7 @@ const withArt = pt ? ({ usa: "os Estados Unidos", brazil: "o Brasil", guyana: "a
 const photo = country === "guyana" ? PHOTO.guyana : country === "brazil" ? PHOTO.brazil : PHOTO.usa;
 const video = VIDEO[country];
 // What each photo must show: the whole bridge (Brazil), the market roofs (Guyana)
-const focus = { brazil: "50% 8%", guyana: "50% 88%", usa: "50% 45%" }[country];
+const focus = { brazil: "50% 55%", guyana: "50% 88%", usa: "50% 45%" }[country];
 const posts = INSIGHTS_ON && country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
 const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== country);
 ---
