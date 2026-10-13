@@ -1,6 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import { COMPANY, IMG } from "../company";
+import { COMPANY, IMG, PHOTO } from "../company";
+import { SERVICES } from "../lib/services";
+import { ICON } from "../lib/icons";
 import { ROUTES, SITE, type Lang, type PageKey } from "../lib/routes";
 import CookieNotice from "../components/CookieNotice.astro";
 import Flag from "../components/Flag.astro";
@@ -19,6 +21,17 @@ const nav: [string, string, PageKey[]][] = [
   [L("About", "Sobre"), R.about, ["about"]],
 ];
 const countries: [string, string][] = [["Guyana", R.guyana], [L("Brazil", "Brasil"), R.brazil], [L("United States", "Estados Unidos"), R.usa]];
+// Mega menu (Solutions): one short line per service
+const MENU_SHORT: Record<string, [string, string]> = {
+  "business-plans": ["Investor-ready plans for each country", "Planos prontos para investidores"],
+  registration: ["Company formation, licences, tax IDs", "Abertura, licenças e cadastros"],
+  "market-entry": ["Studies, positioning, introductions", "Estudos, posicionamento, apresentações"],
+  relocation: ["Homes, schools, settling-in", "Moradia, escolas e adaptação"],
+  technology: ["Websites, systems, iOS & Android apps", "Sites, sistemas e apps iOS e Android"],
+  marketing: ["Brand, digital and launch campaigns", "Marca, digital e campanhas de lançamento"],
+  support: ["On-the-ground coordination", "Coordenação no dia a dia"],
+};
+const flags: Record<string, "GY" | "BR" | "US"> = { [R.guyana]: "GY", [R.brazil]: "BR", [R.usa]: "US" };
 const year = 2026;
 ---
 <!doctype html>
@@ -50,7 +63,31 @@ const year = 2026;
     <div class="wrap top-in">
       <a class="logo" href={R.home} aria-label={L("Connectas home", "Página inicial da Connectas")}><img src={IMG.logo} alt="Connectas" width="150" height="40" /></a>
       <nav class="nav" aria-label={L("Main", "Principal")}>
-        {nav.map(([t, u, keys]) => keys.length > 1
+        {nav.map(([t, u, keys]) => keys[0] === "solutions"
+          ? <div class="has-mega"><a href={u} class:list={["nl", { on: keys.includes(page) }]}>{t}<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg></a>
+              <div class="mega">
+                <div class="mega-col">
+                  <span class="mega-h">{L("By service", "Por serviço")}</span>
+                  <div class="mega-grid">{SERVICES.map((sv) => <a href={`${R.solutions}#${sv.key}`} class="mega-item"><span class="mega-ic" set:html={ICON[sv.icon]} /><span><b>{sv.title[lang]}</b><small>{MENU_SHORT[sv.key][pt ? 1 : 0]}</small></span></a>)}</div>
+                </div>
+                <div class="mega-col">
+                  <span class="mega-h">{L("By market", "Por mercado")}</span>
+                  {countries.map(([c, cu]) => <a href={cu} class="mega-link"><Flag c={flags[cu]} />{c}</a>)}
+                  <span class="mega-h" style="margin-top:22px">{L("Technology", "Tecnologia")}</span>
+                  <a href={R.technology} class="mega-link">{L("Websites", "Sites")}</a>
+                  <a href={R.technology} class="mega-link">{L("Management systems", "Sistemas de gestão")}</a>
+                  <a href={R.technology} class="mega-link">{L("iOS & Android apps", "Apps iOS e Android")}</a>
+                  <a href={R.technology} class="mega-link">{L("White-label platform", "Plataforma white label")}</a>
+                </div>
+                <a href={R.technology} class="mega-feature">
+                  <span class="mega-img"><img src={PHOTO.tech} alt="" loading="lazy" /></span>
+                  <span class="mega-tag">White label</span>
+                  <b>{L("Your brand. Our technology.", "Sua marca. Nossa tecnologia.")}</b>
+                  <small>{L("Systems and apps for relocation and property companies, delivered under your own name.", "Sistemas e apps para empresas de realocação e imóveis, entregues com o seu nome.")}</small>
+                  <span class="mega-more">{L("See the platform →", "Conheça a plataforma →")}</span>
+                </a>
+              </div></div>
+          : keys.length > 1
           ? <div class="has-sub"><a href={u} class:list={["nl", { on: keys.includes(page) }]}>{t}<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg></a>
               <div class="sub">{countries.map(([c, cu]) => <a href={cu}>{c}</a>)}</div></div>
           : <a href={u} class:list={["nl", { on: keys.includes(page) }]}>{t}</a>)}
