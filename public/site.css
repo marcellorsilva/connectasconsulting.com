@@ -893,3 +893,4 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 /* Dropdown menus keep dark text even when the header is white-on-photo */
 .top .sub, .top .mega { color: var(--ink, #0A0A0A); }
 .top .sub a { color: #0A0A0A; }
+.contact-info .ci p, .contact-info .ci p a, .contact-info .ci > a { color: #0A0A0A; }
