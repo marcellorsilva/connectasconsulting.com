@@ -4,7 +4,7 @@ import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Flag from "../components/Flag.astro";
 import { COMPANY, IMG, PHOTO } from "../company";
-import { ROUTES, postUrl, type Lang } from "../lib/routes";
+import { ROUTES, postUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
 import { ICON } from "../lib/icons";
 import { SERVICES } from "../lib/services";
 import { POSTS } from "../blog/posts";
@@ -167,7 +167,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     </div>
   </section>
 
-  <section>
+  {INSIGHTS_ON && <section>
     <div class="wrap">
       <div class="split" style="margin-bottom:34px;align-items:end">
         <div class="reveal"><span class="eyebrow">{L("Market insights", "Insights de mercado")}</span><h2>{L("What is changing in Guyana.", "O que está mudando na Guiana.")}</h2></div>
@@ -177,7 +177,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
         {latest.map((p) => <a class="post-card" href={postUrl(lang, p.slug)}><div class="img-frame"><img src={p.img} alt={p.alt[lang]} loading="lazy" /></div><span class="meta"><span>{fmt(p.date)}</span><span>·</span><span>{p.tag[lang]}</span></span><h3>{p.title[lang]}</h3></a>)}
       </div>
     </div>
-  </section>
+  </section>}
 
   <section id="contact" class="sand">
     <div class="wrap contact-grid">

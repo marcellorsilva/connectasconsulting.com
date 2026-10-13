@@ -3,7 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import { COMPANY, IMG, PHOTO } from "../company";
 import { SERVICES } from "../lib/services";
 import { ICON } from "../lib/icons";
-import { ROUTES, SITE, type Lang, type PageKey } from "../lib/routes";
+import { ROUTES, SITE, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
 import CookieNotice from "../components/CookieNotice.astro";
 import Flag from "../components/Flag.astro";
 
@@ -17,7 +17,7 @@ const nav: [string, string, PageKey[]][] = [
   [L("Solutions", "Soluções"), R.solutions, ["solutions"]],
   [L("Countries", "Países"), R.guyana, ["guyana", "brazil", "usa"]],
   [L("Technology", "Tecnologia"), R.technology, ["technology"]],
-  [L("Market Insights", "Insights"), R.insights, ["insights"]],
+  ...(INSIGHTS_ON ? [[L("Market Insights", "Insights"), R.insights, ["insights"]] as [string, string, PageKey[]]] : []),
   [L("About", "Sobre"), R.about, ["about"]],
 ];
 const countries: [string, string][] = [["Guyana", R.guyana], [L("Brazil", "Brasil"), R.brazil], [L("United States", "Estados Unidos"), R.usa]];
@@ -125,7 +125,7 @@ const year = 2026;
           <b>{L("Company", "Empresa")}</b>
           <a href={R.solutions}>{L("Solutions", "Soluções")}</a>
           <a href={R.technology}>{L("Technology", "Tecnologia")}</a>
-          <a href={R.insights}>{L("Market Insights", "Insights")}</a>
+          {INSIGHTS_ON && <a href={R.insights}>{L("Market Insights", "Insights")}</a>}
           <a href={R.about}>{L("Meet the Founder", "Conheça o Fundador")}</a>
         </nav>
         <nav aria-label={L("Countries", "Países")}>

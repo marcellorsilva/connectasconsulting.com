@@ -8,16 +8,17 @@ import Insights from "../views/Insights.astro";
 import Post from "../views/Post.astro";
 import About from "../views/About.astro";
 import Legal from "../views/Legal.astro";
-import { ROUTES, postUrl, type Lang, type PageKey } from "../lib/routes";
+import { ROUTES, postUrl, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
 import { POSTS } from "../blog/posts";
 
 export function getStaticPaths() {
   const out: { params: { path: string | undefined }; props: { lang: Lang; page: PageKey; slug?: string } }[] = [];
   for (const lang of ["EN", "PT"] as Lang[]) {
     for (const [page, url] of Object.entries(ROUTES[lang]) as [PageKey, string][]) {
+      if (page === "insights" && !INSIGHTS_ON) continue;
       out.push({ params: { path: url === "/" ? undefined : url.slice(1) }, props: { lang, page } });
     }
-    for (const p of POSTS) out.push({ params: { path: postUrl(lang, p.slug).slice(1) }, props: { lang, page: "insights", slug: p.slug } });
+    if (INSIGHTS_ON) for (const p of POSTS) out.push({ params: { path: postUrl(lang, p.slug).slice(1) }, props: { lang, page: "insights", slug: p.slug } });
   }
   return out;
 }

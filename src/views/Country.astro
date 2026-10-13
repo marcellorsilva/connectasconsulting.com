@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ContactForm from "../components/ContactForm.astro";
-import { ROUTES, postUrl, type Lang } from "../lib/routes";
+import { ROUTES, postUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
 import { PHOTO, VIDEO } from "../company";
 import { SERVICES } from "../lib/services";
 import { COUNTRIES } from "../lib/countries";
@@ -16,7 +16,7 @@ const name = C.name[lang];
 const withArt = pt ? ({ usa: "os Estados Unidos", brazil: "o Brasil", guyana: "a Guiana" } as const)[country] : name;
 const photo = country === "guyana" ? PHOTO.guyana : country === "brazil" ? PHOTO.brazil : PHOTO.usa;
 const video = VIDEO[country];
-const posts = country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
+const posts = INSIGHTS_ON && country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
 const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== country);
 ---
 <Base lang={lang} page={country} title={`Connectas · ${C.h1[lang].replace(/\.$/, "")}`} description={C.lead[lang]}>

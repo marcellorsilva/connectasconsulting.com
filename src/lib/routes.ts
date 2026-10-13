@@ -24,3 +24,7 @@ export const ROUTES: Record<Lang, Record<PageKey, string>> = {
 export const postUrl = (lang: Lang, slug: string) => `${ROUTES[lang].insights}/${slug}`;
 
 export const SITE = "https://connectasconsulting.com";
+
+// Market Insights (blog) is switched off until the country content is defined.
+// Turning it back on: set to true and rebuild — articles, menu, footer and home/country sections return.
+export const INSIGHTS_ON = false;
