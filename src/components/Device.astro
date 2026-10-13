@@ -1,11 +1,11 @@
 ---
 // Realistic device frames: an iMac (real iMac photo seen at an angle; the screen is mapped into it in perspective) and an iPhone
 // (iPhone 17: aluminium band, Dynamic Island, Action button, volume, side button, Camera Control). Pass an image src, or put HTML inside the slot.
-const { kind, src, alt = "", cls = "" } = Astro.props as { kind: "imac" | "iphone"; src?: string; alt?: string; cls?: string };
+const { kind, src, alt = "", cls = "", pos = "" } = Astro.props as { kind: "imac" | "iphone"; src?: string; alt?: string; cls?: string; pos?: string };
 ---
 {kind === "imac"
   ? <figure class:list={["dev-imac", cls]}><div class="imac-stage"><div class="imac-screen">{src ? <img src={src} alt={alt} loading="lazy" /> : <slot />}</div><img class="imac-frame" src="/devices/imac-frame.webp" alt="" aria-hidden="true" /></div></figure>
-  : <figure class:list={["dev-iphone", cls]}><span class="ip-btn ip-a"></span><span class="ip-btn ip-b"></span><span class="ip-btn ip-c"></span><span class="ip-btn ip-d"></span><span class="ip-btn ip-e"></span><div class="ip-frame"><div class="ip-screen"><span class="ip-status" aria-hidden="true"><b>9:41</b><i class="ip-sig"></i><i class="ip-wifi"></i><i class="ip-bat"></i></span>{src ? <img class="ip-shot" src={src} alt={alt} loading="lazy" /> : <div class="ip-app"><slot /></div>}<span class="ip-island"></span></div></div></figure>}
+  : <figure class:list={["dev-iphone", cls]}><span class="ip-btn ip-a"></span><span class="ip-btn ip-b"></span><span class="ip-btn ip-c"></span><span class="ip-btn ip-d"></span><span class="ip-btn ip-e"></span><div class="ip-frame"><div class="ip-screen"><span class="ip-status" aria-hidden="true"><b>9:41</b><i class="ip-sig"></i><i class="ip-wifi"></i><i class="ip-bat"></i></span>{src ? <img class="ip-shot" src={src} alt={alt} loading="lazy" style={pos ? `object-position:${pos}` : undefined} /> : <div class="ip-app"><slot /></div>}<span class="ip-island"></span></div></div></figure>}
 
 <script is:inline>
   // Scale each iMac stage (drawn at 820×770) to the width of its figure

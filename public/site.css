@@ -850,3 +850,10 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .svc, .aud-card, .c3-card, .rel, .stage { transition: opacity .9s var(--ease) var(--d, 0ms), transform .5s var(--ease), box-shadow .45s var(--ease), background .3s, color .3s, border-color .3s; }
 .svc:hover, .aud-card:hover, .c3-card:hover, .rel:hover, .stage:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(10,10,10,.10); }
 @media (prefers-reduced-motion: reduce) { .dev-imac.pre, .dev-iphone.pre { opacity: 1; animation: none !important; } }
+/* Dark apps: black status bar with white icons and home indicator */
+.ip-dark .ip-screen, .ip-dark .ip-status { background: #0A0A0A; }
+.ip-dark .ip-status b { color: #fff; }
+.ip-dark .ip-sig, .ip-dark .ip-wifi, .ip-dark .ip-bat::before { background: #fff; }
+.ip-dark .ip-bat { border-color: rgba(255,255,255,.55); } .ip-dark .ip-bat::after { background: rgba(255,255,255,.55); }
+.ip-dark .ip-screen:has(.ip-status)::after { background: #fff; }
+.ip-dark .ip-screen:has(.ip-status) { background: #0A0A0A; }

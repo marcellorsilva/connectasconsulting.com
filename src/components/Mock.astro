@@ -37,16 +37,11 @@ const ex = L("Example", "Exemplo");
   <Device kind="iphone" src="/shots/iphone-app.jpg" alt={L("Client app home screen", "Tela inicial do app do cliente")} />
 )}
 {kind === "website" && (
-  <Device kind="imac"><div class="mk mk-browser"><div class="mk-bar"><i></i><i></i><i></i><span>www.verdehomes.com</span></div>
-    <div class="mk-site"><div class="mk-nav"><b>Verde Homes</b><span>{L("Services", "Serviços")}</span><span>{L("About", "Sobre")}</span><span class="mk-btn sm">{L("Contact", "Contato")}</span></div>
-      <div class="mk-hero"><em class="mk-ex">{ex}</em><h4>{L("A website that brings clients.", "Um site que traz clientes.")}</h4><p>{L("Fast, bilingual, ready for search engines and connected to your forms and CRM.", "Rápido, bilíngue, pronto para buscadores e ligado aos seus formulários e CRM.")}</p><span class="mk-btn">{L("Get a quote", "Pedir orçamento")}</span></div>
-      <div class="mk-cards"><span></span><span></span><span></span></div></div></div></Device>
+  <Device kind="imac" src="/shots/site-swerve.jpg" alt={L("Website of a creative agency built on our platform", "Site de uma agência criativa feito na nossa plataforma")} />
 )}
 {kind === "portal" && (
   <Device kind="imac" src="/shots/imac-hr.jpg" alt={L("Client portal for a corporate HR team", "Portal do cliente para o RH de uma empresa")} />
 )}
 {kind === "whitelabel" && (
-  <div class="mk mk-duo"><em class="mk-ex">{ex}</em>
-    {[["#1F4E79", "Atlas Clinics"], ["#2E7D5B", "Verde Homes"]].map(([c, n]) => <Device kind="iphone"><div class="mk-screen" style={`--brand:${c}`}><b style="color:var(--brand)">{n}</b><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("My account", "Minha conta")}</b><small>{L("Next appointment", "Próximo compromisso")}</small></div></div><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("Requests", "Solicitações")}</b><small>{L("1 open", "1 aberta")}</small></div></div><span class="mk-btn" style="background:var(--brand);border-color:var(--brand)">{L("New request", "Nova solicitação")}</span></div></Device>)}
-  </div>
+  <div class="mk mk-duo"><Device kind="iphone" cls="ip-dark" src="/shots/app-nettoverse.jpg" pos="top" alt={L("A publishing brand's app", "App de uma marca editorial")} /><Device kind="iphone" cls="ip-dark" src="/shots/app-swerve.jpg" pos="top" alt={L("A creative agency's app", "App de uma agência criativa")} /></div>
 )}
