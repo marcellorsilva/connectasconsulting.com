@@ -4,6 +4,7 @@ import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { ROUTES, type Lang } from "../lib/routes";
 import { ICON } from "../lib/icons";
+import { PHOTO } from "../company";
 const { lang } = Astro.props as { lang: Lang };
 const pt = lang === "PT";
 const L = (en: string, p: string) => (pt ? p : en);
@@ -33,6 +34,10 @@ const sec: [keyof typeof ICON, string, string][] = [
       <p class="lead fade-up" style="--d:500ms">{L("Beyond the websites and apps we build for each client, Connectas offers its own platform: a complete system for relocation and property-management companies, delivered under each customer's brand and sold as a monthly subscription.", "Além dos sites e apps que criamos para cada cliente, a Connectas oferece sua própria plataforma: um sistema completo para empresas de realocação e gestão de imóveis, entregue com a marca de cada cliente e vendido por assinatura mensal.")}</p>
       <div class="fade-up" style="--d:650ms;margin-top:30px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn light" href="#demo">{L("Request a demo", "Peça uma demonstração")}<span class="arr">→</span></a><a class="btn light" style="--b:transparent;color:#fff;border-color:#555" href="#pricing">{L("Pricing", "Preços")}</a></div>
     </div>
+  </section>
+
+  <section style="padding-bottom:0">
+    <div class="wrap"><figure class="pband reveal"><img src={PHOTO.tech} alt={L("A team working with the platform", "Equipe trabalhando com a plataforma")} /></figure></div>
   </section>
 
   <section>

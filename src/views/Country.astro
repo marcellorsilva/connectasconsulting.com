@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
 import { ROUTES, postUrl, type Lang } from "../lib/routes";
+import { PHOTO } from "../company";
 import { SERVICES } from "../lib/services";
 import { POSTS } from "../blog/posts";
 const { lang, country } = Astro.props as { lang: Lang; country: "guyana" | "brazil" | "usa" };
@@ -63,6 +64,10 @@ const posts = country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeComp
     </div>
   </section>
 
+  <section style="padding-bottom:0">
+    <div class="wrap"><figure class="pband reveal"><img src={country === "guyana" ? PHOTO.guyana : country === "brazil" ? PHOTO.brazil : PHOTO.usa} alt={country === "guyana" ? L("Stabroek Market, Georgetown", "Mercado Stabroek, Georgetown") : country === "brazil" ? L("Octávio Frias de Oliveira Bridge, São Paulo", "Ponte Octávio Frias de Oliveira, São Paulo") : L("New York City at sunset", "Nova York ao pôr do sol")} /></figure></div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="facts reveal" data-stagger>{C.facts.map(([v, l, s]) => <div><div class="v">{v}</div><div class="l">{l}</div>{s && <div class="s">{L("Source", "Fonte")}: {s}</div>}</div>)}</div>
@@ -70,14 +75,14 @@ const posts = country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeComp
   </section>
 
   <section class="grey">
-    <div class="wrap split top">
+    <div class="wrap split at">
       <div class="reveal"><span class="eyebrow">{L(`Why ${C.name}`, `Por que ${C.name}`)}</span><h2>{L("The opportunity, in plain words.", "A oportunidade, em poucas palavras.")}</h2></div>
       <ul class="checks reveal" data-stagger style="--d:120ms">{C.why.map((w) => <li class="lead" style="font-size:18px">{w}</li>)}</ul>
     </div>
   </section>
 
   <section>
-    <div class="wrap split top">
+    <div class="wrap split at">
       <div class="reveal"><span class="eyebrow">{L("How Connectas helps", "Como a Connectas ajuda")}</span><h2>{L("One plan. One team.", "Um plano. Uma equipe.")}</h2><p class="lead">{C.how}</p></div>
       <div class="rows reveal" style="--d:120ms">{SERVICES.map((s) => <a href={`${R.solutions}#${s.key}`} class="srow" style="grid-template-columns:1fr auto;padding:22px 0;text-decoration:none"><h3 style="margin:0;font-size:20px">{s.title[lang]}</h3><span class="muted">→</span></a>)}</div>
     </div>

@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Flag from "../components/Flag.astro";
-import { COMPANY, IMG } from "../company";
+import { COMPANY, IMG, PHOTO } from "../company";
 import { ROUTES, postUrl, type Lang } from "../lib/routes";
 import { ICON } from "../lib/icons";
 import { SERVICES } from "../lib/services";
@@ -13,66 +13,88 @@ const pt = lang === "PT";
 const L = (en: string, p: string) => (pt ? p : en);
 const R = ROUTES[lang];
 const words = pt ? ["os Estados Unidos", "o Brasil", "a Guiana"] : ["the United States", "Brazil", "Guyana"];
+
+const rows = [
+  [L("On the ground in three countries.", "Presença nos três países."), L("We work in the United States, Brazil and Guyana every day. You get people who know how registrations, leases, banks and suppliers actually work in each place — not a list of referrals.", "Trabalhamos todos os dias nos Estados Unidos, no Brasil e na Guiana. Você conta com quem sabe como registros, contratos, bancos e fornecedores funcionam de fato em cada lugar — e não com uma lista de indicações.")],
+  [L("One team, one plan.", "Uma equipe, um plano."), L("Business plan, company, people, technology and launch are coordinated as a single project, with one point of contact who answers for all of it.", "Plano de negócios, empresa, pessoas, tecnologia e lançamento são coordenados como um único projeto, com um ponto de contato que responde por tudo.")],
+  [L("Plan before you spend.", "Planejar antes de investir."), L("Every engagement starts with real numbers: local costs, taxes, timelines and risks. You decide with clarity, and investors and banks see a plan they can trust.", "Todo trabalho começa com números reais: custos locais, impostos, prazos e riscos. Você decide com clareza, e investidores e bancos recebem um plano confiável.")],
+  [L("Technology and marketing included.", "Tecnologia e marketing incluídos."), L("Your website, systems, apps and brand launch are part of the plan from day one, so the operation works — and is visible — as soon as it opens.", "Seu site, sistemas, apps e o lançamento da marca fazem parte do plano desde o primeiro dia, para que a operação funcione — e apareça — assim que abrir.")],
+];
+const chips = pt
+  ? ["Planos de negócios", "Abertura de empresas", "Inscrição fiscal", "Contas bancárias", "Estudos de mercado", "Apresentação a parceiros", "Conteúdo local", "Busca de imóvel", "Busca de escola", "Moradia corporativa", "Sites", "Sistemas de gestão", "Apps iOS e Android", "White label", "Identidade de marca", "Redes sociais", "Campanhas de lançamento", "Suporte operacional"]
+  : ["Business plans", "Company formation", "Tax registration", "Bank accounts", "Market studies", "Partner introductions", "Local content", "Home search", "School search", "Corporate housing", "Websites", "Management systems", "iOS & Android apps", "White label", "Brand identity", "Social media", "Launch campaigns", "Operational support"];
 const audiences = [
-  { from: "BR", to: "GY", t: L("Brazilian companies expanding to Guyana", "Empresas brasileiras expandindo para a Guiana"), d: L("Be part of one of the fastest-growing economies in the world.", "Faça parte de uma das economias que mais crescem no mundo."), u: R.guyana },
-  { from: "US", to: "US", t: L("U.S. companies expanding nationwide and abroad", "Empresas americanas expandindo nos EUA e no exterior"), d: L("Structure, people and technology in one plan.", "Estrutura, pessoas e tecnologia em um só plano."), u: R.usa },
-  { from: "GY", to: "BR", t: L("Guyanese companies doing business with Brazil", "Empresas guianenses fazendo negócios com o Brasil"), d: L("Access to Latin America's largest market.", "Acesso ao maior mercado da América Latina."), u: R.brazil },
-  { from: "US", to: "BR", t: L("U.S. investors entering Brazil and Guyana", "Investidores americanos entrando no Brasil e na Guiana"), d: L("Local knowledge, from the first meeting to the first contract.", "Conhecimento local, da primeira reunião ao primeiro contrato."), u: R.solutions },
+  { from: "BR", to: "GY", t: L("Brazilian companies expanding to Guyana", "Empresas brasileiras expandindo para a Guiana"), d: L("Enter one of the fastest-growing economies in the world, with a structure that respects local rules from the start.", "Entre em uma das economias que mais crescem no mundo, com uma estrutura que respeita as regras locais desde o início."), u: R.guyana },
+  { from: "US", to: "US", t: L("U.S. companies expanding nationwide and abroad", "Empresas americanas expandindo nos EUA e no exterior"), d: L("Structure, people and technology in one plan, state by state or country by country.", "Estrutura, pessoas e tecnologia em um só plano, estado por estado ou país por país."), u: R.usa },
+  { from: "GY", to: "BR", t: L("Guyanese companies doing business with Brazil", "Empresas guianenses fazendo negócios com o Brasil"), d: L("Access Latin America's largest market with the right partners and a clear tax picture.", "Acesse o maior mercado da América Latina com os parceiros certos e um quadro tributário claro."), u: R.brazil },
+  { from: "US", to: "BR", t: L("U.S. investors entering Brazil and Guyana", "Investidores americanos entrando no Brasil e na Guiana"), d: L("Local knowledge from the first meeting to the first contract.", "Conhecimento local da primeira reunião ao primeiro contrato."), u: R.solutions },
 ];
 const steps = [
-  [L("Discover", "Descobrir"), L("We understand your goals, timeline and budget.", "Entendemos seus objetivos, prazos e orçamento.")],
-  [L("Plan", "Planejar"), L("Your business plan and one roadmap covering company, people and technology.", "Seu plano de negócios e um só roteiro para empresa, pessoas e tecnologia.")],
-  [L("Launch", "Lançar"), L("We register, relocate, build and market — all coordinated by one team.", "Registramos, realocamos, construímos e divulgamos — tudo coordenado por uma só equipe.")],
-  [L("Grow", "Crescer"), L("We stay by your side while you operate and expand.", "Seguimos ao seu lado enquanto você opera e cresce.")],
+  [L("Discover", "Entender"), L("We learn your goals, timeline and budget, and tell you plainly what is realistic.", "Entendemos seus objetivos, prazos e orçamento, e dizemos com franqueza o que é realista.")],
+  [L("Plan", "Planejar"), L("Your business plan and one roadmap for company, people and technology.", "Seu plano de negócios e um só roteiro para empresa, pessoas e tecnologia.")],
+  [L("Launch", "Lançar"), L("We register, relocate, build and market — coordinated by one team.", "Registramos, realocamos, construímos e divulgamos — coordenado por uma só equipe.")],
+  [L("Grow", "Crescer"), L("We stay close while you operate, hire and expand.", "Seguimos por perto enquanto você opera, contrata e cresce.")],
 ];
 const stats = [
-  [300, "+", L("Families relocated", "Famílias realocadas")], [98, "%", L("Client satisfaction rate", "Taxa de satisfação dos clientes")],
-  [60, "%", L("Faster market entry", "Entrada mais rápida no mercado")], [50, "M+", L("In business generated", "Em negócios gerados")],
+  [98, "%", L("Client satisfaction rate", "Taxa de satisfação dos clientes")],
+  [60, "%", L("Faster market entry", "Entrada mais rápida no mercado")],
+  [50, "M+", L("In business generated", "Em negócios gerados")],
 ];
-const why = [
-  [L("On the ground in all three countries.", "Presença nos três países."), L("We don't outsource your expansion — we run it, with people who know how things work locally.", "Não terceirizamos a sua expansão — nós a conduzimos, com quem conhece como as coisas funcionam em cada lugar.")],
-  [L("One point of contact.", "Um só ponto de contato."), L("No more coordinating lawyers, agents, movers and developers yourself. One team, one plan.", "Chega de coordenar sozinho advogados, corretores, mudanças e desenvolvedores. Uma equipe, um plano.")],
-  [L("Technology and marketing included.", "Tecnologia e marketing inclusos."), L("Your website, systems, apps and brand launch are part of the plan — not an afterthought.", "Seu site, sistemas, apps e o lançamento da marca fazem parte do plano — não ficam para depois.")],
+const faq = [
+  [L("Which countries do you work in?", "Em quais países vocês atuam?"), L("The United States, Brazil and Guyana — in both directions. Most projects connect two of them, for example a Brazilian company opening in Guyana or a U.S. company entering Brazil.", "Estados Unidos, Brasil e Guiana — nos dois sentidos. A maioria dos projetos liga dois deles, como uma empresa brasileira abrindo na Guiana ou uma americana entrando no Brasil.")],
+  [L("Can I hire just one service?", "Posso contratar só um serviço?"), L("Yes. Many clients start with a business plan or a company registration and add other services later. Each project has its own proposal and scope.", "Sim. Muitos clientes começam com um plano de negócios ou com a abertura da empresa e acrescentam outros serviços depois. Cada projeto tem sua proposta e escopo.")],
+  [L("Do you provide legal or tax advice?", "Vocês prestam consultoria jurídica ou tributária?"), L("We coordinate that work with independent licensed lawyers and accountants in each country, and keep the whole process moving. Connectas does not replace them.", "Coordenamos esse trabalho com advogados e contadores independentes e habilitados em cada país, e mantemos o processo andando. A Connectas não os substitui.")],
+  [L("How long does it take to open a company?", "Quanto tempo leva para abrir uma empresa?"), L("It depends on the country, the type of company and the licences involved. Your plan includes a realistic timeline before you commit.", "Depende do país, do tipo de empresa e das licenças envolvidas. Seu plano traz um prazo realista antes de você se comprometer.")],
+  [L("Do you work in Portuguese and English?", "Vocês atendem em português e inglês?"), L("Yes. Our team works in both languages, and documents, websites and campaigns can be delivered in either or both.", "Sim. Nossa equipe trabalha nos dois idiomas, e documentos, sites e campanhas podem ser entregues em um ou nos dois.")],
+  [L("How are fees charged?", "Como são cobrados os serviços?"), L("Consulting, relocation, websites and marketing are priced per project in a written proposal. Our software platform is a monthly subscription.", "Consultoria, realocação, sites e marketing têm preço por projeto, em proposta escrita. Nossa plataforma de software é uma assinatura mensal.")],
 ];
 const latest = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt-BR" : "en-US", { day: "numeric", month: "short", year: "numeric" });
 ---
 <Base lang={lang} page="home"
   title={L("Connectas · Your strategic bridge between the United States, Brazil and Guyana", "Connectas · Sua ponte estratégica entre Estados Unidos, Brasil e Guiana")}
-  description={L("Business plans, company registration, market entry, relocation, websites, systems, white-label apps and marketing — one partner for doing business between the United States, Brazil and Guyana.", "Plano de negócios, abertura de empresa, entrada no mercado, realocação, sites, sistemas, apps white label e marketing — um só parceiro para fazer negócios entre Estados Unidos, Brasil e Guiana.")}>
+  description={L("Business plans, company registration, market entry, relocation, websites, white-label systems and apps, and marketing — one partner for doing business between the United States, Brazil and Guyana.", "Plano de negócios, abertura de empresa, entrada no mercado, realocação, sites, sistemas e apps white label e marketing — um só parceiro para fazer negócios entre Estados Unidos, Brasil e Guiana.")}>
 
-  <section class="hero">
-    <Network />
+  <section class="hero2">
     <div class="wrap">
-      <span class="eyebrow fade-up" style="--d:100ms">{L("Business across borders", "Negócios além das fronteiras")}</span>
-      <h1>
-        <span class="mask-line"><span style="--d:150ms">{L("Your strategic bridge between", "Sua ponte estratégica entre")}</span></span>
-        <span class="mask-line"><span style="--d:300ms"><span class="rot" data-rot>{words.map((w, i) => <span class:list={{ on: i === 0 }}>{w}</span>)}</span></span></span>
-      </h1>
-      <div class="countries fade-up" style="--d:650ms"><span>{L("United States", "Estados Unidos")}</span><i></i><span>{L("Brazil", "Brasil")}</span><i></i><span>{L("Guyana", "Guiana")}</span></div>
-      <p class="lead fade-up" style="--d:800ms">{L("One partner to plan your business, open your company, move your people, build your technology and launch your brand — in three countries where we are already on the ground.", "Um só parceiro para planejar o seu negócio, abrir a sua empresa, mudar a sua equipe, construir a sua tecnologia e lançar a sua marca — em três países onde já estamos presentes.")}</p>
-      <div class="row fade-up" style="--d:950ms"><a class="btn" href="#contact">{L("Start your expansion", "Comece sua expansão")}<span class="arr">→</span></a><a class="btn ghost" href={R.solutions}>{L("All solutions", "Todas as soluções")}</a></div>
+      <div class="hero2-top">
+        <div>
+          <span class="eyebrow fade-up" style="--d:100ms">{L("Business across borders", "Negócios além das fronteiras")}</span>
+          <h1>
+            <span class="mask-line"><span style="--d:150ms">{L("Your strategic bridge between", "Sua ponte estratégica entre")}</span></span>
+            <span class="mask-line"><span style="--d:300ms"><span class="rot" data-rot>{words.map((w, i) => <span class:list={{ on: i === 0 }}><em>{w}</em></span>)}</span></span></span>
+          </h1>
+        </div>
+        <div class="hero2-side fade-up" style="--d:650ms">
+          <p>{L("We plan the business, open the company, move the people, build the technology and launch the brand — in three countries where we already work.", "Planejamos o negócio, abrimos a empresa, mudamos as pessoas, construímos a tecnologia e lançamos a marca — em três países onde já trabalhamos.")}</p>
+          <div class="row"><a class="btn" href="#contact">{L("Talk to us", "Fale com a gente")}<span class="arr">→</span></a><a class="link" href={R.solutions}>{L("See our services", "Ver serviços")}</a></div>
+        </div>
+      </div>
+      <figure class="hero2-img fade-up" style="--d:500ms">
+        <img src={PHOTO.hero} alt={L("Georgetown, Guyana", "Georgetown, Guiana")} />
+        <figcaption class="hero2-tag"><Flag c="US" /><Flag c="BR" /><Flag c="GY" /><span>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span></figcaption>
+      </figure>
     </div>
-    <span class="scroll-cue" aria-hidden="true"></span>
   </section>
 
   <div class="trusted">
     <div class="wrap">
-      <span class="lbl">{L("Trusted by industry leaders", "A confiança de quem lidera")}</span>
-      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[...IMG.partners, ...IMG.partners].map((src, i) => <img src={src} alt="" loading="lazy" aria-hidden={i >= IMG.partners.length ? "true" : undefined} />)}</div></div>
+      <span class="lbl">{L("Trusted by companies in our markets", "A confiança de empresas dos nossos mercados")}</span>
+      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => [...IMG.partners.map((src) => [src, false]), ...IMG.partnersWhite.map((src) => [src, true])].map(([src, inv]) => <img src={src as string} class:list={{ inv }} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} />))}</div></div>
     </div>
   </div>
 
-  <section>
-    <div class="wrap split">
-      <div class="reveal">
-        <span class="eyebrow">{L("What we do", "O que fazemos")}</span>
-        <h2>{L("Expanding to a new country shouldn't mean hiring five different companies.", "Expandir para outro país não deveria exigir contratar cinco empresas diferentes.")}</h2>
-      </div>
-      <div class="reveal" style="--d:150ms">
-        <p class="big-quote">{L("With Connectas, you deal with one team, one plan and one point of contact.", "Com a Connectas, você lida com uma equipe, um plano e um ponto de contato.")}</p>
-        <p class="lead">{L("We write your business plan, register your company, find the right local partners, relocate your executives and their families, build your websites, systems and apps — and launch your brand in the new market.", "Escrevemos o seu plano de negócios, registramos a sua empresa, encontramos os parceiros locais certos, realocamos seus executivos e suas famílias, construímos seus sites, sistemas e apps — e lançamos a sua marca no novo mercado.")}</p>
-        <p class="muted">{L("We already operate in the United States, Brazil and Guyana. That means real local knowledge, not a list of referrals.", "Já atuamos nos Estados Unidos, no Brasil e na Guiana. Isso significa conhecimento local de verdade, não uma lista de indicações.")}</p>
+  <section class="statement">
+    <div class="wrap">
+      <p class="reveal">{L("Expanding to a new country usually means hiring five different firms.", "Expandir para outro país costuma significar contratar cinco empresas diferentes.")} <span>{L("With Connectas, it means one team, one plan and one point of contact.", "Com a Connectas, significa uma equipe, um plano e um ponto de contato.")}</span></p>
+    </div>
+  </section>
+
+  <section class="orows-sec">
+    <div class="wrap">
+      <span class="eyebrow reveal">{L("Why Connectas", "Por que a Connectas")}</span>
+      <div class="orows">
+        {rows.map(([t, d], i) => <div class:list={["orow", "reveal", { off: i % 2 === 1 }]}><span class="n">0{i + 1}</span><h3>{t}</h3><p>{d}</p></div>)}
       </div>
     </div>
   </section>
@@ -80,22 +102,52 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
   <section class="grey">
     <div class="wrap">
       <div class="split" style="margin-bottom:56px;align-items:end">
-        <div class="reveal"><span class="eyebrow">{L("Our services", "Nossos serviços")}</span><h2>{L("Everything your expansion needs.", "Tudo o que a sua expansão precisa.")}</h2></div>
-        <p class="lead reveal" style="--d:120ms">{L("From the first spreadsheet to the first client: seven services, one coordinated process.", "Da primeira planilha ao primeiro cliente: sete serviços, um só processo coordenado.")}</p>
+        <div class="reveal"><span class="eyebrow">{L("Our services", "Nossos serviços")}</span><h2>{L("From the first spreadsheet to the first client.", "Da primeira planilha ao primeiro cliente.")}</h2></div>
+        <p class="lead reveal" style="--d:120ms">{L("Seven services that work on their own or together, coordinated as one project.", "Sete serviços que funcionam sozinhos ou juntos, coordenados como um só projeto.")}</p>
       </div>
-      <div class="svc-grid" data-stagger class:list={["reveal"]}>
+      <div class="svc-grid reveal" data-stagger>
         {SERVICES.map((s, i) => <a class="svc" href={`${R.solutions}#${s.key}`} style="text-decoration:none">
           <span class="n">0{i + 1}</span><span class="ic" set:html={ICON[s.icon]} /><h3>{s.title[lang]}</h3><p>{s.short[lang]}</p></a>)}
-        <a class="svc" href={R.solutions} style="text-decoration:none;justify-content:center;align-items:flex-start">
-          <span class="n">→</span><h3 style="font-size:clamp(26px,2.6vw,36px);letter-spacing:-0.03em">{L("See how each service works", "Veja como cada serviço funciona")}</h3><p>{L("All solutions", "Todas as soluções")} →</p></a>
+        <a class="svc svc-more" href={R.solutions} style="text-decoration:none">
+          <span class="n">→</span><h3>{L("How each service works", "Como cada serviço funciona")}</h3><p>{L("See all solutions", "Ver todas as soluções")} →</p></a>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap duo">
+      <div class="duo-card reveal">
+        <h2>{L("Experience you can check.", "Experiência que se comprova.")}</h2>
+        <p>{L("Our founder spent more than 20 years working across England, Brazil, Guyana and the United States, including global mobility programmes for multinational companies. We have done this for ourselves — and for hundreds of families and companies since.", "Nosso fundador passou mais de 20 anos trabalhando entre Inglaterra, Brasil, Guiana e Estados Unidos, incluindo programas de mobilidade global para multinacionais. Fizemos isso por nós mesmos — e, desde então, por centenas de famílias e empresas.")}</p>
+        <a class="link" href={R.about}>{L("Meet the founder →", "Conheça o fundador →")}</a>
+      </div>
+      <figure class="duo-img reveal" style="--d:120ms"><img src={PHOTO.duo} alt={L("Stabroek Market, Georgetown", "Mercado Stabroek, Georgetown")} loading="lazy" /><figcaption>{L("Local knowledge in every market we work in", "Conhecimento local em cada mercado em que atuamos")}</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="chips-sec">
+    <div class="wrap"><h2 class="reveal">{L("What we take care of.", "Do que cuidamos.")}</h2></div>
+    <div class="chips" aria-hidden="true">
+      <div class="chips-track">{[...chips, ...chips].map((c) => <span>{c}</span>)}</div>
+      <div class="chips-track rev">{[...chips.slice().reverse(), ...chips.slice().reverse()].map((c) => <span>{c}</span>)}</div>
+    </div>
+    <p class="sr-only">{chips.join(", ")}</p>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="bigstat reveal">
+        <img src={PHOTO.stat} alt="" loading="lazy" />
+        <div class="bigstat-in"><div class="v"><span data-count="300">300</span>+</div><p>{L("families relocated between countries — each one with a home ready, a school chosen and someone to call.", "famílias realocadas entre países — cada uma com casa pronta, escola escolhida e alguém para chamar.")}</p></div>
+      </div>
+      <div class="stats-row reveal" data-stagger>{stats.map(([v, suf, l]) => <div><div class="v"><span data-count={v}>{v}</span>{suf}</div><div class="l">{l}</div></div>)}</div>
     </div>
   </section>
 
   <section class="black">
     <div class="wrap">
-      <div class="reveal" style="max-width:820px;margin-bottom:56px"><span class="eyebrow">{L("We are for…", "Para quem é")}</span><h2>{L("Companies and investors moving between three markets.", "Empresas e investidores circulando entre três mercados.")}</h2></div>
-      <div class="aud" data-stagger class:list={["reveal"]}>
+      <div class="reveal" style="max-width:820px;margin-bottom:56px"><span class="eyebrow" style="color:#9DBEDD">{L("Who we work with", "Com quem trabalhamos")}</span><h2>{L("Companies and investors moving between three markets.", "Empresas e investidores circulando entre três mercados.")}</h2></div>
+      <div class="aud reveal" data-stagger>
         {audiences.map((a) => <a href={a.u}><span class="route"><Flag c={a.from as "US" | "BR" | "GY"} /><span class="ln"></span><Flag c={a.to as "US" | "BR" | "GY"} /></span><h3>{a.t}</h3><p>{a.d}</p></a>)}
       </div>
     </div>
@@ -108,25 +160,17 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     </div>
   </section>
 
-  <section class="black" style="overflow:hidden">
-    <Network dark density={0.6} />
-    <div class="wrap" style="position:relative">
-      <div class="reveal" style="margin-bottom:60px"><span class="eyebrow">{L("Our impact", "Nosso impacto")}</span><h2>{L("Results that cross borders.", "Resultados que cruzam fronteiras.")}</h2></div>
-      <div class="stats reveal" data-stagger>{stats.map(([v, suf, l]) => <div class="stat"><div class="v"><span data-count={v}>{v}</span><small>{suf}</small></div><div class="l">{l}</div></div>)}</div>
+  <section class="grey">
+    <div class="wrap split at">
+      <div class="reveal"><span class="eyebrow">{L("Questions", "Perguntas")}</span><h2>{L("Answered plainly.", "Respondidas com clareza.")}</h2><p class="muted">{L("Something else on your mind? Write to us at", "Ficou alguma dúvida? Escreva para")} <a class="link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>.</p></div>
+      <div class="faq reveal" style="--d:120ms">{faq.map(([q, a]) => <details><summary>{q}<i aria-hidden="true"></i></summary><p>{a}</p></details>)}</div>
     </div>
   </section>
 
   <section>
     <div class="wrap">
-      <div class="reveal" style="margin-bottom:56px;max-width:820px"><span class="eyebrow">{L("Why Connectas", "Por que a Connectas")}</span><h2>{L("Confidence comes from being there.", "Confiança vem de estar presente.")}</h2></div>
-      <div class="why reveal" data-stagger>{why.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}</div>
-    </div>
-  </section>
-
-  <section class="grey">
-    <div class="wrap">
       <div class="split" style="margin-bottom:50px;align-items:end">
-        <div class="reveal"><span class="eyebrow">{L("Market insights", "Insights de mercado")}</span><h2>{L("What's moving in Guyana.", "O que está mudando na Guiana.")}</h2></div>
+        <div class="reveal"><span class="eyebrow">{L("Market insights", "Insights de mercado")}</span><h2>{L("What is changing in Guyana.", "O que está mudando na Guiana.")}</h2></div>
         <div class="reveal" style="--d:120ms;text-align:right"><a class="btn ghost" href={R.insights}>{L("All articles", "Todos os artigos")}<span class="arr">→</span></a></div>
       </div>
       <div class="posts reveal" data-stagger>
@@ -135,12 +179,12 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     </div>
   </section>
 
-  <section id="contact">
+  <section id="contact" class="sand">
     <div class="wrap contact-grid">
       <div class="reveal">
         <span class="eyebrow">{L("Contact", "Contato")}</span>
-        <h2>{L("Ready to cross borders with confidence?", "Pronto para cruzar fronteiras com confiança?")}</h2>
-        <p class="lead">{L("Tell us where you are and where you want to go. We reply within two business days with the next steps.", "Conte onde você está e aonde quer chegar. Respondemos em até dois dias úteis com os próximos passos.")}</p>
+        <h2>{L("Tell us where you are, and where you want to go.", "Conte onde você está e aonde quer chegar.")}</h2>
+        <p class="lead">{L("We reply within two business days with a first view of the path, the timeline and what it involves.", "Respondemos em até dois dias úteis com uma primeira visão do caminho, do prazo e do que ele envolve.")}</p>
         <div class="contact-info">
           <div class="ci"><span>{L("E-mail", "E-mail")}</span><a class="link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></div>
           <div class="ci"><span>{L("Head office", "Sede")}</span><p>{COMPANY.legal}<br />{COMPANY.address1}<br />{COMPANY.address2}</p></div>
@@ -162,7 +206,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
           var a = it[i]; i = (i + 1) % it.length; var b = it[i];
           a.classList.remove("on"); a.classList.add("out"); b.classList.remove("out"); b.classList.add("on");
           setTimeout(function () { a.classList.remove("out"); }, 900);
-        }, 2600);
+        }, 2800);
       });
     })();
   </script>
