@@ -23,6 +23,7 @@ const rows = [
 const chips = pt
   ? ["Planos de negócios", "Abertura de empresas", "Inscrição fiscal", "Contas bancárias", "Estudos de mercado", "Apresentação a parceiros", "Conteúdo local", "Busca de imóvel", "Busca de escola", "Moradia corporativa", "Sites", "Sistemas de gestão", "Apps iOS e Android", "White label", "Identidade de marca", "Redes sociais", "Campanhas de lançamento", "Suporte operacional"]
   : ["Business plans", "Company formation", "Tax registration", "Bank accounts", "Market studies", "Partner introductions", "Local content", "Home search", "School search", "Corporate housing", "Websites", "Management systems", "iOS & Android apps", "White label", "Brand identity", "Social media", "Launch campaigns", "Operational support"];
+const CN: Record<string, string> = { BR: L("Brazil", "Brasil"), GY: L("Guyana", "Guiana"), US: L("United States", "Estados Unidos") };
 const audiences = [
   { from: "BR", to: "GY", t: L("Brazilian companies expanding to Guyana", "Empresas brasileiras expandindo para a Guiana"), d: L("Enter one of the fastest-growing economies in the world, with a structure that respects local rules from the start.", "Entre em uma das economias que mais crescem no mundo, com uma estrutura que respeita as regras locais desde o início."), u: R.guyana },
   { from: "US", to: "US", t: L("U.S. companies expanding nationwide and abroad", "Empresas americanas expandindo nos EUA e no exterior"), d: L("Structure, people and technology in one plan, state by state or country by country.", "Estrutura, pessoas e tecnologia em um só plano, estado por estado ou país por país."), u: R.usa },
@@ -76,7 +77,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
       </div>
       <figure class="hero2-img fade-up" style="--d:500ms">
         <img src={PHOTO.hero} alt={L("Georgetown, Guyana", "Georgetown, Guiana")} />
-        <figcaption class="hero2-tag"><Flag c="US" /><Flag c="BR" /><Flag c="GY" /><span>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span></figcaption>
+        <figcaption class="hero2-tag"><span>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span></figcaption>
       </figure>
     </div>
   </section>
@@ -168,7 +169,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     <div class="wrap">
       <div class="reveal" style="max-width:820px;margin-bottom:36px"><span class="eyebrow" style="color:#9DBEDD">{L("Who we work with", "Com quem trabalhamos")}</span><h2>{L("Companies and investors moving between three markets.", "Empresas e investidores circulando entre três mercados.")}</h2></div>
       <div class="aud reveal" data-stagger>
-        {audiences.map((a) => <a href={a.u}><span class="route"><Flag c={a.from as "US" | "BR" | "GY"} /><span class="ln"></span><Flag c={a.to as "US" | "BR" | "GY"} /></span><h3>{a.t}</h3><p>{a.d}</p></a>)}
+        {audiences.map((a) => <a href={a.u}><span class="route"><span>{CN[a.from]}</span><span class="ln"></span><span>{a.from === a.to ? L("Nationwide & abroad", "EUA e exterior") : CN[a.to]}</span></span><h3>{a.t}</h3><p>{a.d}</p></a>)}
       </div>
     </div>
   </section>

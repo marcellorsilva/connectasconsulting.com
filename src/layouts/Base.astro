@@ -72,7 +72,7 @@ const year = 2026;
                 </div>
                 <div class="mega-col">
                   <span class="mega-h">{L("By market", "Por mercado")}</span>
-                  {countries.map(([c, cu]) => <a href={cu} class="mega-link"><Flag c={flags[cu]} />{c}</a>)}
+                  {countries.map(([c, cu]) => <a href={cu} class="mega-link"><span class="mega-code">{flags[cu]}</span>{c}</a>)}
                   <span class="mega-h" style="margin-top:22px">{L("Technology", "Tecnologia")}</span>
                   <a href={R.technology} class="mega-link">{L("Websites", "Sites")}</a>
                   <a href={R.technology} class="mega-link">{L("Management systems", "Sistemas de gestão")}</a>
@@ -186,6 +186,22 @@ const year = 2026;
           b.addEventListener("click", function () { var open = m.hidden; m.hidden = !open; b.setAttribute("aria-expanded", String(open)); document.body.classList.toggle("menu-open", open); });
         }
         if (m) { m.hidden = true; document.body.classList.remove("menu-open"); if (b) b.setAttribute("aria-expanded", "false"); }
+      }
+      // Close the mega menu / dropdown as soon as an item is chosen; it opens again once the pointer has left it
+      if (!window.__cnxMenuClose) {
+        window.__cnxMenuClose = true;
+        var lastUsed = null;
+        var arm = function (box) {
+          box.classList.add("shut"); if (document.activeElement) document.activeElement.blur();
+          var off = function (ev) { if (!box.contains(ev.target)) { box.classList.remove("shut"); document.removeEventListener("pointermove", off); } };
+          document.addEventListener("pointermove", off);
+        };
+        document.addEventListener("click", function (e) {
+          var a = e.target.closest && e.target.closest(".mega a, .sub a"); if (!a) return;
+          var box = a.closest(".has-mega, .has-sub"); if (!box) return;
+          lastUsed = box.classList.contains("has-mega") ? ".has-mega" : ".has-sub"; arm(box);
+        });
+        document.addEventListener("astro:after-swap", function () { if (lastUsed) { var b = document.querySelector(lastUsed); if (b) arm(b); lastUsed = null; } });
       }
       function onScroll() { document.documentElement.classList.toggle("scrolled", window.scrollY > 24); }
       window.addEventListener("scroll", onScroll, { passive: true }); onScroll();

@@ -703,3 +703,16 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .ip-bat::after { content: ""; position: absolute; right: -1.2cqw; top: 30%; width: .7cqw; height: 40%; background: rgba(0,0,0,.4); border-radius: 0 .5cqw .5cqw 0; }
 .ip-screen > img.ip-shot { position: absolute; top: 13cqw; left: 0; width: 100%; height: calc(100% - 13cqw); border-radius: 0 0 13.9cqw 13.9cqw; }
 .ip-screen:has(.ip-status) { background: #fff; }
+
+/* Country routes written out instead of flags */
+.aud .route { font-size: 12px; font-weight: 600; letter-spacing: .16em; color: #9DBEDD; gap: 14px; }
+.aud .route .ln { flex: 0 0 46px; }
+.aud .route .ln::before { content: ""; position: absolute; right: -1px; top: -3px; width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor; transform: rotate(45deg); }
+.aud .route .ln { overflow: visible; color: #666; }
+.mega-code { flex: none; width: 30px; height: 22px; border-radius: 6px; border: 1px solid var(--line); display: grid; place-items: center; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: var(--accent); background: #fff; }
+.mega-link:hover .mega-code { border-color: var(--accent); }
+.aud .route .ln::after { transform: scaleX(0); transform-origin: left; }
+.aud a:hover .route .ln::after { transform: scaleX(1); }
+/* Mega menu closes after a choice, until the pointer leaves and comes back */
+.has-mega.shut .mega, .has-sub.shut .sub { opacity: 0 !important; visibility: hidden !important; transform: translate(-50%, 10px); }
+.has-sub.shut .sub { transform: translateY(8px); }
