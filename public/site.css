@@ -747,3 +747,8 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .founder-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
 .founder .big-quote { margin-top: 0; }
 @media (max-width: 760px) { .founder { grid-template-columns: 1fr; } .founder-photo { width: 220px; position: static; } }
+.founder-facts { list-style: none; padding: 0; margin: 26px 0 22px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.founder-facts li { padding: 18px 16px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.founder-facts b { font-family: var(--serif); font-weight: 300; font-size: clamp(30px, 3vw, 42px); color: var(--accent); line-height: 1; }
+.founder-facts span { font-size: 14px; color: var(--muted); }
+@media (max-width: 600px) { .founder-facts { grid-template-columns: 1fr; } }
