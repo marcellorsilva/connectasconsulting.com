@@ -73,7 +73,7 @@ const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== countr
 
   <section id="living" class="sand anchor">
     <div class="wrap split at">
-      <div class="reveal"><span class="eyebrow">{L("Living and relocating", "Morar e realocar")}</span><h2>{L(`Moving people to ${name}.`, `Levar pessoas para ${withArt}.`)}</h2><p class="lead" style="font-size:18px">{C.living[lang]}</p></div>
+      <div class="reveal"><span class="eyebrow">{L("Living and relocating", "Morar e realocar")}</span><h2>{L(`Moving people to ${name}.`, `Levar pessoas para ${withArt}.`)}</h2><p class="lead" style="font-size:18px">{C.living[lang]}</p><p class="coverage"><b>{L("Anywhere in the country", "Em qualquer lugar do país")}</b>{C.coverage[lang]}</p></div>
       <ul class="checks reveal" style="--d:120ms">{C.livingList.map((x) => <li style="font-size:17px">{x[lang]}</li>)}</ul>
     </div>
   </section>

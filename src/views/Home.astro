@@ -25,10 +25,10 @@ const chips = pt
   : ["Business plans", "Company formation", "Tax registration", "Bank accounts", "Market studies", "Partner introductions", "Local content", "Home search", "School search", "Corporate housing", "Websites", "Management systems", "iOS & Android apps", "White label", "Brand identity", "Social media", "Launch campaigns", "Operational support"];
 const CN: Record<string, string> = { BR: L("Brazil", "Brasil"), GY: L("Guyana", "Guiana"), US: L("United States", "Estados Unidos") };
 const audiences = [
-  { from: "BR", to: "GY", t: L("Brazilian companies expanding to Guyana", "Empresas brasileiras expandindo para a Guiana"), d: L("Enter one of the fastest-growing economies in the world, with a structure that respects local rules from the start.", "Entre em uma das economias que mais crescem no mundo, com uma estrutura que respeita as regras locais desde o início."), u: R.guyana },
-  { from: "US", to: "US", t: L("U.S. companies expanding nationwide and abroad", "Empresas americanas expandindo nos EUA e no exterior"), d: L("Structure, people and technology in one plan, state by state or country by country.", "Estrutura, pessoas e tecnologia em um só plano, estado por estado ou país por país."), u: R.usa },
-  { from: "GY", to: "BR", t: L("Guyanese companies doing business with Brazil", "Empresas guianenses fazendo negócios com o Brasil"), d: L("Access Latin America's largest market with the right partners and a clear tax picture.", "Acesse o maior mercado da América Latina com os parceiros certos e um quadro tributário claro."), u: R.brazil },
-  { from: "US", to: "BR", t: L("U.S. investors entering Brazil and Guyana", "Investidores americanos entrando no Brasil e na Guiana"), d: L("Local knowledge from the first meeting to the first contract.", "Conhecimento local da primeira reunião ao primeiro contrato."), u: R.solutions },
+  { from: "BR", to: "GY", t: L("Brazilian companies expanding to Guyana", "Empresas brasileiras expandindo para a Guiana"), d: L("Enter one of the fastest-growing economies in the world, with a structure that respects local rules from the start.", "Entre em uma das economias que mais crescem no mundo, com uma estrutura que respeita as regras locais desde o início."), u: R.guyana, ctx: "br-gy", cta: L("Plan my entry into Guyana", "Planejar minha entrada na Guiana"), guide: L("Guyana guide", "Guia da Guiana") },
+  { from: "US", to: "US", t: L("U.S. companies expanding nationwide and abroad", "Empresas americanas expandindo nos EUA e no exterior"), d: L("Structure, people and technology in one plan, state by state or country by country.", "Estrutura, pessoas e tecnologia em um só plano, estado por estado ou país por país."), u: R.usa, ctx: "us-us", cta: L("Plan my expansion", "Planejar minha expansão"), guide: L("U.S. guide", "Guia dos EUA") },
+  { from: "GY", to: "BR", t: L("Guyanese companies doing business with Brazil", "Empresas guianenses fazendo negócios com o Brasil"), d: L("Access Latin America's largest market with the right partners and a clear tax picture.", "Acesse o maior mercado da América Latina com os parceiros certos e um quadro tributário claro."), u: R.brazil, ctx: "gy-br", cta: L("Plan my entry into Brazil", "Planejar minha entrada no Brasil"), guide: L("Brazil guide", "Guia do Brasil") },
+  { from: "US", to: "BR", t: L("U.S. investors entering Brazil and Guyana", "Investidores americanos entrando no Brasil e na Guiana"), d: L("Local knowledge from the first meeting to the first contract.", "Conhecimento local da primeira reunião ao primeiro contrato."), u: R.brazil, ctx: "us-inv", cta: L("Talk about an investment", "Conversar sobre um investimento"), guide: L("Brazil & Guyana guides", "Guias do Brasil e da Guiana") },
 ];
 const steps = [
   [L("Discover", "Entender"), L("We learn your goals, timeline and budget, and tell you plainly what is realistic.", "Entendemos seus objetivos, prazos e orçamento, e dizemos com franqueza o que é realista.")],
@@ -60,8 +60,9 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
   title={L("Connectas · Your strategic bridge between the United States, Brazil and Guyana", "Connectas · Sua ponte estratégica entre Estados Unidos, Brasil e Guiana")}
   description={L("Business plans, company registration, market entry, relocation, websites, white-label systems and apps, and marketing — one partner for doing business between the United States, Brazil and Guyana.", "Plano de negócios, abertura de empresa, entrada no mercado, realocação, sites, sistemas e apps white label e marketing — um só parceiro para fazer negócios entre Estados Unidos, Brasil e Guiana.")}>
 
-  <section class="hero2">
-    <div class="wrap">
+  <section class="chero home-hero">
+    <div class="chero-media" aria-hidden="true"><img src={PHOTO.usa} alt="" style="object-position:50% 40%" /></div>
+    <div class="wrap chero-in">
       <div class="hero2-top">
         <div>
           <span class="eyebrow fade-up" style="--d:100ms">{L("Business across borders", "Negócios além das fronteiras")}</span>
@@ -72,21 +73,13 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
         </div>
         <div class="hero2-side fade-up" style="--d:650ms">
           <p>{L("We plan the business, open the company, move the people, build the technology and launch the brand — in three countries where we already work.", "Planejamos o negócio, abrimos a empresa, mudamos as pessoas, construímos a tecnologia e lançamos a marca — em três países onde já trabalhamos.")}</p>
-          <div class="row"><a class="btn" href="#contact">{L("Talk to us", "Fale com a gente")}<span class="arr">→</span></a><a class="link" href={R.solutions}>{L("See our services", "Ver serviços")}</a></div>
+          <div class="row"><a class="btn light" href="#contact">{L("Talk to us", "Fale com a gente")}<span class="arr">→</span></a><a class="hero-link" href={R.solutions}>{L("See our services", "Ver serviços")} →</a></div>
         </div>
       </div>
-      <figure class="hero2-img fade-up" style="--d:500ms">
-        <img src={PHOTO.hero} alt={L("Georgetown, Guyana", "Georgetown, Guiana")} />
-        <figcaption class="hero2-tag"><span>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span></figcaption>
-      </figure>
+      <span class="hero-tag fade-up" style="--d:800ms">{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span>
     </div>
   </section>
 
-  <div class="trusted">
-    <div class="wrap">
-      <span class="lbl">{L("Trusted by companies in our markets", "A confiança de empresas dos nossos mercados")}</span>
-      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => IMG.partners.map((p) => <span class="logo-cell"><img src={p.src} class:list={{ inv: p.inv }} style={`--s:${p.s}`} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} /></span>))}</div></div>
-    </div>
   </div>
 
   <section class="statement">
@@ -142,7 +135,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
         <p>{L("Our founder spent more than 20 years working across England, Brazil, Guyana and the United States, including global mobility programmes for multinational companies. We have done this for ourselves — and for hundreds of families and companies since.", "Nosso fundador passou mais de 20 anos trabalhando entre Inglaterra, Brasil, Guiana e Estados Unidos, incluindo programas de mobilidade global para multinacionais. Fizemos isso por nós mesmos — e, desde então, por centenas de famílias e empresas.")}</p>
         <a class="link" href={R.about}>{L("Meet the founder →", "Conheça o fundador →")}</a>
       </div>
-      <figure class="duo-img reveal" style="--d:120ms"><img src={PHOTO.usa} alt={L("New York City at sunset", "Nova York ao pôr do sol")} loading="lazy" /><figcaption>{L("Local knowledge in every market we work in", "Conhecimento local em cada mercado em que atuamos")}</figcaption></figure>
+      <figure class="duo-img reveal" style="--d:120ms"><img src={PHOTO.hero} alt={L("Octávio Frias de Oliveira Bridge, São Paulo", "Ponte Octávio Frias de Oliveira (Ponte Estaiada), São Paulo")} loading="lazy" /><figcaption>{L("Local knowledge in every market we work in", "Conhecimento local em cada mercado em que atuamos")}</figcaption></figure>
     </div>
   </section>
 
@@ -169,8 +162,10 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     <div class="wrap">
       <div class="reveal" style="max-width:820px;margin-bottom:36px"><span class="eyebrow" style="color:#9DBEDD">{L("Who we work with", "Com quem trabalhamos")}</span><h2>{L("Companies and investors moving between three markets.", "Empresas e investidores circulando entre três mercados.")}</h2></div>
       <div class="aud reveal" data-stagger>
-        {audiences.map((a) => <a href={a.u}><span class="route"><span>{CN[a.from]}</span><span class="ln"></span><span>{a.from === a.to ? L("Nationwide & abroad", "EUA e exterior") : CN[a.to]}</span></span><h3>{a.t}</h3><p>{a.d}</p></a>)}
+        {audiences.map((a) => <div class="aud-card"><span class="route"><span>{CN[a.from]}</span><span class="ln"></span><span>{a.from === a.to ? L("Nationwide & abroad", "EUA e exterior") : CN[a.to]}</span></span><h3>{a.t}</h3><p>{a.d}</p>
+          <div class="aud-cta"><a class="btn light sm" href={`?interest=market&ctx=${a.ctx}#contact`} data-prefill={a.ctx}>{a.cta}<span class="arr">→</span></a><a class="aud-guide" href={a.u}>{a.guide} →</a></div></div>)}
       </div>
+      <div class="aud-band reveal"><div><b>{L("Not sure where to start?", "Não sabe por onde começar?")}</b><span>{L("Tell us your situation in a 30-minute call — we'll map the path, the timeline and the first steps.", "Conte a sua situação em uma conversa de 30 minutos — mapeamos o caminho, o prazo e os primeiros passos.")}</span></div><a class="btn light" href="?interest=other&ctx=call#contact" data-prefill="call">{L("Book a 30-minute call", "Agendar uma conversa de 30 minutos")}<span class="arr">→</span></a></div>
     </div>
   </section>
 
@@ -199,6 +194,12 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
       </div>
     </div>
   </section>}
+
+  <div class="trusted">
+    <div class="wrap">
+      <span class="lbl">{L("Trusted by companies in our markets", "A confiança de empresas dos nossos mercados")}</span>
+      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => IMG.partners.map((p) => <span class="logo-cell"><img src={p.src} class:list={{ inv: p.inv }} style={`--s:${p.s}`} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} /></span>))}</div></div>
+    </div>
 
   <section id="contact" class="sand">
     <div class="wrap contact-grid">

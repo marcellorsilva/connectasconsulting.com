@@ -4,6 +4,7 @@ import ContactForm from "../components/ContactForm.astro";
 import { ROUTES, serviceUrl, type Lang } from "../lib/routes";
 import { SERVICES } from "../lib/services";
 import { DETAILS } from "../lib/serviceDetails";
+import { COUNTRIES } from "../lib/countries";
 import { ICON } from "../lib/icons";
 import { PHOTO } from "../company";
 const { lang, service } = Astro.props as { lang: Lang; service: string };
@@ -15,7 +16,7 @@ const D = DETAILS.find((x) => x.key === service)!;
 const img = (PHOTO as Record<string, string>)[D.img] || PHOTO.hero;
 const others = SERVICES.filter((x) => x.key !== service);
 const topic = ({ "business-plans": "plan", registration: "register", "market-entry": "market", relocation: "relocation", technology: "tech", marketing: "marketing", support: "other" } as Record<string, string>)[service];
-const C3: ["US" | "BR" | "GY", string][] = [["US", L("United States", "Estados Unidos")], ["BR", L("Brazil", "Brasil")], ["GY", L("Guyana", "Guiana")]];
+const C3: ["US" | "BR" | "GY", string][] = [["US", L("United States", "Estados Unidos")], ["BR", L("Brazil", "Brasil")], ["GY", L("Guyana", "Guiana")]]; // United States, Brazil, then Guyana
 ---
 <Base lang={lang} page="solutions" alt={{ EN: serviceUrl("EN", service), PT: serviceUrl("PT", service) }} title={`${S.title[lang]} · Connectas`} description={D.lead[lang]}>
   <section class="hero2">
@@ -45,7 +46,7 @@ const C3: ["US" | "BR" | "GY", string][] = [["US", L("United States", "Estados U
   <section>
     <div class="wrap">
       <div class="reveal" style="max-width:820px;margin-bottom:30px"><span class="eyebrow">{L("In each country", "Em cada país")}</span><h2>{L("Same service. Local know-how.", "O mesmo serviço. Conhecimento local.")}</h2></div>
-      <div class="c3 reveal" data-stagger>{C3.map(([k, n]) => <a class="c3-card" href={R[k === "US" ? "usa" : k === "BR" ? "brazil" : "guyana"]}><span class="c3-code">{k}</span><h3>{n}</h3><p>{D.countries[k][lang]}</p><span class="link">{({ US: L("Doing business in the United States", "Fazer negócios nos Estados Unidos"), BR: L("Doing business in Brazil", "Fazer negócios no Brasil"), GY: L("Doing business in Guyana", "Fazer negócios na Guiana") })[k]} →</span></a>)}</div>
+      <div class="c3 reveal" data-stagger>{C3.map(([k, n]) => <a class="c3-card" href={R[k === "US" ? "usa" : k === "BR" ? "brazil" : "guyana"]}><span class="c3-code">{k}</span><h3>{n}</h3><p>{D.countries[k][lang]}</p><small class="c3-cov">{COUNTRIES[k === "US" ? "usa" : k === "BR" ? "brazil" : "guyana"].coverage[lang]}</small><span class="link">{({ US: L("Doing business in the United States", "Fazer negócios nos Estados Unidos"), BR: L("Doing business in Brazil", "Fazer negócios no Brasil"), GY: L("Doing business in Guyana", "Fazer negócios na Guiana") })[k]} →</span></a>)}</div>
     </div>
   </section>
 

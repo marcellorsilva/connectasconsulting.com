@@ -6,6 +6,14 @@ import type { Lang } from "../lib/routes";
 const { lang = "EN", topic = "" } = Astro.props as { lang?: Lang; topic?: string };
 const pt = lang === "PT";
 const L = (en: string, p: string) => (pt ? p : en);
+// Short sentences that pre-fill the message when the visitor comes from a "plan my move" button
+const PREFILL: Record<string, string> = {
+  "br-gy": L("We are a Brazilian company looking at Guyana.", "Somos uma empresa brasileira olhando para a Guiana."),
+  "us-us": L("We are a U.S. company planning to expand.", "Somos uma empresa americana planejando expandir."),
+  "gy-br": L("We are a Guyanese company looking at Brazil.", "Somos uma empresa guianense olhando para o Brasil."),
+  "us-inv": L("We are investors looking at Brazil and Guyana.", "Somos investidores olhando para o Brasil e a Guiana."),
+  call: L("I would like to book a 30-minute call.", "Gostaria de agendar uma conversa de 30 minutos."),
+};
 const interests: [string, string][] = [
   ["plan", L("Business plan", "Plano de negócios")], ["register", L("Company registration & structuring", "Abertura e estruturação de empresa")],
   ["market", L("Market entry strategy", "Estratégia de entrada no mercado")], ["relocation", L("Relocation", "Realocação")],
@@ -13,7 +21,7 @@ const interests: [string, string][] = [
   ["platform", L("Relocation & property platform (white label)", "Plataforma de realocação e imóveis (white label)")], ["other", L("Something else", "Outro assunto")],
 ];
 ---
-<form class="form cnx-form" data-to={COMPANY.email} data-subject={L("Website enquiry", "Contato pelo site")} data-ok={L("Your e-mail app has opened with your message. Just press send — we reply within two business days.", "Seu aplicativo de e-mail abriu com a mensagem pronta. É só enviar — respondemos em até dois dias úteis.")} novalidate>
+<form class="form cnx-form" data-prefill={JSON.stringify(PREFILL)} data-keys={JSON.stringify(Object.fromEntries(interests.map(([k, t]) => [k, t])))} data-to={COMPANY.email} data-subject={L("Website enquiry", "Contato pelo site")} data-ok={L("Your e-mail app has opened with your message. Just press send — we reply within two business days.", "Seu aplicativo de e-mail abriu com a mensagem pronta. É só enviar — respondemos em até dois dias úteis.")} novalidate>
   <div class="field"><input id="f-first" name="first" placeholder=" " autocomplete="given-name" required /><label for="f-first">{L("First name *", "Nome *")}</label></div>
   <div class="field"><input id="f-last" name="last" placeholder=" " autocomplete="family-name" /><label for="f-last">{L("Last name", "Sobrenome")}</label></div>
   <div class="field"><input id="f-email" name="email" type="email" placeholder=" " autocomplete="email" required /><label for="f-email">{L("E-mail *", "E-mail *")}</label></div>
@@ -27,6 +35,22 @@ const interests: [string, string][] = [
 </form>
 <script is:inline>
   (function () {
+    // Pre-fill interest and message from ?interest=…&ctx=… (or from a clicked CTA on the same page)
+    function prefill(interest, ctx) {
+      var f = document.querySelector(".cnx-form"); if (!f) return;
+      var keys = JSON.parse(f.dataset.keys || "{}"), pre = JSON.parse(f.dataset.prefill || "{}");
+      var sel = f.querySelector("select[name=interest]"), msg = f.querySelector("textarea[name=message]");
+      if (interest && keys[interest] && sel) sel.value = keys[interest];
+      if (ctx && pre[ctx] && msg && !msg.value.trim()) { msg.value = pre[ctx] + " "; }
+    }
+    document.addEventListener("astro:page-load", function () { var q = new URLSearchParams(location.search); if (q.get("interest") || q.get("ctx")) prefill(q.get("interest"), q.get("ctx")); });
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a[data-prefill]"); if (!a) return;
+      var u = new URL(a.href, location.href); if (u.pathname !== location.pathname) return;
+      e.preventDefault(); prefill(u.searchParams.get("interest"), u.searchParams.get("ctx"));
+      var c = document.getElementById("contact"); if (c) c.scrollIntoView({ behavior: "smooth" });
+      setTimeout(function () { var m = document.querySelector(".cnx-form textarea[name=message]"); if (m) { m.focus(); m.setSelectionRange(m.value.length, m.value.length); } }, 700);
+    });
     if (window.__cnxForm) return; window.__cnxForm = true;
     document.addEventListener("submit", function (e) {
       var f = e.target; if (!f.classList || !f.classList.contains("cnx-form")) return;
