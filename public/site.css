@@ -275,12 +275,12 @@ section.black > canvas { opacity: .6; }
 .srow li { font-size: 13px; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
 
 /* Country pages */
-.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border-radius: 22px; overflow: hidden; border: 1px solid var(--line); }
-@media (max-width: 800px) { .facts { grid-template-columns: 1fr; } }
-.facts div { background: #fff; padding: 30px; }
-.facts .v { font-family: var(--serif); font-weight: 300; font-size: clamp(32px, 3.2vw, 46px); letter-spacing: -0.03em; color: var(--accent); line-height: 1.1; }
-.facts .l { color: var(--muted); font-size: 14px; margin-top: 8px; }
-.facts .s { font-size: 12px; color: #9A9A9A; margin-top: 8px; }
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(20px, 3vw, 44px); }
+.facts > div { border-top: 1px solid var(--accent); padding: 22px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.facts .v { font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 3.8vw, 54px); letter-spacing: -0.03em; color: var(--accent); line-height: 1; }
+.facts .l { color: var(--text); font-size: 15px; line-height: 1.5; max-width: 300px; }
+.facts .s { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+@media (max-width: 800px) { .facts { grid-template-columns: 1fr; gap: 24px; } .facts > div { padding-top: 18px; gap: 6px; } .facts .v { font-size: 38px; } }
 .checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
 .checks li { padding-left: 34px; position: relative; }
 .checks li::before { content: ""; position: absolute; left: 0; top: 12px; width: 18px; height: 1px; background: var(--accent); }
