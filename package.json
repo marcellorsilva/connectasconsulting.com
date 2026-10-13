@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wix dev",
+    "dev": "astro dev --port 4330",
     "build": "wix build",
     "preview": "wix preview",
     "astro": "astro",
@@ -13,7 +13,8 @@
     "release": "wix release",
     "generate": "wix generate",
     "env": "wix env",
-    "skills": "wix skills"
+    "skills": "wix skills",
+    "publish:site": "sh scripts/publish-pages.sh"
   },
   "dependencies": {
     "astro": "^5.18.2",

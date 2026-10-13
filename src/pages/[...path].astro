@@ -1,5 +1,6 @@
 ---
-export const prerender = false; // rendered by Wix hosting, so clean addresses like /about work (as on cmrmobility.com)
+// Static on GitHub Pages (STATIC_SITE=1); rendered by Wix hosting otherwise, so clean addresses like /about work
+export const prerender = process.env.STATIC_SITE === "1";
 // Builds every page in English and Portuguese from the route table.
 import Home from "../views/Home.astro";
 import Solutions from "../views/Solutions.astro";
@@ -14,7 +15,7 @@ import { SERVICES } from "../lib/services";
 import { ROUTES, postUrl, serviceUrl, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
 import { POSTS } from "../blog/posts";
 
-function allPaths() {
+export function getStaticPaths() {
   const out: { params: { path: string | undefined }; props: { lang: Lang; page: PageKey; slug?: string; service?: string } }[] = [];
   for (const lang of ["EN", "PT"] as Lang[]) {
     for (const [page, url] of Object.entries(ROUTES[lang]) as [PageKey, string][]) {
@@ -27,7 +28,7 @@ function allPaths() {
   return out;
 }
 const want = (Astro.params.path || "").replace(/\.html$/, "").replace(/\/$/, "");
-const hit = allPaths().find((x) => (x.params.path || "") === want);
+const hit = getStaticPaths().find((x) => (x.params.path || "") === want);
 if (!hit) return new Response("Not found", { status: 404 });
 const { lang, page, slug, service } = hit.props;
 const LEGAL = ["terms", "privacy", "cookies", "dataprotection", "ethics", "refunds", "accessibility"];
