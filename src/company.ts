@@ -29,7 +29,8 @@ export const PHOTO = {
 export const VIDEO: Record<"guyana" | "brazil" | "usa", string> = { guyana: "", brazil: "", usa: "" };
 
 export const IMG = {
-  logo: W("92e77a_aa6304742f1e4e568e671e1221a14847~mv2.png"),
+  logo: "/brand/connectas-logo-black-600.png",       // official logo files live in /public/brand (black, grey, white)
+  logoWhite: "/brand/connectas-logo-white-600.png",
   mosaic: W("ffe100_4fc1389f333348dd9309ff847b87e43d~mv2.png"),
   globe: W("ffe100_f3e55eb86dd7473cb1ba0bcaa8f11031~mv2.png"),
   // "Trusted by" logos (MilClean removed on purpose). s = visual scale, because some files have wide margins; inv = white logo shown dark
