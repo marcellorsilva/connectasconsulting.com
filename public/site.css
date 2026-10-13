@@ -656,17 +656,24 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .imac-chin { height: 0; padding-bottom: 9%; background: linear-gradient(180deg, #DCE6EE 0%, #C7D4DF 100%); margin-top: 2.2%; }
 .imac-neck { width: 16%; height: 0; padding-bottom: 11%; background: linear-gradient(90deg, #BFCAD3, #DCE5EC 50%, #BFCAD3); clip-path: polygon(8% 0, 92% 0, 100% 100%, 0 100%); }
 .imac-foot { width: 26%; height: 8px; border-radius: 0 0 8px 8px; background: linear-gradient(180deg, #CAD4DC, #AEB9C2); }
-.dev-iphone { margin: 0; position: relative; width: 270px; max-width: 100%; filter: drop-shadow(0 30px 40px rgba(10,10,10,.22)); }
-.ip-frame { border-radius: 52px; padding: 5px; background: linear-gradient(145deg, #9A9A9F, #5E5E63 30%, #8D8D92 60%, #4E4E53); }
-.ip-screen { position: relative; border-radius: 47px; overflow: hidden; border: 7px solid #050505; aspect-ratio: 390 / 844; background: #000; }
-.ip-screen > img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.ip-screen > .mk-screen { border-radius: 0; min-height: 100%; height: 100%; }
-.ip-island { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 32%; height: 22px; border-radius: 999px; background: #000; }
-.ip-btn { position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #6A6A6F, #9A9A9F); }
-.ip-a { left: -2px; top: 17%; height: 4%; } .ip-b { left: -2px; top: 25%; height: 8%; } .ip-c { left: -2px; top: 35%; height: 8%; } .ip-d { right: -2px; top: 27%; height: 12%; }
+/* iPhone 17 — 71.5 x 149.6 mm body, flat aluminium band, thin even bezels, Dynamic Island,
+   Action button + volume on the left, side button + Camera Control on the right. Sizes in cqw (% of width). */
+.dev-iphone { margin: 0; position: relative; width: 290px; max-width: 100%; aspect-ratio: 71.5 / 149.6; container-type: inline-size; filter: drop-shadow(0 26px 34px rgba(10,10,10,.22)) drop-shadow(0 4px 8px rgba(10,10,10,.12)); }
+.ip-frame { position: absolute; inset: 0; border-radius: 17.6cqw; padding: 1.3cqw; background: linear-gradient(135deg, #E3E9EE 0%, #B9C4CE 22%, #D7DFE6 50%, #A9B5C0 78%, #CBD4DC 100%); box-shadow: inset 0 0 0 .35cqw rgba(255,255,255,.55), inset 0 0 0 .7cqw rgba(0,0,0,.08); }
+.ip-screen { position: relative; height: 100%; border-radius: 16.3cqw; overflow: hidden; background: #000; border: 2.6cqw solid #050506; aspect-ratio: auto; }
+.ip-screen > img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 13.9cqw; }
+.ip-screen > .mk-screen { border-radius: 13.9cqw; min-height: 100%; height: 100%; }
+.ip-island { position: absolute; z-index: 3; top: 2.9cqw; left: 50%; transform: translateX(-50%); width: 30cqw; height: 8.8cqw; border-radius: 999px; background: #000; box-shadow: inset 0 0 0 .4cqw #0b0b0d; }
+.ip-island::after { content: ""; position: absolute; right: 18%; top: 50%; width: 3.2cqw; height: 3.2cqw; transform: translateY(-50%); border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2a3550, #07080c 70%); }
+.ip-btn { position: absolute; width: 1.1cqw; border-radius: .6cqw; background: linear-gradient(90deg, #9AA6B1, #D3DBE2 60%, #AEB9C3); }
+.ip-a { left: -.8cqw; top: 18%; height: 5.6%; }
+.ip-b { left: -.8cqw; top: 27%; height: 9%; }
+.ip-c { left: -.8cqw; top: 38%; height: 9%; }
+.ip-d { right: -.8cqw; top: 29%; height: 13%; }
+.ip-e { right: -.55cqw; top: 58%; height: 7.5%; width: .8cqw; background: linear-gradient(90deg, #8F9BA6, #C2CBD3); }
 .dev-pair { position: relative; width: 100%; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 10px; }
-.dev-pair .dev-iphone { position: absolute; right: 2%; bottom: 0; width: 26%; min-width: 150px; }
-@media (max-width: 700px) { .dev-iphone { width: 220px; } .dev-pair .dev-iphone { width: 30%; min-width: 110px; } }
+.dev-pair .dev-iphone { position: absolute; right: 0; bottom: -2%; width: 27%; min-width: 150px; }
+@media (max-width: 700px) { .dev-iphone { width: 230px; } .dev-pair .dev-iphone { width: 32%; min-width: 110px; } }
 
 /* ---------- Everything connected (hub) ---------- */
 .connected { overflow: hidden; }
@@ -687,3 +694,12 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 @media (max-width: 560px) { .hub-node { font-size: 11px; padding: 5px 9px; } }
 @media (prefers-reduced-motion: reduce) { .hub-node { opacity: 1; transform: translate(-50%, -50%); } .hub-lines line { stroke-dashoffset: 0; } }
 .tags .tag-open { border-style: dashed; color: var(--accent); background: transparent; }
+.ip-status { position: absolute; top: 0; left: 0; right: 0; height: 13cqw; background: #fff; display: flex; align-items: center; padding: 0 8cqw 0 11cqw; gap: 1.6cqw; z-index: 1; font-family: -apple-system, "SF Pro Text", Manrope, sans-serif; }
+.ip-status b { font-size: 4.6cqw; font-weight: 600; color: #000; margin-right: auto; letter-spacing: -.02em; }
+.ip-sig { width: 5.4cqw; height: 3.4cqw; background: linear-gradient(90deg, #000 0 18%, transparent 18% 27%, #000 27% 45%, transparent 45% 54%, #000 54% 72%, transparent 72% 81%, #000 81%); clip-path: polygon(0 75%, 18% 75%, 18% 100%, 0 100%, 0 75%, 27% 50%, 45% 50%, 45% 100%, 27% 100%, 27% 50%, 54% 25%, 72% 25%, 72% 100%, 54% 100%, 54% 25%, 81% 0, 100% 0, 100% 100%, 81% 100%); }
+.ip-wifi { width: 4.8cqw; height: 3.4cqw; background: #000; clip-path: polygon(50% 100%, 0 30%, 15% 12%, 50% 0, 85% 12%, 100% 30%); }
+.ip-bat { width: 7cqw; height: 3.4cqw; border: .45cqw solid rgba(0,0,0,.4); border-radius: 1.1cqw; position: relative; box-sizing: border-box; }
+.ip-bat::before { content: ""; position: absolute; inset: .45cqw; right: 1.4cqw; background: #000; border-radius: .5cqw; }
+.ip-bat::after { content: ""; position: absolute; right: -1.2cqw; top: 30%; width: .7cqw; height: 40%; background: rgba(0,0,0,.4); border-radius: 0 .5cqw .5cqw 0; }
+.ip-screen > img.ip-shot { position: absolute; top: 13cqw; left: 0; width: 100%; height: calc(100% - 13cqw); border-radius: 0 0 13.9cqw 13.9cqw; }
+.ip-screen:has(.ip-status) { background: #fff; }
