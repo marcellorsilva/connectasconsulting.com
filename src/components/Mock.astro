@@ -11,30 +11,27 @@ const ex = L("Example", "Exemplo");
   <div class="dev-pair"><Device kind="imac" src="/shots/imac-system.jpg" alt={L("Operations dashboard of a management system", "Painel de operações de um sistema de gestão")} /><Device kind="iphone" src="/shots/iphone-app.jpg" alt={L("Client app home screen", "Tela inicial do app do cliente")} /></div>
 )}
 {kind === "signin" && (
-  <div class="mk mk-card mk-signin"><em class="mk-ex">{ex}</em><b class="mk-brand">YourBrand</b><h4>{L("Sign in", "Entrar")}</h4><p>{L("Welcome back. Use your work account.", "Bem-vindo de volta. Use sua conta de trabalho.")}</p>
-    <span class="mk-btn ghost">{L("Continue with Google", "Continuar com Google")}</span><span class="mk-btn ghost">{L("Continue with Microsoft", "Continuar com Microsoft")}</span>
-    <span class="mk-in">name@company.com</span><span class="mk-btn">{L("Continue", "Continuar")}</span>
-    <small>{L("2-step verification · Face ID on the app · e-mail confirmed before access", "Verificação em duas etapas · Face ID no app · e-mail confirmado antes do acesso")}</small></div>
+  <div class="dev-pair"><Device kind="imac" src="/shots/imac-login.jpg" alt={L("Branded sign-in page of a client portal", "Página de login com a marca do cliente")} /><Device kind="iphone" src="/shots/iphone-login.jpg" alt={L("Sign-in screen of the mobile app", "Tela de login do app")} /></div>
 )}
 {kind === "roles" && (
-  <div class="mk mk-card"><div class="mk-h">{L("Roles and permissions", "Perfis e permissões")}<em>{ex}</em></div>
+  <Device kind="imac"><div class="mk-desk"><div class="mk-desk-bar"><b>YourBrand</b><span></span><span></span><span></span><i></i></div><div class="mk-desk-body"><div class="mk mk-card"><div class="mk-h">{L("Roles and permissions", "Perfis e permissões")}<em>{ex}</em></div>
     <table class="mk-table"><thead><tr><th></th><th>{L("Admin", "Admin")}</th><th>{L("Staff", "Equipe")}</th><th>{L("Client", "Cliente")}</th></tr></thead>
       <tbody>{[[L("See every client", "Ver todos os clientes"), 1, 0, 0], [L("Assigned clients", "Clientes atribuídos"), 1, 1, 0], [L("Own documents", "Próprios documentos"), 1, 1, 1], [L("Approve quotes", "Aprovar orçamentos"), 1, 1, 1], [L("Billing", "Cobrança"), 1, 0, 0]].map(([t, a, b, c]) => <tr><td>{t}</td>{[a, b, c].map((v) => <td>{v ? <span class="y">✓</span> : <span class="n">—</span>}</td>)}</tr>)}</tbody></table>
-    <small>{L("Each company's data is isolated by the database itself.", "Os dados de cada empresa ficam isolados pelo próprio banco de dados.")}</small></div>
+    <small>{L("Each company's data is isolated by the database itself.", "Os dados de cada empresa ficam isolados pelo próprio banco de dados.")}</small></div></div></div></Device>
 )}
 {kind === "payments" && (
-  <div class="mk mk-card mk-pay"><div class="mk-h">{L("Your plan", "Seu plano")}<em>{ex}</em></div>
+  <Device kind="imac"><div class="mk-desk"><div class="mk-desk-bar"><b>YourBrand</b><span></span><span></span><span></span><i></i></div><div class="mk-desk-body"><div class="mk mk-card mk-pay"><div class="mk-h">{L("Your plan", "Seu plano")}<em>{ex}</em></div>
     <div class="mk-plan"><div><b>{L("Base subscription", "Assinatura base")}</b><small>{L("Monthly · cancel with 30 days' notice", "Mensal · cancelamento com 30 dias de aviso")}</small></div><span class="mk-pill">{L("Active", "Ativo")}</span></div>
     <div class="mk-plan"><div><b>{L("Property management", "Gestão de imóveis")}</b><small>{L("Add-on module", "Módulo adicional")}</small></div><span class="mk-btn sm">{L("Add", "Adicionar")}</span></div>
     <div class="mk-cardline"><span>•••• •••• •••• 4242</span><span>VISA</span></div>
-    <small>{L("Card payments by Stripe — card details never touch our servers.", "Pagamentos com cartão pelo Stripe — os dados do cartão nunca passam pelos nossos servidores.")}</small></div>
+    <small>{L("Card payments by Stripe — card details never touch our servers.", "Pagamentos com cartão pelo Stripe — os dados do cartão nunca passam pelos nossos servidores.")}</small></div></div></div></Device>
 )}
 {kind === "domain" && (
-  <div class="mk mk-card mk-domain"><div class="mk-h">{L("Your domain and brand", "Seu domínio e sua marca")}<em>{ex}</em></div>
+  <Device kind="imac"><div class="mk-desk"><div class="mk-desk-bar"><b>YourBrand</b><span></span><span></span><span></span><i></i></div><div class="mk-desk-body"><div class="mk mk-card mk-domain"><div class="mk-h">{L("Your domain and brand", "Seu domínio e sua marca")}<em>{ex}</em></div>
     <div class="mk-url"><i class="lock"></i>portal.yourcompany.com<span class="mk-pill">{L("Live", "No ar")}</span></div>
     <div class="mk-swatches"><span style="background:#0A0A0A"></span><span style="background:#1F4E79"></span><span style="background:#E6DCCB"></span><span style="background:#2E7D5B"></span></div>
     <div class="mk-brandrow"><b>YourBrand</b><small>{L("Logo, colours, e-mails and app icon", "Logo, cores, e-mails e ícone do app")}</small></div>
-    <small>{L("SSL certificate, backups and monitoring included.", "Certificado SSL, backups e monitoramento incluídos.")}</small></div>
+    <small>{L("SSL certificate, backups and monitoring included.", "Certificado SSL, backups e monitoramento incluídos.")}</small></div></div></div></Device>
 )}
 {kind === "phone" && (
   <Device kind="iphone" src="/shots/iphone-app.jpg" alt={L("Client app home screen", "Tela inicial do app do cliente")} />
@@ -50,6 +47,6 @@ const ex = L("Example", "Exemplo");
 )}
 {kind === "whitelabel" && (
   <div class="mk mk-duo"><em class="mk-ex">{ex}</em>
-    {[["#1F4E79", "Atlas Clinics"], ["#2E7D5B", "Verde Homes"]].map(([c, n]) => <div class="mk-phone sm" style={`--brand:${c}`}><div class="mk-notch"></div><div class="mk-screen"><b style="color:var(--brand)">{n}</b><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("My account", "Minha conta")}</b><small>{L("Next appointment", "Próximo compromisso")}</small></div></div><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("Requests", "Solicitações")}</b><small>{L("1 open", "1 aberta")}</small></div></div><span class="mk-btn" style="background:var(--brand);border-color:var(--brand)">{L("New request", "Nova solicitação")}</span></div></div>)}
+    {[["#1F4E79", "Atlas Clinics"], ["#2E7D5B", "Verde Homes"]].map(([c, n]) => <Device kind="iphone"><div class="mk-screen" style={`--brand:${c}`}><b style="color:var(--brand)">{n}</b><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("My account", "Minha conta")}</b><small>{L("Next appointment", "Próximo compromisso")}</small></div></div><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("Requests", "Solicitações")}</b><small>{L("1 open", "1 aberta")}</small></div></div><span class="mk-btn" style="background:var(--brand);border-color:var(--brand)">{L("New request", "Nova solicitação")}</span></div></Device>)}
   </div>
 )}

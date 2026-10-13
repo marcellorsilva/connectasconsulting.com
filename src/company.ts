@@ -33,14 +33,16 @@ export const IMG = {
   mosaic: W("ffe100_4fc1389f333348dd9309ff847b87e43d~mv2.png"),
   globe: W("ffe100_f3e55eb86dd7473cb1ba0bcaa8f11031~mv2.png"),
   // "Trusted by" logos (MilClean removed on purpose). s = visual scale, because some files have wide margins; inv = white logo shown dark
+  // Logos trimmed to their ink (no white margins) so the spacing between them is identical; h = display height in px,
+  // chosen so every logo carries about the same visual weight.
   partners: [
-    { src: W("ffe100_1756a6fb25954eee81b00d1b377bb308~mv2.png"), s: 1 },      // J.D. Netto Creative
-    { src: W("92e77a_4c3a623a74ed4556a732e1b869875442~mv2.png"), s: 1 },      // Acqua Home Living
-    { src: W("92e77a_dee3a23b7e344fce9521a7bd3baa62ea~mv2.png"), s: 1.1 },    // CMRmobility
-    { src: W("92e77a_e22fa845400d406a821fe7258628d28e~mv2.jpg"), s: 1.3 },    // Grupo Protec
-    { src: W("92e77a_97c6bec0f4ab4540bd19d6aa76fda0a9~mv2.png"), s: 1.35 },   // L&C
-    { src: W("92e77a_2818eb05a537409fa78a5fad03cccb8d~mv2.png"), s: 0.95, inv: true }, // Round Table
-    { src: "/partners/swerve.png", s: 0.85 },                                    // Swerve Creative Agency
-    { src: "/partners/the-nettoverse.png", s: 0.95, inv: true },                 // The Nettoverse
+    { src: "/partners/jd-netto.png", h: 40 },                   // J.D. Netto Creative
+    { src: "/partners/acqua.png", h: 38 },                      // Acqua Home Living
+    { src: "/partners/cmr.png", h: 42 },                        // CMRmobility
+    { src: "/partners/protec.png", h: 44 },                     // Grupo Protec
+    { src: "/partners/lc.png", h: 44 },                         // L&C
+    { src: "/partners/round-table.png", h: 38, inv: true },     // Round Table
+    { src: "/partners/swerve.png", h: 22 },                     // Swerve Creative Agency
+    { src: "/partners/the-nettoverse.png", h: 48, inv: true },  // The Nettoverse
   ],
 };

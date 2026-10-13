@@ -198,7 +198,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
   <div class="trusted">
     <div class="wrap">
       <span class="lbl">{L("Trusted by companies in our markets", "A confiança de empresas dos nossos mercados")}</span>
-      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => IMG.partners.map((p) => <span class="logo-cell"><img src={p.src} class:list={{ inv: p.inv }} style={`--s:${p.s}`} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} /></span>))}</div></div>
+      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => IMG.partners.map((p) => <span class="logo-cell"><img src={p.src} class:list={{ inv: p.inv }} style={`height:${p.h}px`} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} /></span>))}</div></div>
     </div>
 
   <section id="contact" class="sand">
