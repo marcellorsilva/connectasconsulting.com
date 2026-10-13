@@ -22,7 +22,7 @@ export const PHOTO = {
   brazil: `${W("11062b_0da4e81deb614205abd77688ca7eaaa9~mv2.jpeg")}/v1/fit/w_2400,h_2400,q_85/brazil.jpg`,
   usa: `${W("5e4f822698fc4e23b2b48f0dda9e765a.jpg")}/v1/fit/w_2400,h_2400,q_85/usa.jpg`,                  // New York at sunset
   usa2: WI("92e77a_f6bd6c04d1014f10be0714b99025edd7~mv2.jpg", 1200, 1200),       // Wall Street
-  founder: `${W("ffe100_1711e3f3758144ffa10f93e921e36dec~mv2.png")}/v1/fit/w_1800,h_2700,q_88/marcello-silva.png`, // Marcello Silva, New York
+  founder: "/photos/marcello-silva-bw.jpg", // Marcello Silva, New York — black and white, waist up
   tech: WI("11062b_7a56e8ec12ef4d00b2ec73822f42de31~mv2.jpg", 2000, 1200),       // team at work
 };
 // Country hero videos (mp4). Empty = the page uses the photo with a slow zoom instead.

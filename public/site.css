@@ -900,3 +900,4 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .bigstat-trio p { font-size: 17px; margin-top: 10px; }
 .bigstat:has(.bigstat-trio)::after { background: linear-gradient(180deg, rgba(10,10,10,.15) 20%, rgba(10,10,10,.78) 100%); }
 @media (max-width: 700px) { .bigstat-trio { grid-template-columns: 1fr; gap: 18px; } .bigstat-trio .v { font-size: 64px; } }
+.founder-photo img[src*="marcello-silva-bw"] { object-position: 50% 50%; }
