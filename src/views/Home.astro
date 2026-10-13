@@ -48,6 +48,10 @@ const faq = [
   [L("Do you work in Portuguese and English?", "Vocês atendem em português e inglês?"), L("Yes. Our team works in both languages, and documents, websites and campaigns can be delivered in either or both.", "Sim. Nossa equipe trabalha nos dois idiomas, e documentos, sites e campanhas podem ser entregues em um ou nos dois.")],
   [L("How are fees charged?", "Como são cobrados os serviços?"), L("Consulting, relocation, websites and marketing are priced per project in a written proposal. Our software platform is a monthly subscription.", "Consultoria, realocação, sites e marketing têm preço por projeto, em proposta escrita. Nossa plataforma de software é uma assinatura mensal.")],
 ];
+const nodes = pt
+  ? ["Plano de negócios", "Empresa e registros", "Site", "App", "Sistemas", "E-mail e domínio", "Identidade de marca", "Redes sociais", "Apresentações e propostas", "Pessoas e realocação"]
+  : ["Business plan", "Company & registrations", "Website", "App", "Systems", "E-mail & domain", "Brand identity", "Social media", "Presentations & proposals", "People & relocation"];
+const ring = nodes.map((n, i) => { const a = (i / nodes.length) * Math.PI * 2 - Math.PI / 2; return { n, x: 50 + Math.cos(a) * 40, y: 50 + Math.sin(a) * 38 }; });
 const latest = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
 const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt-BR" : "en-US", { day: "numeric", month: "short", year: "numeric" });
 ---
@@ -87,6 +91,22 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
   <section class="statement">
     <div class="wrap">
       <p class="reveal">{L("Expanding to a new country usually means hiring five different firms.", "Expandir para outro país costuma significar contratar cinco empresas diferentes.")} <span>{L("With Connectas, it means one team, one plan and one point of contact.", "Com a Connectas, significa uma equipe, um plano e um ponto de contato.")}</span></p>
+    </div>
+  </section>
+
+  <section class="connected">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="eyebrow">{L("Everything connected", "Tudo conectado")}</span>
+        <h2>{L("Everything your company needs to run —", "Tudo o que a sua empresa precisa para funcionar —")} <em>{L("connected.", "conectado.")}</em></h2>
+        <p class="lead" style="font-size:19px">{L("Connectas connects you to everything it takes to get your company running, with a brand that speaks for you from start to finish. From the website to the app, from your e-mail to the way you present yourself, every piece tells the same story.", "A Connectas conecta você a tudo o que é preciso para colocar a sua empresa para rodar, com uma marca que fala por você do começo ao fim. Do site ao app, do e-mail à forma de se posicionar, cada peça conta a mesma história.")}</p>
+        <p class="muted">{L("When everything is connected, you are recognised, trusted and well positioned in your market from the first contact.", "Quando tudo está conectado, você é reconhecido, transmite confiança e fica bem posicionado no seu mercado desde o primeiro contato.")}</p>
+      </div>
+      <div class="hub reveal" style="--d:120ms" aria-label={L("Connectas at the centre of your business", "A Connectas no centro do seu negócio")}>
+        <svg class="hub-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">{ring.map((r, i) => <line x1="50" y1="50" x2={r.x} y2={r.y} style={`--i:${i}`} />)}</svg>
+        <div class="hub-core"><img src={IMG.logo} alt="Connectas" /></div>
+        {ring.map((r, i) => <span class="hub-node" style={`left:${r.x}%;top:${r.y}%;--i:${i}`}>{r.n}</span>)}
+      </div>
     </div>
   </section>
 

@@ -40,7 +40,7 @@ export const SERVICES: Service[] = [
     title: { EN: "Websites, Systems & Apps", PT: "Sites, Sistemas e Apps" },
     short: { EN: "Websites, management systems and iPhone/Android apps — including white-label systems and apps under your own brand.", PT: "Sites, sistemas de gestão e apps para iPhone e Android — incluindo sistemas e apps white label com a sua marca." },
     long: { EN: "Your operation in the new market needs to work from day one. We design and build websites, management systems, client portals and mobile apps — and offer white-label systems and apps that carry your brand.", PT: "Sua operação no novo mercado precisa funcionar desde o primeiro dia. Criamos sites, sistemas de gestão, portais para clientes e aplicativos — e oferecemos sistemas e apps white label com a sua marca." },
-    more: { EN: "Including our own platform for relocation and property-management companies, offered as a monthly subscription.", PT: "Incluindo a nossa própria plataforma para empresas de realocação e gestão de imóveis, oferecida por assinatura mensal." },
+    more: { EN: "Including our own white-label platform, offered as a monthly subscription for companies in any sector.", PT: "Incluindo a nossa própria plataforma white label, oferecida por assinatura mensal para empresas de qualquer setor." },
     tags: { EN: ["Websites", "Systems", "iPhone & Android", "White label"], PT: ["Sites", "Sistemas", "iPhone e Android", "White label"] },
   },
   {

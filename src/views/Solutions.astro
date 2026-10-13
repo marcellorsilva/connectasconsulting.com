@@ -28,7 +28,7 @@ const R = ROUTES[lang];
           <span class="n">0{i + 1}</span>
           <div><span class="ic" style="display:block;width:44px;height:44px;margin-bottom:18px" set:html={ICON[s.icon].replace("<svg", '<svg style="width:100%;height:100%;fill:none;stroke:#000;stroke-width:1"')} /><h3>{s.title[lang]}</h3></div>
           <div><p class="lead" style="font-size:19px;color:var(--text)">{s.long[lang]}</p><p>{s.more[lang]}</p>
-            {s.key === "technology" && <p><a class="link" href={R.technology}>{L("See our relocation & property-management platform →", "Conheça nossa plataforma de realocação e gestão de imóveis →")}</a></p>}
+            {s.key === "technology" && <p><a class="link" href={R.technology}>{L("See our technology and white-label platform →", "Conheça nossa tecnologia e a plataforma white label →")}</a></p>}
             <ul>{s.tags[lang].map((t) => <li>{t}</li>)}</ul></div>
         </div>)}
       </div>
