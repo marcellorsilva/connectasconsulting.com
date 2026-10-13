@@ -864,3 +864,28 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .mk-trio .dev-iphone:nth-child(2) { transform: translateY(-24px); }
 .mk-trio .dev-iphone.pre.seen:last-child { animation-name: phoneIn; animation-delay: .65s; }
 .mk-trio .dev-iphone.pre.seen:nth-child(2) { animation-name: phoneInUp; animation-delay: .5s; }
+/* Real website inside the iMac, under a browser address bar */
+.mk-live { display: flex; flex-direction: column; }
+.mk-live .mk-bar { flex: none; padding: 9px 14px; }
+.mk-live .mk-bar span { display: inline-flex; align-items: center; gap: 6px; min-width: 46%; justify-content: center; color: #3A3F47; }
+.mk-live .mk-bar .lock { width: 8px; height: 9px; border: 1.5px solid #8A9099; border-radius: 2px; position: relative; top: 1px; }
+.mk-live > img { flex: 1; min-height: 0; width: 100%; object-fit: cover; object-position: top left; display: block; }
+/* Branded e-mail inside the iPhone (domain & brand example) */
+.mk-mail { height: 100%; background: #fff; display: flex; flex-direction: column; font-family: -apple-system, "SF Pro Text", Manrope, sans-serif; padding: 2cqw 5cqw 0; gap: 2.6cqw; overflow: hidden; }
+.mm-top { display: flex; justify-content: space-between; color: #0A84FF; font-size: 4.6cqw; padding-top: 1cqw; }
+.mm-ic { letter-spacing: 2cqw; }
+.mm-from { display: flex; align-items: center; gap: 3cqw; }
+.mm-av { width: 11cqw; height: 11cqw; border-radius: 50%; background: #EEF5F5; display: grid; place-items: center; overflow: hidden; flex: none; }
+.mm-av img { width: 80%; height: auto; }
+.mm-from b { display: block; font-size: 4.6cqw; color: #111; }
+.mm-from small { font-size: 3.6cqw; color: #8A8F98; }
+.mm-time { margin-left: auto; align-self: flex-start; font-size: 3.6cqw; color: #8A8F98; }
+.mk-mail h5 { margin: 0; font-size: 5.6cqw; line-height: 1.25; color: #111; font-weight: 600; }
+.mm-card { border: 1px solid #E3E8EA; border-radius: 4cqw; overflow: hidden; }
+.mm-head { background: #17414A; padding: 4cqw; display: grid; place-items: center; }
+.mm-head img { height: 9cqw; width: auto; filter: brightness(0) invert(1); }
+.mm-body { padding: 4.5cqw; font-size: 3.9cqw; line-height: 1.5; color: #3B4A4E; }
+.mm-body p { margin: 0 0 2.4cqw; }
+.mm-body b { color: #17414A; }
+.mm-btn { display: block; text-align: center; background: #2A7A86; color: #fff; border-radius: 999px; padding: 3cqw; font-weight: 600; font-size: 4cqw; margin: 3.4cqw 0; }
+.mm-body small { display: block; text-align: center; font-size: 3.2cqw; color: #8A8F98; }

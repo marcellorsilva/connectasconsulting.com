@@ -27,17 +27,24 @@ const ex = L("Example", "Exemplo");
     <small>{L("Card payments by Stripe — card details never touch our servers.", "Pagamentos com cartão pelo Stripe — os dados do cartão nunca passam pelos nossos servidores.")}</small></div></div></div></Device>
 )}
 {kind === "domain" && (
-  <Device kind="imac"><div class="mk-desk"><div class="mk-desk-bar"><b>Atlas Clinics</b><span></span><span></span><span></span><i></i></div><div class="mk-desk-body"><div class="mk mk-card mk-domain"><div class="mk-h">{L("Your domain and brand", "Seu domínio e sua marca")}<em>{ex}</em></div>
-    <div class="mk-url"><i class="lock"></i>portal.atlasclinics.com<span class="mk-pill">{L("Live", "No ar")}</span></div>
-    <div class="mk-swatches"><span style="background:#0A0A0A"></span><span style="background:#1F4E79"></span><span style="background:#E6DCCB"></span><span style="background:#2E7D5B"></span></div>
-    <div class="mk-brandrow"><b>Atlas Clinics</b><small>{L("Logo, colours, e-mails and app icon", "Logo, cores, e-mails e ícone do app")}</small></div>
-    <small>{L("SSL certificate, backups and monitoring included.", "Certificado SSL, backups e monitoramento incluídos.")}</small></div></div></div></Device>
+  <div class="dev-pair"><Device kind="imac"><div class="mk mk-browser mk-live"><div class="mk-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span><b class="lock" aria-hidden="true"></b>portal.cmrmobility.gy</span></div><img src="/shots/imac-hr.jpg" alt={L("Client portal on the company's own domain", "Portal do cliente no domínio da própria empresa")} loading="lazy" /></div></Device>
+    <Device kind="iphone"><div class="mk mk-mail">
+      <div class="mm-top"><span>‹ {L("Inbox", "Entrada")}</span><span class="mm-ic">⌃ ⌄</span></div>
+      <div class="mm-from"><span class="mm-av"><img src="/partners/cmr.png" alt="" /></span><div><b>CMRmobility</b><small>noreply@cmrmobility.gy</small></div><small class="mm-time">9:38</small></div>
+      <h5>{L("Your housing shortlist is ready", "Sua pré-seleção de imóveis está pronta")}</h5>
+      <div class="mm-card">
+        <div class="mm-head"><img src="/partners/cmr.png" alt="CMRmobility" /></div>
+        <div class="mm-body"><p><b>{L("Hi Michael,", "Olá, Michael,")}</b></p><p>{L("We selected 3 homes that match your company's policy. Review them and book your viewings.", "Selecionamos 3 imóveis dentro da política da sua empresa. Veja as opções e agende as visitas.")}</p>
+          <span class="mm-btn">{L("Open my portal", "Abrir meu portal")}</span>
+          <small>CMRmobility · Georgetown, Guyana</small></div>
+      </div>
+    </div></Device></div>
 )}
 {kind === "phone" && (
   <Device kind="iphone" src="/shots/iphone-app.jpg" alt={L("Client app home screen", "Tela inicial do app do cliente")} />
 )}
 {kind === "website" && (
-  <Device kind="imac" src="/shots/site-swerve.jpg" alt={L("Website of a creative agency built on our platform", "Site de uma agência criativa feito na nossa plataforma")} />
+  <Device kind="imac"><div class="mk mk-browser mk-live"><div class="mk-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span><b class="lock" aria-hidden="true"></b>swervecreativeagency.com</span></div><img src="/shots/site-swerve.jpg" alt={L("Website of a creative agency built on our platform", "Site de uma agência criativa feito na nossa plataforma")} loading="lazy" /></div></Device>
 )}
 {kind === "portal" && (
   <Device kind="imac" src="/shots/imac-hr.jpg" alt={L("Client portal for a corporate HR team", "Portal do cliente para o RH de uma empresa")} />

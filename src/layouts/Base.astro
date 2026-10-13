@@ -182,6 +182,12 @@ const year = 2026;
           }, { rootMargin: "0px 0px -10% 0px", threshold: 0.15 });
           anim.forEach(function (e) { e.classList.add("pre"); dio.observe(e); });
         }
+        // Tabs and lists that reveal a hidden pane: animate the devices in it right away
+        if (!window.__devClick) { window.__devClick = true; document.addEventListener("click", function (e) {
+          if (!e.target.closest("[data-tab], [data-incl-i]")) return;
+          setTimeout(function () { document.querySelectorAll(".pre:not(.seen)").forEach(function (x) { if (x.offsetParent) x.classList.add("seen"); }); }, 30);
+        }); }
+        setTimeout(function () { document.querySelectorAll(".pre:not(.seen)").forEach(function (x) { var r = x.getBoundingClientRect(); if (x.offsetParent && r.top < innerHeight && r.bottom > 0) x.classList.add("seen"); }); }, 2500);
         // Animated counters
         document.querySelectorAll("[data-count]:not([data-done])").forEach(function (el) {
           var o = new IntersectionObserver(function (es) {
