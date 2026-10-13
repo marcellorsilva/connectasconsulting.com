@@ -8,25 +8,29 @@ import Insights from "../views/Insights.astro";
 import Post from "../views/Post.astro";
 import About from "../views/About.astro";
 import Legal from "../views/Legal.astro";
-import { ROUTES, postUrl, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
+import Service from "../views/Service.astro";
+import { SERVICES } from "../lib/services";
+import { ROUTES, postUrl, serviceUrl, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
 import { POSTS } from "../blog/posts";
 
 export function getStaticPaths() {
-  const out: { params: { path: string | undefined }; props: { lang: Lang; page: PageKey; slug?: string } }[] = [];
+  const out: { params: { path: string | undefined }; props: { lang: Lang; page: PageKey; slug?: string; service?: string } }[] = [];
   for (const lang of ["EN", "PT"] as Lang[]) {
     for (const [page, url] of Object.entries(ROUTES[lang]) as [PageKey, string][]) {
       if (page === "insights" && !INSIGHTS_ON) continue;
       out.push({ params: { path: url === "/" ? undefined : url.slice(1) }, props: { lang, page } });
     }
+    for (const sv of SERVICES) out.push({ params: { path: serviceUrl(lang, sv.key).slice(1) }, props: { lang, page: "solutions", service: sv.key } });
     if (INSIGHTS_ON) for (const p of POSTS) out.push({ params: { path: postUrl(lang, p.slug).slice(1) }, props: { lang, page: "insights", slug: p.slug } });
   }
   return out;
 }
-const { lang, page, slug } = Astro.props;
+const { lang, page, slug, service } = Astro.props;
 const LEGAL = ["terms", "privacy", "cookies", "dataprotection", "ethics", "refunds", "accessibility"];
 ---
 {page === "home" && <Home lang={lang} />}
-{page === "solutions" && <Solutions lang={lang} />}
+{page === "solutions" && !service && <Solutions lang={lang} />}
+{page === "solutions" && service && <Service lang={lang} service={service} />}
 {(page === "guyana" || page === "brazil" || page === "usa") && <Country lang={lang} country={page} />}
 {page === "technology" && <Technology lang={lang} />}
 {page === "insights" && !slug && <Insights lang={lang} />}

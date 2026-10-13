@@ -3,7 +3,7 @@ import { ClientRouter } from "astro:transitions";
 import { COMPANY, IMG, PHOTO } from "../company";
 import { SERVICES } from "../lib/services";
 import { ICON } from "../lib/icons";
-import { ROUTES, SITE, INSIGHTS_ON, type Lang, type PageKey } from "../lib/routes";
+import { ROUTES, SITE, INSIGHTS_ON, serviceUrl, type Lang, type PageKey } from "../lib/routes";
 import CookieNotice from "../components/CookieNotice.astro";
 import Flag from "../components/Flag.astro";
 
@@ -68,7 +68,7 @@ const year = 2026;
               <div class="mega">
                 <div class="mega-col">
                   <span class="mega-h">{L("By service", "Por serviço")}</span>
-                  <div class="mega-grid">{SERVICES.map((sv) => <a href={`${R.solutions}#${sv.key}`} class="mega-item"><span class="mega-ic" set:html={ICON[sv.icon]} /><span><b>{sv.title[lang]}</b><small>{MENU_SHORT[sv.key][pt ? 1 : 0]}</small></span></a>)}</div>
+                  <div class="mega-grid">{SERVICES.map((sv) => <a href={serviceUrl(lang, sv.key)} class="mega-item"><span class="mega-ic" set:html={ICON[sv.icon]} /><span><b>{sv.title[lang]}</b><small>{MENU_SHORT[sv.key][pt ? 1 : 0]}</small></span></a>)}</div>
                 </div>
                 <div class="mega-col">
                   <span class="mega-h">{L("By market", "Por mercado")}</span>

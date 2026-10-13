@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ContactForm from "../components/ContactForm.astro";
-import { ROUTES, postUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
+import { ROUTES, postUrl, serviceUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
 import { PHOTO, VIDEO } from "../company";
 import { SERVICES } from "../lib/services";
 import { COUNTRIES } from "../lib/countries";
@@ -81,7 +81,7 @@ const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== countr
   <section>
     <div class="wrap split at">
       <div class="reveal"><span class="eyebrow">{L("How Connectas helps", "Como a Connectas ajuda")}</span><h2>{L("One plan. One team.", "Um plano. Uma equipe.")}</h2><p class="lead" style="font-size:18px">{C.how[lang]}</p></div>
-      <div class="rows reveal" style="--d:120ms">{SERVICES.map((s) => <a href={`${R.solutions}#${s.key}`} class="srow" style="grid-template-columns:1fr auto;padding:18px 0;text-decoration:none"><h3 style="margin:0;font-size:20px">{s.title[lang]}</h3><span class="muted">→</span></a>)}</div>
+      <div class="rows reveal" style="--d:120ms">{SERVICES.map((s) => <a href={serviceUrl(lang, s.key)} class="srow" style="grid-template-columns:1fr auto;padding:18px 0;text-decoration:none"><h3 style="margin:0;font-size:20px">{s.title[lang]}</h3><span class="muted">→</span></a>)}</div>
     </div>
   </section>
 

@@ -4,7 +4,7 @@ import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Flag from "../components/Flag.astro";
 import { COMPANY, IMG, PHOTO } from "../company";
-import { ROUTES, postUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
+import { ROUTES, postUrl, serviceUrl, INSIGHTS_ON, type Lang } from "../lib/routes";
 import { ICON } from "../lib/icons";
 import { SERVICES } from "../lib/services";
 import { POSTS } from "../blog/posts";
@@ -127,7 +127,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
         <p class="lead reveal" style="--d:120ms">{L("Seven services that work on their own or together, coordinated as one project.", "Sete serviços que funcionam sozinhos ou juntos, coordenados como um só projeto.")}</p>
       </div>
       <div class="svc-grid reveal" data-stagger>
-        {SERVICES.map((s, i) => <a class="svc" href={`${R.solutions}#${s.key}`} style="text-decoration:none">
+        {SERVICES.map((s, i) => <a class="svc" href={serviceUrl(lang, s.key)} style="text-decoration:none">
           <span class="n">0{i + 1}</span><span class="ic" set:html={ICON[s.icon]} /><h3>{s.title[lang]}</h3><p>{s.short[lang]}</p></a>)}
         <a class="svc svc-more" href={R.solutions} style="text-decoration:none">
           <span class="n">→</span><h3>{L("How each service works", "Como cada serviço funciona")}</h3><p>{L("See all solutions", "Ver todas as soluções")} →</p></a>

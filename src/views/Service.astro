@@ -1,0 +1,86 @@
+---
+import Base from "../layouts/Base.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { ROUTES, serviceUrl, type Lang } from "../lib/routes";
+import { SERVICES } from "../lib/services";
+import { DETAILS } from "../lib/serviceDetails";
+import { ICON } from "../lib/icons";
+import { PHOTO } from "../company";
+const { lang, service } = Astro.props as { lang: Lang; service: string };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const R = ROUTES[lang];
+const S = SERVICES.find((x) => x.key === service)!;
+const D = DETAILS.find((x) => x.key === service)!;
+const img = (PHOTO as Record<string, string>)[D.img] || PHOTO.hero;
+const others = SERVICES.filter((x) => x.key !== service);
+const topic = ({ "business-plans": "plan", registration: "register", "market-entry": "market", relocation: "relocation", technology: "tech", marketing: "marketing", support: "other" } as Record<string, string>)[service];
+const C3: ["US" | "BR" | "GY", string][] = [["US", L("United States", "Estados Unidos")], ["BR", L("Brazil", "Brasil")], ["GY", L("Guyana", "Guiana")]];
+---
+<Base lang={lang} page="solutions" alt={{ EN: serviceUrl("EN", service), PT: serviceUrl("PT", service) }} title={`${S.title[lang]} · Connectas`} description={D.lead[lang]}>
+  <section class="hero2">
+    <div class="wrap">
+      <a class="back fade-up" href={R.solutions}>← {L("All solutions", "Todas as soluções")}</a>
+      <div class="hero2-top">
+        <div>
+          <span class="eyebrow fade-up" style="--d:80ms">{S.title[lang]}</span>
+          <h1 style="font-size:clamp(40px,5.4vw,78px)"><span class="mask-line"><span style="--d:150ms">{D.h1[lang]}</span></span></h1>
+        </div>
+        <div class="hero2-side fade-up" style="--d:500ms">
+          <p>{D.lead[lang]}</p>
+          <div class="row"><a class="btn" href="#contact">{L("Talk to us", "Fale com a gente")}<span class="arr">→</span></a><a class="link" href="#included">{L("What's included", "O que está incluído")}</a></div>
+        </div>
+      </div>
+      <figure class="hero2-img svc-hero fade-up" style="--d:400ms"><img src={img} alt="" /><figcaption class="hero2-tag"><span>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="included" class="grey anchor">
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:30px"><span class="eyebrow">{L("What's included", "O que está incluído")}</span><h2>{D.stagesTitle[lang]}</h2></div>
+      <div class="stages reveal" data-stagger>{D.stages.map((st, i) => <div class="stage"><span class="n">{String(i + 1).padStart(2, "0")}</span><h3>{st.t[lang]}</h3><ul>{st.items[lang].map((it) => <li>{it}</li>)}</ul></div>)}</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:30px"><span class="eyebrow">{L("In each country", "Em cada país")}</span><h2>{L("Same service. Local know-how.", "O mesmo serviço. Conhecimento local.")}</h2></div>
+      <div class="c3 reveal" data-stagger>{C3.map(([k, n]) => <a class="c3-card" href={R[k === "US" ? "usa" : k === "BR" ? "brazil" : "guyana"]}><span class="c3-code">{k}</span><h3>{n}</h3><p>{D.countries[k][lang]}</p><span class="link">{({ US: L("Doing business in the United States", "Fazer negócios nos Estados Unidos"), BR: L("Doing business in Brazil", "Fazer negócios no Brasil"), GY: L("Doing business in Guyana", "Fazer negócios na Guiana") })[k]} →</span></a>)}</div>
+    </div>
+  </section>
+
+  <section class="sand">
+    <div class="wrap split at">
+      <div class="reveal"><span class="eyebrow">{L("Who it is for", "Para quem é")}</span><h2>{L("Made for companies — and the people behind them.", "Feito para empresas — e para as pessoas por trás delas.")}</h2></div>
+      <div class="reveal" style="--d:120ms"><ul class="checks">{D.forWho[lang].map((x) => <li style="font-size:18px">{x}</li>)}</ul></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:28px"><span class="eyebrow">{L("What you get", "O que você ganha")}</span><h2>{L("The result.", "O resultado.")}</h2></div>
+      <div class="why reveal" data-stagger>{D.outcomes.map((o) => <div><h3>{o[lang]}</h3></div>)}</div>
+    </div>
+  </section>
+
+  <section class="grey">
+    <div class="wrap split at">
+      <div class="reveal"><span class="eyebrow">{L("Questions", "Perguntas")}</span><h2>{L("Answered plainly.", "Respondidas com clareza.")}</h2></div>
+      <div class="faq reveal" style="--d:120ms">{D.faq.map(([q, a]) => <details><summary>{q[lang]}<i aria-hidden="true"></i></summary><p>{a[lang]}</p></details>)}</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:24px"><span class="eyebrow">{L("Works well with", "Combina com")}</span><h2>{L("Other services.", "Outros serviços.")}</h2></div>
+      <div class="related reveal" data-stagger>{others.map((o) => <a href={serviceUrl(lang, o.key)} class="rel"><span class="mega-ic" set:html={ICON[o.icon]} /><span><b>{o.title[lang]}</b><small>{o.short[lang]}</small></span></a>)}</div>
+    </div>
+  </section>
+
+  <section id="contact" class="sand anchor">
+    <div class="wrap contact-grid">
+      <div class="reveal"><span class="eyebrow">{L("Contact", "Contato")}</span><h2>{L("Tell us what you need.", "Conte o que você precisa.")}</h2><p class="lead">{L("We reply within two business days with a first view of the path, the timeline and what it involves.", "Respondemos em até dois dias úteis com uma primeira visão do caminho, do prazo e do que ele envolve.")}</p></div>
+      <div class="reveal" style="--d:150ms"><ContactForm lang={lang} topic={topic} /></div>
+    </div>
+  </section>
+</Base>

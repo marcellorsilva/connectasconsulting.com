@@ -21,6 +21,7 @@ export const ROUTES: Record<Lang, Record<PageKey, string>> = {
   },
 };
 
+export const serviceUrl = (lang: Lang, key: string) => `${ROUTES[lang].solutions}/${key}`;
 export const postUrl = (lang: Lang, slug: string) => `${ROUTES[lang].insights}/${slug}`;
 
 export const SITE = "https://connectasconsulting.com";
