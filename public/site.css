@@ -857,3 +857,10 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 .ip-dark .ip-bat { border-color: rgba(255,255,255,.55); } .ip-dark .ip-bat::after { background: rgba(255,255,255,.55); }
 .ip-dark .ip-screen:has(.ip-status)::after { background: #fff; }
 .ip-dark .ip-screen:has(.ip-status) { background: #0A0A0A; }
+/* Three white-label apps side by side, the middle one raised */
+.mk-trio { gap: 14px; }
+.mk-trio .dev-iphone { width: 31%; max-width: 210px; }
+.mk-trio .dev-iphone:last-child { transform: none; }
+.mk-trio .dev-iphone:nth-child(2) { transform: translateY(-24px); }
+.mk-trio .dev-iphone.pre.seen:last-child { animation-name: phoneIn; animation-delay: .65s; }
+.mk-trio .dev-iphone.pre.seen:nth-child(2) { animation-name: phoneInUp; animation-delay: .5s; }
