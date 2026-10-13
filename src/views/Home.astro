@@ -203,6 +203,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
         <p class="lead">{L("We reply within two business days with a first view of the path, the timeline and what it involves.", "Respondemos em até dois dias úteis com uma primeira visão do caminho, do prazo e do que ele envolve.")}</p>
         <div class="contact-info">
           <div class="ci"><span>{L("E-mail", "E-mail")}</span><a class="link" href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a></div>
+          <div class="ci"><span>{L("Head office", "Sede")}</span><p>{COMPANY.legal}<br />{COMPANY.address1}<br />{COMPANY.address2}</p></div>
           <div class="ci"><span>{L("Where we work", "Onde atuamos")}</span><p>{L("United States · Brazil · Guyana", "Estados Unidos · Brasil · Guiana")}</p></div>
         </div>
       </div>
