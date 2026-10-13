@@ -1,42 +1,27 @@
-# Colocar o site da Connectas no ar (Wix Headless)
+# Site da Connectas no ar (connectasconsulting.com)
 
-Mesmo caminho do site da CMR. Feito uma única vez, no Mac do Marcello, com o login dele no Wix.
+O site é publicado no **Netlify** (plano gratuito), que lê os arquivos prontos do repositório público
+**github.com/marcellorsilva/connectasconsulting.com**. O DNS do domínio continua no Wix.
 
-## 1. Ligar o projeto ao Wix
-
-```bash
-cd ~/Documents/connectas-website
-npm install
-npm create @wix/new@latest -- headless link --business-name "Connectas"
-```
-
-O comando abre o navegador para você entrar no Wix, cria o projeto headless na sua conta e adiciona a
-integração do Wix ao `astro.config.mjs` (e grava o `wix.config.json`).
-
-## 2. Formulário de contato no Wix Forms (opcional, recomendado)
-
-Hoje o formulário abre o aplicativo de e-mail do visitante com a mensagem pronta para
-info@connectasconsulting.com. Para receber os contatos direto no painel do Wix (como no site da CMR),
-crie no Wix Forms um formulário chamado `Website · Contact` com os campos Name, Email e Details, e ative
-a notificação por e-mail. Depois disso o Claude liga o formulário a ele.
-
-## 3. Testar e publicar
+## Publicar uma atualização
 
 ```bash
-npm run dev        # abre o site local em http://localhost:4330
-npx wix build
-npx wix release    # publica no Wix
+cd ~/Documents/connectas-website && npm run publish:site
 ```
 
-## 4. Domínio
+O comando gera o site, envia para o GitHub e o Netlify atualiza sozinho em cerca de um minuto.
 
-No painel do Wix: **Settings → Domains** → conecte **connectasconsulting.com** a este projeto headless.
-(Hoje o domínio já aponta para o Wix, mas sem site — aparece uma página de erro do Wix.)
+## DNS (Wix → Domains → connectasconsulting.com → Manage DNS records)
 
-## Onde mudar as coisas
+| Tipo | Nome | Valor |
+|---|---|---|
+| A | connectasconsulting.com | 75.2.60.5 |
+| CNAME | www | mellow-croquembouche-0224d5.netlify.app |
 
-- Dados da empresa (endereço, e-mail, logo): `src/company.ts`
-- Serviços: `src/lib/services.ts`
-- Artigos do blog (Insights): `src/blog/posts.ts`
-- Páginas legais: `src/legal/*.md` (inglês) e `*.pt.md` (português)
-- Endereços das páginas em EN e PT: `src/lib/routes.ts`
+Não mexer em MX e TXT (e-mail do Google). O cadeado HTTPS é emitido pelo Netlify (Let's Encrypt).
+No Netlify, o selo "Powered by Netlify" está desligado (Project configuration → General).
+
+## Wix Headless (não usado)
+
+O projeto continua com a integração do Wix (`npx wix build` / `npx wix release`), mas a hospedagem no Wix
+deu erro no domínio. Os projetos "Connectas" e "Connectas Consulting" no Wix podem ser apagados.
