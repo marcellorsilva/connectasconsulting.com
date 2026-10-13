@@ -151,7 +151,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
   <section style="padding-top:0">
     <div class="wrap">
       <div class="bigstat reveal">
-        <img src={PHOTO.stat} alt="" loading="lazy" />
+        <video class="bigstat-video" muted loop playsinline preload="none" poster={PHOTO.stat} data-src="/video/building.mp4" aria-hidden="true"></video>
         <div class="bigstat-in"><div class="v"><span data-count="300">300</span>+</div><p>{L("families relocated between countries — each one with a home ready, a school chosen and someone to call.", "famílias realocadas entre países — cada uma com casa pronta, escola escolhida e alguém para chamar.")}</p></div>
       </div>
       <div class="stats-row reveal" data-stagger>{stats.map(([v, suf, l]) => <div><div class="v"><span data-count={v}>{v}</span>{suf}</div><div class="l">{l}</div></div>)}</div>
@@ -195,12 +195,6 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     </div>
   </section>}
 
-  <div class="trusted">
-    <div class="wrap">
-      <span class="lbl">{L("Trusted by companies in our markets", "A confiança de empresas dos nossos mercados")}</span>
-      <div class="marquee" aria-label={L("Clients and partners", "Clientes e parceiros")}><div class="marquee-track">{[0, 1].map((k) => IMG.partners.map((p) => <span class="logo-cell"><img src={p.src} class:list={{ inv: p.inv }} style={`height:${p.h}px`} alt="" loading="lazy" aria-hidden={k ? "true" : undefined} /></span>))}</div></div>
-    </div>
-
   <section id="contact" class="sand">
     <div class="wrap contact-grid">
       <div class="reveal">
@@ -232,4 +226,17 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
       });
     })();
   </script>
+<script is:inline>
+  // Load and play the stat video only when it comes near the screen
+  (function () {
+    function go() {
+      document.querySelectorAll("video[data-src]").forEach(function (v) {
+        if (!("IntersectionObserver" in window)) { v.src = v.dataset.src; v.removeAttribute("data-src"); v.play().catch(function () {}); return; }
+        var o = new IntersectionObserver(function (es) { if (!es[0].isIntersecting) return; o.disconnect(); v.src = v.dataset.src; v.removeAttribute("data-src"); v.play().catch(function () {}); }, { rootMargin: "300px" });
+        o.observe(v);
+      });
+    }
+    document.addEventListener("astro:page-load", go);
+  })();
+</script>
 </Base>
