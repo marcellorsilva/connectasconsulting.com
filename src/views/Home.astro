@@ -132,7 +132,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     <div class="wrap duo">
       <div class="duo-card reveal">
         <h2>{L("Experience you can check.", "Experiência que se comprova.")}</h2>
-        <p>{L("Our founder spent more than 20 years working across England, Brazil, Guyana and the United States, including global mobility programmes for multinational companies. We have done this for ourselves — and for hundreds of families and companies since.", "Nosso fundador passou mais de 20 anos trabalhando entre Inglaterra, Brasil, Guiana e Estados Unidos, incluindo programas de mobilidade global para multinacionais. Fizemos isso por nós mesmos — e, desde então, por centenas de famílias e empresas.")}</p>
+        <p>{L("Our founder spent more than 20 years working across England, Brazil, Guyana and the United States, including global mobility programmes for multinational companies. We have done this for ourselves — and for hundreds of companies and the people behind them since.", "Nosso fundador passou mais de 20 anos trabalhando entre Inglaterra, Brasil, Guiana e Estados Unidos, incluindo programas de mobilidade global para multinacionais. Fizemos isso por nós mesmos — e, desde então, por centenas de empresas e pelas pessoas por trás delas.")}</p>
         <a class="link" href={R.about}>{L("Meet the founder →", "Conheça o fundador →")}</a>
       </div>
       <figure class="duo-img reveal" style="--d:120ms"><img src={PHOTO.hero} alt={L("Octávio Frias de Oliveira Bridge, São Paulo", "Ponte Octávio Frias de Oliveira (Ponte Estaiada), São Paulo")} loading="lazy" /><figcaption>{L("Local knowledge in every market we work in", "Conhecimento local em cada mercado em que atuamos")}</figcaption></figure>
@@ -152,7 +152,7 @@ const fmt = (d: string) => new Date(d + "T12:00:00").toLocaleDateString(pt ? "pt
     <div class="wrap">
       <div class="bigstat reveal">
         <video class="bigstat-video" muted loop playsinline preload="none" poster={PHOTO.stat} data-src="/video/building.mp4" aria-hidden="true"></video>
-        <div class="bigstat-in"><div class="v"><span data-count="300">300</span>+</div><p>{L("families relocated between countries — each one with a home ready, a school chosen and someone to call.", "famílias realocadas entre países — cada uma com casa pronta, escola escolhida e alguém para chamar.")}</p></div>
+        <div class="bigstat-in"><div class="v"><span data-count="20">20</span>+</div><p>{L("years helping companies open, structure and grow business across borders — from the first plan to the first client.", "anos ajudando empresas a abrir, estruturar e fazer crescer negócios entre países — do primeiro plano ao primeiro cliente.")}</p></div>
       </div>
       <div class="stats-row reveal" data-stagger>{stats.map(([v, suf, l]) => <div><div class="v"><span data-count={v}>{v}</span>{suf}</div><div class="l">{l}</div></div>)}</div>
     </div>
