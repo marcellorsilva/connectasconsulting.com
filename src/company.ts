@@ -25,6 +25,9 @@ export const PHOTO = {
   founder: `${W("ffe100_1711e3f3758144ffa10f93e921e36dec~mv2.png")}/v1/fit/w_1800,h_2700,q_88/marcello-silva.png`, // Marcello Silva, New York
   tech: WI("11062b_7a56e8ec12ef4d00b2ec73822f42de31~mv2.jpg", 2000, 1200),       // team at work
 };
+// Country hero videos (mp4). Empty = the page uses the photo with a slow zoom instead.
+export const VIDEO: Record<"guyana" | "brazil" | "usa", string> = { guyana: "", brazil: "", usa: "" };
+
 export const IMG = {
   logo: W("92e77a_aa6304742f1e4e568e671e1221a14847~mv2.png"),
   mosaic: W("ffe100_4fc1389f333348dd9309ff847b87e43d~mv2.png"),

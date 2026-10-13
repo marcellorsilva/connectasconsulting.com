@@ -379,14 +379,14 @@ section.black > canvas { opacity: .6; }
 /* Icons inside cards are spans: give them a box */
 .card .ic, .svc .ic { display: block; }
 /* Header over a black page hero: white until the page scrolls */
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top:not(:has(.mnav:not([hidden]))) { color: #fff; }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .logo img { filter: invert(1); }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .lang { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .lang a { color: #CFCFCF; }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .lang a.on { background: #fff; color: #000; }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .btn.sm { --b: #fff; color: #000; }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .burger { background: transparent; border-color: rgba(255,255,255,.35); }
-html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .burger span { background: #fff; }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top:not(:has(.mnav:not([hidden]))) { color: #fff; }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .logo img { filter: invert(1); }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .lang { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.25); }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .lang a { color: #CFCFCF; }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .lang a.on { background: #fff; color: #000; }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .btn.sm { --b: #fff; color: #000; }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .burger { background: transparent; border-color: rgba(255,255,255,.35); }
+html:not(.scrolled) body:has(#main > :is(.phero.black, .chero):first-child) .top .burger span { background: #fff; }
 
 
 /* ---------- Layout inspired by editorial landing pages (Connectas colours) ---------- */
@@ -473,3 +473,43 @@ html:not(.scrolled) body:has(#main > .phero.black:first-child) .top .burger span
 .pband { margin: 0; border-radius: 28px; overflow: hidden; aspect-ratio: 21 / 9; position: relative; }
 .pband img { width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 700px) { .pband { aspect-ratio: 4 / 3; border-radius: 20px; } }
+
+
+/* ---------- Country pages ---------- */
+.chero { position: relative; min-height: min(88svh, 820px); display: flex; align-items: flex-end; color: #fff; padding: 150px 0 56px; overflow: hidden; background: var(--ink); }
+.chero-media { position: absolute; inset: 0; }
+.chero-media img, .chero-media video { width: 100%; height: 100%; object-fit: cover; animation: kenburns 24s ease-in-out infinite alternate; }
+.chero-media video { animation: none; }
+@keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.12) translateY(-1.5%); } }
+.chero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.15) 35%, rgba(10,10,10,.7) 100%); }
+.chero-in { position: relative; z-index: 1; width: 100%; }
+.chero h1 { color: #fff; max-width: 1000px; }
+.chero .eyebrow { color: #CFE0F0; }
+.chero .lead { color: #E8EEF4; max-width: 720px; }
+.chero-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.chero-nav a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 9px 16px; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; backdrop-filter: blur(6px); background: rgba(255,255,255,.08); transition: background .3s, color .3s; }
+.chero-nav a:hover { background: #fff; color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .chero-media img { animation: none; } }
+.anchor { scroll-margin-top: 70px; }
+.facts.four { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1000px) { .facts.four { grid-template-columns: 1fr 1fr; gap: 26px 24px; } }
+@media (max-width: 560px) { .facts.four { grid-template-columns: 1fr; } }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.tags span { border: 1px solid var(--line); border-radius: 999px; padding: 9px 18px; font-size: 15px; font-weight: 500; background: #fff; }
+.timeline { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; counter-reset: none; }
+@media (max-width: 1100px) { .timeline { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .timeline { grid-template-columns: 1fr; } }
+.timeline li { background: #fff; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px; border: 1px solid var(--line); }
+.timeline .n { font-family: var(--serif); font-size: 30px; color: var(--accent); line-height: 1; }
+.timeline h3 { font-size: 20px; margin: 0 0 6px; }
+.timeline p { margin: 0; font-size: 15px; color: var(--muted); }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; border-top: 1px solid var(--line); }
+@media (max-width: 860px) { .rules { grid-template-columns: 1fr; } }
+.rule { padding: 26px 0; border-bottom: 1px solid var(--line); }
+.rule h3 { font-size: 22px; margin: 0 0 8px; }
+.rule p { margin: 0; color: var(--muted); }
+.other-c { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
+.sources-box { font-size: 14px; color: var(--muted); border-top: 1px solid rgba(0,0,0,.12); padding-top: 18px; }
+.sources-box ul { margin: 8px 0 0; padding-left: 18px; columns: 2; column-gap: 40px; }
+@media (max-width: 700px) { .sources-box ul { columns: 1; } }
+.sources-box a { color: var(--accent); }
