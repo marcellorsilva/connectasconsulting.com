@@ -652,7 +652,7 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 /* Real iMac photo (820×770 stage, scaled to fit by a small script); the screen is a 768×432 layer mapped onto the angled display */
 .imac-stage { position: absolute; left: 0; top: 0; width: 820px; height: 770px; transform-origin: 0 0; transform: scale(.8); }
 .imac-frame { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-.imac-screen { position: absolute; left: 0; top: 0; width: 768px; height: 432px; overflow: hidden; background: #000; z-index: 1; transform-origin: 0 0; transform: matrix3d(0.61586304,-0.15798719,0,-0.00025221996,-0.080988342,0.76541109,0,-8.4320335e-05,0,0,1,0,114,181,0,1); container-type: size; outline: 2px solid #0B0D12; }
+.imac-screen { position: absolute; left: 0; top: 0; width: 768px; height: 432px; overflow: hidden; background: #000; z-index: 1; transform-origin: 0 0; transform: matrix3d(0.61586304,-0.15798719,0,-0.00025221996,-0.080988342,0.76541109,0,-8.4320335e-05,0,0,1,0,114,181,0,1); container-type: size; box-shadow: 0 0 0 6px #0B0D12; }
 .imac-screen > img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
 .imac-screen > .mk-browser { border: 0; border-radius: 0; box-shadow: none; height: 100%; }
 /* iPhone 17 — 71.5 x 149.6 mm body, flat aluminium band, thin even bezels, Dynamic Island,
@@ -832,3 +832,21 @@ em.ok { background: #E2F2EA; color: #2E7D5B; } em.wait { background: #FBF0D9; co
 }
 
 @media (prefers-reduced-motion: reduce) { .home-hero .chero-media img { animation: none; } }
+
+/* ---- Motion: devices and photos ---- */
+.dev-imac.pre { opacity: 0; }
+.dev-imac.pre.seen { animation: imacIn 1.25s cubic-bezier(.16,1,.3,1) both; }
+@keyframes imacIn { from { opacity: 0; transform: translate3d(120px, 0, 0); } to { opacity: 1; transform: none; } }
+.dev-iphone.pre { opacity: 0; }
+.dev-iphone.pre.seen { animation: phoneIn 1.15s cubic-bezier(.16,1,.3,1) both; animation-delay: .35s; }
+@keyframes phoneIn { from { opacity: 0; transform: translate3d(0, 110px, 0); } to { opacity: 1; transform: none; } }
+.mk-duo .dev-iphone.pre.seen:last-child { animation-name: phoneInUp; animation-delay: .5s; }
+@keyframes phoneInUp { from { opacity: 0; transform: translate3d(0, 86px, 0); } to { opacity: 1; transform: translateY(-24px); } }
+.duo-img.pre, .founder-photo.pre, .svc-hero.pre { clip-path: inset(10% 10% 10% 10% round 28px); }
+.duo-img.pre img, .founder-photo.pre img, .svc-hero.pre img { transform: scale(1.18); }
+.duo-img.pre.seen, .founder-photo.pre.seen, .svc-hero.pre.seen { clip-path: inset(0 0 0 0 round 0); transition: clip-path 1.4s cubic-bezier(.16,1,.3,1); }
+.duo-img.pre.seen img, .founder-photo.pre.seen img, .svc-hero.pre.seen img { transform: none; transition: transform 1.8s cubic-bezier(.16,1,.3,1); }
+/* Cards lift on hover */
+.svc, .aud-card, .c3-card, .rel, .stage { transition: opacity .9s var(--ease) var(--d, 0ms), transform .5s var(--ease), box-shadow .45s var(--ease), background .3s, color .3s, border-color .3s; }
+.svc:hover, .aud-card:hover, .c3-card:hover, .rel:hover, .stage:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(10,10,10,.10); }
+@media (prefers-reduced-motion: reduce) { .dev-imac.pre, .dev-iphone.pre { opacity: 1; animation: none !important; } }

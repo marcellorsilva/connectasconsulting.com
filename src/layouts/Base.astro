@@ -170,6 +170,18 @@ const year = 2026;
         document.querySelectorAll("[data-stagger]").forEach(function (g) {
           Array.prototype.forEach.call(g.children, function (c, i) { c.style.setProperty("--d", (i * 90) + "ms"); });
         });
+        // Devices fly in (iMac from the right, iPhone from below) and photos open up when they scroll into view
+        var anim = document.querySelectorAll(".dev-imac:not(.pre), .dev-iphone:not(.pre), .duo-img:not(.pre), .founder-photo:not(.pre), .svc-hero:not(.pre), .country-photo:not(.pre)");
+        if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          var dio = new IntersectionObserver(function (es) {
+            es.forEach(function (en) {
+              if (!en.isIntersecting) return;
+              var scope = en.target.closest(".ttabs, .incl, section") || en.target.parentElement;
+              scope.querySelectorAll(".pre").forEach(function (x) { x.classList.add("seen"); dio.unobserve(x); });
+            });
+          }, { rootMargin: "0px 0px -10% 0px", threshold: 0.15 });
+          anim.forEach(function (e) { e.classList.add("pre"); dio.observe(e); });
+        }
         // Animated counters
         document.querySelectorAll("[data-count]:not([data-done])").forEach(function (el) {
           var o = new IntersectionObserver(function (es) {
