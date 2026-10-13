@@ -17,10 +17,10 @@ export const PHOTO = {
   hero: WI("11062b_0da4e81deb614205abd77688ca7eaaa9~mv2.jpeg", 2400, 1200),     // Ponte Estaiada, São Paulo
   duo: WI("92e77a_94e100b7059b4479ae452543629ef928~mv2.jpg", 1400, 1000),       // Stabroek Market from above, Georgetown
   stat: WI("11062b_2cc30823d1ae4f31bdecbb8ddebb8bc8f000.jpg", 2400, 1100),       // building at sunset
-  guyana: WI("92e77a_94e100b7059b4479ae452543629ef928~mv2.jpg", 2400, 1100),
+  guyana: `${W("92e77a_94e100b7059b4479ae452543629ef928~mv2.jpg")}/v1/fit/w_2400,h_2400,q_85/guyana.jpg`,
   guyana2: WI("92e77a_72ffd6656c2f4a25afeeeaaf838d3879~mv2.jpg", 1200, 1200),    // 1763 Monument, Georgetown
-  brazil: WI("11062b_0da4e81deb614205abd77688ca7eaaa9~mv2.jpeg", 2400, 1100),
-  usa: WI("5e4f822698fc4e23b2b48f0dda9e765a.jpg", 2400, 1100),                  // New York at sunset
+  brazil: `${W("11062b_0da4e81deb614205abd77688ca7eaaa9~mv2.jpeg")}/v1/fit/w_2400,h_2400,q_85/brazil.jpg`,
+  usa: `${W("5e4f822698fc4e23b2b48f0dda9e765a.jpg")}/v1/fit/w_2400,h_2400,q_85/usa.jpg`,                  // New York at sunset
   usa2: WI("92e77a_f6bd6c04d1014f10be0714b99025edd7~mv2.jpg", 1200, 1200),       // Wall Street
   founder: `${W("ffe100_1711e3f3758144ffa10f93e921e36dec~mv2.png")}/v1/fit/w_1800,h_2700,q_88/marcello-silva.png`, // Marcello Silva, New York
   tech: WI("11062b_7a56e8ec12ef4d00b2ec73822f42de31~mv2.jpg", 2000, 1200),       // team at work

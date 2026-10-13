@@ -1,0 +1,67 @@
+---
+// Illustrative screens drawn in HTML/CSS (no real client data). Every mock carries an "Example" label.
+import type { Lang } from "../lib/routes";
+const { kind, lang = "EN" } = Astro.props as { kind: string; lang?: Lang };
+const pt = lang === "PT";
+const L = (en: string, p: string) => (pt ? p : en);
+const ex = L("Example", "Exemplo");
+---
+{kind === "dashboard" && (
+  <div class="mk mk-browser"><div class="mk-bar"><i></i><i></i><i></i><span>portal.yourcompany.com</span></div>
+    <div class="mk-app"><aside><b>YourBrand</b><span class="on">{L("Overview", "Visão geral")}</span><span>{L("Cases", "Processos")}</span><span>{L("Homes", "Imóveis")}</span><span>{L("Documents", "Documentos")}</span><span>{L("Reports", "Relatórios")}</span></aside>
+      <div class="mk-main"><div class="mk-h">{L("Overview", "Visão geral")}<em>{ex}</em></div>
+        <div class="mk-kpis"><div><small>{L("Active cases", "Processos ativos")}</small><b>48</b><u>↑ 6</u></div><div><small>{L("Moves this month", "Mudanças no mês")}</small><b>12</b><u>↑ 3</u></div><div><small>{L("Pending documents", "Documentos pendentes")}</small><b>7</b><u class="warn">2 {L("due", "vencendo")}</u></div></div>
+        <div class="mk-chart">{[38, 52, 45, 60, 58, 72, 66, 80, 76, 88, 84, 95].map((h) => <span style={`height:${h}%`}></span>)}</div>
+        <div class="mk-rows"><div><span class="av">MK</span>{L("Move-in inspection", "Vistoria de entrada")}<em class="ok">{L("Done", "Feito")}</em></div><div><span class="av">PN</span>{L("Lease renewal", "Renovação de contrato")}<em class="wait">{L("Waiting", "Aguardando")}</em></div><div><span class="av">DS</span>{L("School enrolment", "Matrícula escolar")}<em class="ok">{L("Confirmed", "Confirmado")}</em></div></div>
+      </div></div></div>
+)}
+{kind === "signin" && (
+  <div class="mk mk-card mk-signin"><em class="mk-ex">{ex}</em><b class="mk-brand">YourBrand</b><h4>{L("Sign in", "Entrar")}</h4><p>{L("Welcome back. Use your work account.", "Bem-vindo de volta. Use sua conta de trabalho.")}</p>
+    <span class="mk-btn ghost">{L("Continue with Google", "Continuar com Google")}</span><span class="mk-btn ghost">{L("Continue with Microsoft", "Continuar com Microsoft")}</span>
+    <span class="mk-in">name@company.com</span><span class="mk-btn">{L("Continue", "Continuar")}</span>
+    <small>{L("2-step verification · Face ID on the app · e-mail confirmed before access", "Verificação em duas etapas · Face ID no app · e-mail confirmado antes do acesso")}</small></div>
+)}
+{kind === "roles" && (
+  <div class="mk mk-card"><div class="mk-h">{L("Roles and permissions", "Perfis e permissões")}<em>{ex}</em></div>
+    <table class="mk-table"><thead><tr><th></th><th>{L("Admin", "Admin")}</th><th>HR</th><th>{L("Assignee", "Expatriado")}</th></tr></thead>
+      <tbody>{[[L("See all cases", "Ver todos os processos"), 1, 0, 0], [L("Own company's people", "Pessoas da própria empresa"), 1, 1, 0], [L("Own documents", "Próprios documentos"), 1, 1, 1], [L("Approve budgets", "Aprovar orçamentos"), 1, 1, 0], [L("Billing", "Cobrança"), 1, 0, 0]].map(([t, a, b, c]) => <tr><td>{t}</td>{[a, b, c].map((v) => <td>{v ? <span class="y">✓</span> : <span class="n">—</span>}</td>)}</tr>)}</tbody></table>
+    <small>{L("Each company's data is isolated by the database itself.", "Os dados de cada empresa ficam isolados pelo próprio banco de dados.")}</small></div>
+)}
+{kind === "payments" && (
+  <div class="mk mk-card mk-pay"><div class="mk-h">{L("Your plan", "Seu plano")}<em>{ex}</em></div>
+    <div class="mk-plan"><div><b>{L("Base subscription", "Assinatura base")}</b><small>{L("Monthly · cancel with 30 days' notice", "Mensal · cancelamento com 30 dias de aviso")}</small></div><span class="mk-pill">{L("Active", "Ativo")}</span></div>
+    <div class="mk-plan"><div><b>{L("Property management", "Gestão de imóveis")}</b><small>{L("Add-on module", "Módulo adicional")}</small></div><span class="mk-btn sm">{L("Add", "Adicionar")}</span></div>
+    <div class="mk-cardline"><span>•••• •••• •••• 4242</span><span>VISA</span></div>
+    <small>{L("Card payments by Stripe — card details never touch our servers.", "Pagamentos com cartão pelo Stripe — os dados do cartão nunca passam pelos nossos servidores.")}</small></div>
+)}
+{kind === "domain" && (
+  <div class="mk mk-card mk-domain"><div class="mk-h">{L("Your domain and brand", "Seu domínio e sua marca")}<em>{ex}</em></div>
+    <div class="mk-url"><i class="lock"></i>portal.yourcompany.com<span class="mk-pill">{L("Live", "No ar")}</span></div>
+    <div class="mk-swatches"><span style="background:#0A0A0A"></span><span style="background:#1F4E79"></span><span style="background:#E6DCCB"></span><span style="background:#2E7D5B"></span></div>
+    <div class="mk-brandrow"><b>YourBrand</b><small>{L("Logo, colours, e-mails and app icon", "Logo, cores, e-mails e ícone do app")}</small></div>
+    <small>{L("SSL certificate, backups and monitoring included.", "Certificado SSL, backups e monitoramento incluídos.")}</small></div>
+)}
+{kind === "phone" && (
+  <div class="mk mk-phone"><div class="mk-notch"></div><div class="mk-screen"><em class="mk-ex">{ex}</em><b>{L("Good morning, Emma", "Bom dia, Emma")}</b><small>{L("Your move · Georgetown", "Sua mudança · Georgetown")}</small>
+    <div class="mk-tile"><span></span><div><b>{L("Home viewing", "Visita ao imóvel")}</b><small>{L("Today, 10:00", "Hoje, 10:00")}</small></div></div>
+    <div class="mk-tile"><span></span><div><b>{L("Lease ready to sign", "Contrato pronto para assinar")}</b><small>{L("2 documents", "2 documentos")}</small></div></div>
+    <div class="mk-tile"><span></span><div><b>{L("Message from your coordinator", "Mensagem da sua coordenadora")}</b><small>{L("“Keys on Friday”", "“Chaves na sexta”")}</small></div></div>
+    <div class="mk-face">Face ID ✓</div></div></div>
+)}
+{kind === "website" && (
+  <div class="mk mk-browser"><div class="mk-bar"><i></i><i></i><i></i><span>www.yourcompany.com</span></div>
+    <div class="mk-site"><div class="mk-nav"><b>YourBrand</b><span>{L("Services", "Serviços")}</span><span>{L("About", "Sobre")}</span><span class="mk-btn sm">{L("Contact", "Contato")}</span></div>
+      <div class="mk-hero"><em class="mk-ex">{ex}</em><h4>{L("A website that brings clients.", "Um site que traz clientes.")}</h4><p>{L("Fast, bilingual, ready for search engines and connected to your forms and CRM.", "Rápido, bilíngue, pronto para buscadores e ligado aos seus formulários e CRM.")}</p><span class="mk-btn">{L("Get a quote", "Pedir orçamento")}</span></div>
+      <div class="mk-cards"><span></span><span></span><span></span></div></div></div>
+)}
+{kind === "portal" && (
+  <div class="mk mk-browser"><div class="mk-bar"><i></i><i></i><i></i><span>clients.yourcompany.com</span></div>
+    <div class="mk-main pad"><div class="mk-h">{L("Client requests", "Pedidos dos clientes")}<em>{ex}</em></div>
+      <table class="mk-table wide"><thead><tr><th>{L("Client", "Cliente")}</th><th>{L("Request", "Pedido")}</th><th>{L("Status", "Situação")}</th></tr></thead>
+        <tbody><tr><td>Morgan Kline</td><td>{L("Home search", "Busca de imóvel")}</td><td><em class="wait">{L("In progress", "Em andamento")}</em></td></tr><tr><td>Priya N.</td><td>{L("Company registration", "Abertura de empresa")}</td><td><em class="ok">{L("Done", "Concluído")}</em></td></tr><tr><td>Dune Studio</td><td>{L("Website", "Site")}</td><td><em class="wait">{L("Review", "Revisão")}</em></td></tr><tr><td>Alder Café</td><td>{L("Invoice #1042", "Fatura #1042")}</td><td><em class="ok">{L("Paid", "Paga")}</em></td></tr></tbody></table></div></div>
+)}
+{kind === "whitelabel" && (
+  <div class="mk mk-duo"><em class="mk-ex">{ex}</em>
+    {[["#1F4E79", "Atlas Relocation"], ["#2E7D5B", "Verde Homes"]].map(([c, n]) => <div class="mk-phone sm" style={`--brand:${c}`}><div class="mk-notch"></div><div class="mk-screen"><b style="color:var(--brand)">{n}</b><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("My home", "Minha casa")}</b><small>{L("Inspection report", "Relatório de vistoria")}</small></div></div><div class="mk-tile"><span style="background:var(--brand)"></span><div><b>{L("Requests", "Solicitações")}</b><small>{L("1 open", "1 aberta")}</small></div></div><span class="mk-btn" style="background:var(--brand);border-color:var(--brand)">{L("New request", "Nova solicitação")}</span></div></div>)}
+  </div>
+)}

@@ -1,63 +1,102 @@
 ---
 import Base from "../layouts/Base.astro";
-import Network from "../components/Network.astro";
 import ContactForm from "../components/ContactForm.astro";
+import Mock from "../components/Mock.astro";
 import { ROUTES, type Lang } from "../lib/routes";
 import { ICON } from "../lib/icons";
-import { PHOTO } from "../company";
 const { lang } = Astro.props as { lang: Lang };
 const pt = lang === "PT";
 const L = (en: string, p: string) => (pt ? p : en);
 const R = ROUTES[lang];
-const mods: [keyof typeof ICON, string, string][] = [
-  ["people", L("Relocation management", "Gestão de realocação"), L("Cases, assignees and families, documents, timelines and messages — with portals for the client's HR team and for every assignee.", "Processos, expatriados e famílias, documentos, prazos e mensagens — com portais para o RH do cliente e para cada expatriado.")],
-  ["home", L("Property management", "Gestão de imóveis"), L("Leases, inspections with photo reports, work orders and portals for landlords, agents and service partners.", "Contratos de locação, vistorias com relatório fotográfico, ordens de serviço e portais para proprietários, corretores e prestadores.")],
-  ["bed", L("Housekeeping & stays", "Hospedagem e housekeeping"), L("Occupancy calendar, bookings for rotational staff, cleaning tasks and a mobile app for the housekeeping team.", "Calendário de ocupação, reservas para equipes em rodízio, tarefas de limpeza e app para a equipe de housekeeping.")],
-  ["money", L("Finance & client funds", "Financeiro e fundos de clientes"), L("Invoices, bills, advance funds and approvals — amounts visible only to those who should see them.", "Faturas, contas, fundos adiantados e aprovações — valores visíveis só para quem deve vê-los.")],
-  ["chart", L("Reports & allowances", "Relatórios e ajudas de custo"), L("Expiry reports for leases and documents, cost-of-living allowance (COLA) calculations and client dashboards.", "Relatórios de vencimentos de contratos e documentos, cálculo de ajuda de custo de vida (COLA) e painéis para clientes.")],
-  ["phone", L("White-label systems & apps", "Sistemas e apps white label"), L("Web portal plus iPhone and Android apps under the customer's own brand, with sign-in by Face ID.", "Portal web e apps para iPhone e Android com a marca do cliente, com login por Face ID.")],
+
+const types: [string, string, string, string][] = [
+  ["website", L("Website", "Site"), L("Bilingual websites that load fast, rank in search and turn visits into enquiries — connected to your forms, CRM and analytics.", "Sites bilíngues, rápidos, bem posicionados nos buscadores e que transformam visitas em contatos — ligados aos seus formulários, CRM e métricas."), "website"],
+  ["system", L("Management system", "Sistema de gestão"), L("The system your team runs the business on: cases, clients, properties, finance, documents and reports — replacing spreadsheets and scattered e-mails.", "O sistema em que sua equipe toca o negócio: processos, clientes, imóveis, financeiro, documentos e relatórios — no lugar de planilhas e e-mails espalhados."), "dashboard"],
+  ["app", L("Mobile app", "App"), L("iPhone and Android apps for your clients, staff or field teams, with notifications, documents, photos and sign-in by Face ID.", "Apps para iPhone e Android para clientes, equipe ou campo, com notificações, documentos, fotos e login por Face ID."), "phone"],
+  ["portal", L("Client portal", "Portal do cliente"), L("A private space where each client follows requests, approves budgets, signs documents and pays invoices.", "Um espaço privado em que cada cliente acompanha pedidos, aprova orçamentos, assina documentos e paga faturas."), "portal"],
+  ["whitelabel", L("White label", "White label"), L("Our relocation and property-management platform, delivered under your name, colours and domain — and your own app in the stores.", "Nossa plataforma de realocação e gestão de imóveis, entregue com o seu nome, cores e domínio — e com o seu próprio app nas lojas."), "whitelabel"],
 ];
-const sec: [keyof typeof ICON, string, string][] = [
-  ["shield", L("Separate data", "Dados separados"), L("Each customer's data is isolated from every other customer's, enforced by the database itself.", "Os dados de cada cliente ficam isolados dos demais, por regra do próprio banco de dados.")],
-  ["key", L("Confirmed access", "Acesso confirmado"), L("Access by invitation only. Nobody gets in before confirming their e-mail. 2-step verification for staff and HR, Face ID on the apps.", "Acesso só por convite. Ninguém entra antes de confirmar o e-mail. Verificação em duas etapas para equipe e RH, Face ID nos apps.")],
-  ["people", L("Right people, right data", "Cada um vê o que é seu"), L("Access by role: HR, assignees, landlords and partners only see what belongs to them. Every change is recorded.", "Acesso por perfil: RH, expatriados, proprietários e parceiros só veem o que é deles. Toda alteração fica registrada.")],
-  ["card", L("Payments by Stripe", "Pagamentos pelo Stripe"), L("Card details are entered only on Stripe's secure pages. We never see or store card numbers.", "Os dados do cartão são digitados apenas nas páginas seguras do Stripe. Nunca vemos nem guardamos números de cartão.")],
+const included: [string, string, string][] = [
+  [L("Database and hosting", "Banco de dados e hospedagem"), L("Secure cloud hosting, daily backups and monitoring. Each client's data is kept separate from every other client's.", "Hospedagem segura em nuvem, backups diários e monitoramento. Os dados de cada cliente ficam separados dos demais."), "dashboard"],
+  [L("Sign-in and roles", "Login e perfis"), L("Invitation-only access, e-mail confirmed before entry, 2-step verification and Face ID. Each role sees only what it should.", "Acesso só por convite, e-mail confirmado antes de entrar, verificação em duas etapas e Face ID. Cada perfil vê só o que deve."), "roles"],
+  [L("Payments", "Pagamentos"), L("Subscriptions, invoices and card payments through Stripe — with automatic reminders when a payment fails.", "Assinaturas, faturas e pagamentos com cartão pelo Stripe — com lembretes automáticos quando um pagamento falha."), "payments"],
+  [L("Your domain and brand", "Seu domínio e sua marca"), L("Your logo, colours and domain, with SSL. E-mails to your clients go out with your name.", "Seu logo, suas cores e seu domínio, com SSL. Os e-mails aos seus clientes saem com o seu nome."), "domain"],
+  [L("Web, iPhone and Android", "Web, iPhone e Android"), L("The same system on the web and in apps for iOS and Android, published under your company.", "O mesmo sistema na web e em apps para iOS e Android, publicados em nome da sua empresa."), "phone"],
+  [L("Secure sign-in", "Login seguro"), L("Google and Microsoft sign-in where you want it, single-use links and a full history of who accessed what.", "Login com Google e Microsoft quando quiser, links de uso único e histórico completo de quem acessou o quê."), "signin"],
+];
+const steps: [string, string][] = [
+  [L("Brief", "Briefing"), L("We map your process, users and goals in one or two working sessions.", "Mapeamos seu processo, usuários e objetivos em uma ou duas reuniões.")],
+  [L("Prototype", "Protótipo"), L("You see and click the main screens before anything is built.", "Você vê e clica nas telas principais antes de começarmos a construir.")],
+  [L("Build", "Construção"), L("Short cycles with a working version to review every week.", "Ciclos curtos, com uma versão funcionando para revisar toda semana.")],
+  [L("Launch", "Lançamento"), L("Your domain, app store publishing, user invitations and training.", "Seu domínio, publicação nas lojas, convite aos usuários e treinamento.")],
+  [L("Support", "Suporte"), L("Monitoring, updates and improvements as your operation grows.", "Monitoramento, atualizações e melhorias conforme sua operação cresce.")],
+];
+const mods: [keyof typeof ICON, string, string][] = [
+  ["people", L("Relocation management", "Gestão de realocação"), L("Cases, assignees and families, documents, timelines and messages, with portals for HR and for every assignee.", "Processos, expatriados e famílias, documentos, prazos e mensagens, com portais para o RH e para cada expatriado.")],
+  ["home", L("Property management", "Gestão de imóveis"), L("Leases, inspections with photo reports, work orders and portals for landlords, agents and service partners.", "Contratos, vistorias com relatório fotográfico, ordens de serviço e portais para proprietários, corretores e prestadores.")],
+  ["bed", L("Housekeeping & stays", "Hospedagem e housekeeping"), L("Occupancy calendar, bookings for rotational staff, cleaning tasks and an app for the housekeeping team.", "Calendário de ocupação, reservas para equipes em rodízio, tarefas de limpeza e app para o housekeeping.")],
+  ["money", L("Finance & client funds", "Financeiro e fundos de clientes"), L("Invoices, bills, advance funds and approvals — amounts visible only to those who should see them.", "Faturas, contas, fundos adiantados e aprovações — valores visíveis só para quem deve vê-los.")],
+  ["chart", L("Reports & allowances", "Relatórios e ajudas de custo"), L("Expiry reports, cost-of-living allowance (COLA) calculations and client dashboards.", "Relatórios de vencimentos, cálculo de ajuda de custo de vida (COLA) e painéis para clientes.")],
+  ["phone", L("White-label systems & apps", "Sistemas e apps white label"), L("Web portal plus iPhone and Android apps under the customer's own brand.", "Portal web e apps para iPhone e Android com a marca do cliente.")],
 ];
 ---
-<Base lang={lang} page="technology" title={L("Connectas · Technology: white-label systems & apps", "Connectas · Tecnologia: sistemas e apps white label")}
-  description={L("A complete white-label platform for relocation and property-management companies — web portal and mobile apps under your brand, sold as a monthly subscription by module.", "Uma plataforma white label completa para empresas de realocação e gestão de imóveis — portal web e apps com a sua marca, por assinatura mensal por módulo.")}>
-  <section class="phero black">
-    <Network dark density={0.8} />
-    <div class="wrap">
-      <span class="eyebrow fade-up">{L("Connectas Technology", "Tecnologia Connectas")}</span>
-      <h1><span class="mask-line"><span style="--d:100ms">{L("Software that runs relocation", "Software que faz empresas de realocação")}</span></span><span class="mask-line"><span style="--d:250ms">{L("and property companies.", "e de imóveis funcionarem.")}</span></span></h1>
-      <p class="lead fade-up" style="--d:500ms">{L("Beyond the websites and apps we build for each client, Connectas offers its own platform: a complete system for relocation and property-management companies, delivered under each customer's brand and sold as a monthly subscription.", "Além dos sites e apps que criamos para cada cliente, a Connectas oferece sua própria plataforma: um sistema completo para empresas de realocação e gestão de imóveis, entregue com a marca de cada cliente e vendido por assinatura mensal.")}</p>
-      <div class="fade-up" style="--d:650ms;margin-top:30px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn light" href="#demo">{L("Request a demo", "Peça uma demonstração")}<span class="arr">→</span></a><a class="btn light" style="--b:transparent;color:#fff;border-color:#555" href="#pricing">{L("Pricing", "Preços")}</a></div>
-    </div>
-  </section>
+<Base lang={lang} page="technology" title={L("Connectas · Websites, systems and white-label apps", "Connectas · Sites, sistemas e apps white label")}
+  description={L("Websites, management systems, client portals and iOS/Android apps — and a white-label platform for relocation and property companies, sold as a monthly subscription.", "Sites, sistemas de gestão, portais de cliente e apps iOS/Android — e uma plataforma white label para empresas de realocação e imóveis, por assinatura mensal.")}>
 
-  <section style="padding-bottom:0">
-    <div class="wrap"><figure class="pband reveal"><img src={PHOTO.tech} alt={L("A team working with the platform", "Equipe trabalhando com a plataforma")} /></figure></div>
-  </section>
-
-  <section>
+  <section class="hero2">
     <div class="wrap">
-      <div class="reveal" style="max-width:820px;margin-bottom:34px"><span class="eyebrow">{L("The platform", "A plataforma")}</span><h2>{L("Choose the modules you need.", "Escolha os módulos de que precisa.")}</h2><p class="lead">{L("Everything works together, in one place, for staff, clients, assignees and partners.", "Tudo funciona junto, em um só lugar, para equipe, clientes, expatriados e parceiros.")}</p></div>
-      <div class="cards reveal" data-stagger>{mods.map(([ic, t, d]) => <div class="card"><span class="ic" set:html={ICON[ic]} /><h3>{t}</h3><p>{d}</p></div>)}</div>
+      <div class="hero2-top">
+        <div>
+          <span class="eyebrow fade-up" style="--d:100ms">{L("Connectas Technology", "Tecnologia Connectas")}</span>
+          <h1><span class="mask-line"><span style="--d:150ms">{L("Software your business", "Software que o seu negócio")}</span></span><span class="mask-line"><span style="--d:300ms"><em>{L("actually runs on.", "usa de verdade.")}</em></span></span></h1>
+        </div>
+        <div class="hero2-side fade-up" style="--d:600ms">
+          <p>{L("Websites, management systems, client portals and mobile apps — designed around how your company works, live on your domain, with sign-in, data and payments already in place.", "Sites, sistemas de gestão, portais de cliente e aplicativos — desenhados em torno de como sua empresa funciona, no seu domínio, com login, dados e pagamentos já resolvidos.")}</p>
+          <div class="row"><a class="btn" href="#demo">{L("Talk about your project", "Converse sobre seu projeto")}<span class="arr">→</span></a><a class="link" href="#pricing">{L("Platform pricing", "Preços da plataforma")}</a></div>
+        </div>
+      </div>
+
+      <div class="ttabs fade-up" style="--d:700ms" data-tabs>
+        <div class="ttabs-bar" role="tablist" aria-label={L("Project types", "Tipos de projeto")}>
+          {types.map(([k, t], i) => <button role="tab" type="button" id={`tab-${k}`} aria-controls={`panel-${k}`} aria-selected={i === 0 ? "true" : "false"} data-tab={k}>{t}</button>)}
+        </div>
+        {types.map(([k, , d, mock], i) => <div class="ttabs-panel" role="tabpanel" id={`panel-${k}`} aria-labelledby={`tab-${k}`} hidden={i !== 0}>
+          <div class="ttabs-copy"><p>{d}</p></div>
+          <div class="ttabs-mock"><Mock kind={mock} lang={lang} /></div>
+        </div>)}
+      </div>
     </div>
   </section>
 
   <section class="grey">
-    <div class="wrap split">
-      <div class="reveal"><span class="eyebrow">{L("White label", "White label")}</span><h2>{L("Your brand. Our technology.", "Sua marca. Nossa tecnologia.")}</h2></div>
-      <div class="reveal" style="--d:120ms"><p class="lead">{L("Your logo, your colours, your domain, your system and your app in the stores. Your clients see your brand — Connectas stays behind the scenes.", "Seu logo, suas cores, seu domínio, seu sistema e seu app nas lojas. Seus clientes veem a sua marca — a Connectas fica nos bastidores.")}</p>
-        <ul class="checks"><li>{L("Portals for HR, assignees, landlords, agents and service partners", "Portais para RH, expatriados, proprietários, corretores e prestadores")}</li><li>{L("iPhone and Android apps published under your company", "Apps para iPhone e Android publicados em nome da sua empresa")}</li><li>{L("In English and Portuguese", "Em inglês e português")}</li></ul></div>
+    <div class="wrap incl" data-incl>
+      <div class="reveal">
+        <span class="eyebrow">{L("Included", "Incluído")}</span>
+        <h2>{L("Everything it needs,", "Tudo o que precisa,")} <em>{L("already in place.", "já resolvido.")}</em></h2>
+        <p class="muted" style="max-width:520px">{L("No extra accounts to manage and no loose ends. Every project starts with these foundations.", "Sem contas extras para administrar e sem pontas soltas. Todo projeto já começa com esta base.")}</p>
+        <ol class="incl-list">{included.map(([t, d], i) => <li><button type="button" data-incl-i={i} aria-expanded={i === 0 ? "true" : "false"}><span class="n">{String(i + 1).padStart(2, "0")}</span><span class="t">{t}</span></button><p hidden={i !== 0}>{d}</p></li>)}</ol>
+      </div>
+      <div class="incl-view reveal" style="--d:120ms">{included.map(([, , mock], i) => <div class="incl-pane" data-incl-p={i} hidden={i !== 0}><Mock kind={mock} lang={lang} /></div>)}</div>
     </div>
   </section>
 
-  <section id="pricing" style="scroll-margin-top:90px">
+  <section>
     <div class="wrap">
-      <div class="reveal" style="max-width:820px;margin-bottom:34px"><span class="eyebrow">{L("Pricing", "Preços")}</span><h2>{L("A monthly subscription, by module.", "Uma assinatura mensal, por módulo.")}</h2><p class="lead">{L("You pay only for the modules you switch on. Prices are in US dollars and are always shown to you before you pay.", "Você paga apenas pelos módulos que ativar. Os preços são em dólares americanos e sempre aparecem antes do pagamento.")}</p></div>
+      <div class="reveal" style="margin-bottom:30px"><span class="eyebrow">{L("How we work", "Como trabalhamos")}</span><h2>{L("From idea to launch, in five steps.", "Da ideia ao lançamento, em cinco etapas.")}</h2></div>
+      <ol class="timeline reveal" data-stagger>{steps.map(([t, d], i) => <li><span class="n">{String(i + 1).padStart(2, "0")}</span><div><h3>{t}</h3><p>{d}</p></div></li>)}</ol>
+    </div>
+  </section>
+
+  <section class="grey">
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:30px"><span class="eyebrow">{L("Our platform", "Nossa plataforma")}</span><h2>{L("Ready-made for relocation and property companies.", "Pronta para empresas de realocação e imóveis.")}</h2><p class="lead" style="font-size:18px">{L("Beyond custom projects, Connectas offers its own platform under your brand. Choose the modules you need.", "Além dos projetos sob medida, a Connectas oferece sua própria plataforma com a sua marca. Escolha os módulos de que precisa.")}</p></div>
+      <div class="cards reveal" data-stagger>{mods.map(([ic, t, d]) => <div class="card"><span class="ic" set:html={ICON[ic]} /><h3>{t}</h3><p>{d}</p></div>)}</div>
+    </div>
+  </section>
+
+  <section id="pricing" class="anchor">
+    <div class="wrap">
+      <div class="reveal" style="max-width:820px;margin-bottom:30px"><span class="eyebrow">{L("Pricing", "Preços")}</span><h2>{L("Projects by proposal. The platform by subscription.", "Projetos por proposta. A plataforma por assinatura.")}</h2><p class="lead" style="font-size:18px">{L("Websites, systems and apps are priced per project in a written proposal. The platform is a monthly subscription by module, in US dollars, always shown before you pay.", "Sites, sistemas e apps têm preço por projeto, em proposta escrita. A plataforma é uma assinatura mensal por módulo, em dólares, sempre exibida antes do pagamento.")}</p></div>
       <div class="price-grid reveal" data-stagger>
         <div class="price main"><span class="tag" style="color:#A8A8A8">{L("Required", "Obrigatório")}</span><h3>{L("Base subscription", "Assinatura base")}</h3><p>{L("Monthly fee plus an amount per active assignee.", "Mensalidade mais um valor por expatriado ativo.")}</p>
           <ul><li>{L("HR and assignee portals, cases, documents, messages", "Portais de RH e de expatriados, processos, documentos, mensagens")}</li><li>{L("Users, roles and audit log", "Usuários, perfis e registro de auditoria")}</li><li>{L("Your brand and domain", "Sua marca e seu domínio")}</li></ul></div>
@@ -69,17 +108,34 @@ const sec: [keyof typeof ICON, string, string][] = [
     </div>
   </section>
 
-  <section class="grey">
-    <div class="wrap">
-      <div class="reveal" style="max-width:820px;margin-bottom:34px"><span class="eyebrow">{L("Security", "Segurança")}</span><h2>{L("Designed to protect people's data.", "Feita para proteger os dados das pessoas.")}</h2><p class="lead">{L("Relocation means passports, leases, addresses and family details. The platform treats them that way.", "Realocação envolve passaportes, contratos, endereços e dados de família. A plataforma os trata com esse cuidado.")}</p></div>
-      <div class="cards reveal" data-stagger>{sec.map(([ic, t, d]) => <div class="card"><span class="ic" set:html={ICON[ic]} /><h3>{t}</h3><p>{d}</p></div>)}</div>
+  <section id="demo" class="sand anchor">
+    <div class="wrap contact-grid">
+      <div class="reveal"><span class="eyebrow">{L("Talk to us", "Fale com a gente")}</span><h2>{L("Tell us what you need to build.", "Conte o que você precisa construir.")}</h2><p class="lead">{L("A website, a system, an app or the platform with your brand — we reply within two business days with a first view of scope and timeline.", "Um site, um sistema, um app ou a plataforma com a sua marca — respondemos em até dois dias úteis com uma primeira visão de escopo e prazo.")}</p></div>
+      <div class="reveal" style="--d:150ms"><ContactForm lang={lang} topic="tech" /></div>
     </div>
   </section>
 
-  <section id="demo" style="scroll-margin-top:90px">
-    <div class="wrap contact-grid">
-      <div class="reveal"><span class="eyebrow">{L("Request a demo", "Peça uma demonstração")}</span><h2>{L("See it working with your brand.", "Veja funcionando com a sua marca.")}</h2><p class="lead">{L("Tell us about your company and we'll show you the platform and send a quote.", "Conte sobre a sua empresa e mostramos a plataforma e enviamos um orçamento.")}</p></div>
-      <div class="reveal" style="--d:150ms"><ContactForm lang={lang} topic="platform" /></div>
-    </div>
-  </section>
+  <script is:inline>
+    (function () {
+      function init() {
+        document.querySelectorAll("[data-tabs]").forEach(function (box) {
+          if (box.dataset.bound) return; box.dataset.bound = "1";
+          box.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-tab]"); if (!b) return;
+            box.querySelectorAll("[data-tab]").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
+            box.querySelectorAll(".ttabs-panel").forEach(function (p) { p.hidden = p.id !== "panel-" + b.dataset.tab; });
+          });
+        });
+        document.querySelectorAll("[data-incl]").forEach(function (box) {
+          if (box.dataset.bound) return; box.dataset.bound = "1";
+          box.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-incl-i]"); if (!b) return; var i = b.dataset.inclI;
+            box.querySelectorAll("[data-incl-i]").forEach(function (x) { var on = x === b; x.setAttribute("aria-expanded", String(on)); x.nextElementSibling.hidden = !on; });
+            box.querySelectorAll("[data-incl-p]").forEach(function (p) { p.hidden = p.dataset.inclP !== i; });
+          });
+        });
+      }
+      document.addEventListener("astro:page-load", init);
+    })();
+  </script>
 </Base>

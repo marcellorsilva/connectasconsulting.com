@@ -16,13 +16,15 @@ const name = C.name[lang];
 const withArt = pt ? ({ usa: "os Estados Unidos", brazil: "o Brasil", guyana: "a Guiana" } as const)[country] : name;
 const photo = country === "guyana" ? PHOTO.guyana : country === "brazil" ? PHOTO.brazil : PHOTO.usa;
 const video = VIDEO[country];
+// What each photo must show: the whole bridge (Brazil), the market roofs (Guyana)
+const focus = { brazil: "50% 8%", guyana: "50% 88%", usa: "50% 45%" }[country];
 const posts = INSIGHTS_ON && country === "guyana" ? [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3) : [];
 const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== country);
 ---
 <Base lang={lang} page={country} title={`Connectas · ${C.h1[lang].replace(/\.$/, "")}`} description={C.lead[lang]}>
   <section class="chero">
     <div class="chero-media" aria-hidden="true">
-      {video ? <video autoplay muted loop playsinline poster={photo}><source src={video} type="video/mp4" /></video> : <img src={photo} alt="" />}
+      {video ? <video autoplay muted loop playsinline poster={photo}><source src={video} type="video/mp4" /></video> : <img src={photo} alt="" style={`object-position:${focus}`} />}
     </div>
     <div class="wrap chero-in">
       <span class="eyebrow fade-up">{L("Countries", "Países")} · {name}</span>
@@ -36,7 +38,7 @@ const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== countr
 
   <section style="padding-bottom:0">
     <div class="wrap">
-      <div class="facts four reveal" data-stagger>{C.facts.map(([v, l, s]) => <div><div class="v">{v[lang]}</div><div class="l">{l[lang]}</div>{s && <div class="s">{L("Source", "Fonte")}: {s}</div>}</div>)}</div>
+      <div class="facts four reveal" data-stagger>{C.facts.map(([v, l, s]) => <div><div class="v">{v[lang]}</div><div class="l">{l[lang]}</div></div>)}</div>
     </div>
   </section>
 
@@ -65,7 +67,7 @@ const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== countr
     <div class="wrap">
       <div class="reveal" style="max-width:780px;margin-bottom:30px"><span class="eyebrow">{L("Taxes & rules", "Impostos e regras")}</span><h2>{L("What weighs most.", "O que mais pesa.")}</h2></div>
       <div class="rules reveal" data-stagger>{C.rules.map(([t, d]) => <div class="rule"><h3>{t[lang]}</h3><p>{d[lang]}</p></div>)}</div>
-      <p class="fine reveal">{L("General information based on the sources at the end of this page, checked in October 2026. Rules change — we confirm the current position with licensed professionals for every project.", "Informação geral com base nas fontes no fim desta página, conferidas em outubro de 2026. As regras mudam — confirmamos a situação vigente com profissionais habilitados em cada projeto.")}</p>
+      <p class="fine reveal">{L("General information, checked in October 2026. Rules change — we confirm the current position with licensed professionals for every project.", "Informação geral, conferida em outubro de 2026. As regras mudam — confirmamos a situação vigente com profissionais habilitados em cada projeto.")}</p>
     </div>
   </section>
 
@@ -106,7 +108,4 @@ const others = (["guyana", "brazil", "usa"] as const).filter((c) => c !== countr
     </div>
   </section>
 
-  <section style="padding-top:0" class="sand">
-    <div class="wrap"><div class="sources-box"><b>{L("Sources", "Fontes")}</b><ul>{C.sources.map(([t, u]) => <li><a href={u} target="_blank" rel="noopener">{t}</a></li>)}</ul></div></div>
-  </section>
 </Base>
