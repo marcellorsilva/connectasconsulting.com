@@ -258,3 +258,7 @@ body.corp .sec.dark .btn.outline-light, body.corp .sec.dark .btn.outline { color
 body.corp .case-head > .badge { align-self: start; justify-self: start; width: auto; }
 @media (max-width: 600px) { body.corp .table-wrap td { white-space: normal; word-break: break-word; } }
 @media (max-width: 600px) { body.corp .projects[style] { grid-template-columns: 1fr !important; } }
+/* CMR band: globe background, lighter overlay so it reads */
+.case-band.cmr .cb-bg { background-position: 70% 50%; }
+.case-band.cmr::before { background: linear-gradient(90deg, rgba(6,15,36,.85) 0%, rgba(6,15,36,.45) 40%, rgba(6,15,36,0) 70%) !important; }
+@media (max-width: 900px) { .case-band.cmr .cb-bg { background-position: 65% 50%; } .case-band.cmr::before { background: linear-gradient(180deg, rgba(6,15,36,.75), rgba(6,15,36,.2) 60%) !important; } }
