@@ -373,3 +373,33 @@ body.corp .nav > a, body.corp .nav .dd > button { white-space: nowrap; }
 @media (min-width: 1001px) { body.corp .hdr .wrap { max-width: none; padding-left: clamp(28px, 5.5vw, 120px); padding-right: clamp(28px, 5.5vw, 120px); } }
 body.corp .hdr .btn { white-space: nowrap; }
 @media (min-width: 1001px) { .cfeat .wrap { max-width: none; padding-left: clamp(28px, 5.5vw, 120px); padding-right: clamp(28px, 5.5vw, 120px); } }
+/* Real devices */
+.rdev { position: relative; padding-right: 14%; }
+.rdev .r-imac { width: 100%; height: auto; display: block; filter: drop-shadow(0 30px 40px rgba(11,26,51,.22)); }
+.rdev .r-phone { position: absolute; right: 0; bottom: 4%; width: 24%; height: auto; filter: drop-shadow(0 24px 30px rgba(11,26,51,.35)); }
+.rdev.solo { padding-right: 0; }
+.rdev-ph { display: grid; place-items: center; }
+.rdev-ph .r-phone { width: min(240px, 80%); height: auto; filter: drop-shadow(0 24px 30px rgba(11,26,51,.3)); }
+.rphones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4%; align-items: end; }
+.rphones .r-phone { width: 100%; height: auto; filter: drop-shadow(0 24px 30px rgba(11,26,51,.3)); }
+.rphones .r-phone:nth-child(2) { transform: translateY(-6%); }
+body.corp .panel { background: radial-gradient(70% 80% at 40% 35%, #F7F9FD, #E4EBF6); border: 0; }
+body.corp .case-media .side.devices { background: radial-gradient(70% 80% at 50% 40%, #F7F9FD, #E4EBF6); }
+body.corp .ind .vis .onshot { inset: auto 6% 5% 6%; }
+/* Compact footer */
+body.corp .cfoot { padding-block: 44px calc(28px + env(safe-area-inset-bottom, 0px)); }
+.cfoot-top { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.cfoot-logo img { height: 40px; width: auto; }
+.cfoot-nav { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-left: auto; }
+.cfoot-nav a, .cfoot-mail { color: #C9D3E6; text-decoration: none; font-size: 15px; font-weight: 500; }
+.cfoot-nav a:hover, .cfoot-mail:hover { color: #fff; }
+.cfoot-mail { color: #fff; }
+.cfoot-bottom { display: flex; justify-content: space-between; gap: 10px 20px; flex-wrap: wrap; padding-top: 18px; font-size: 13px; color: #8E9BB5; }
+.cfoot-bottom nav { display: flex; gap: 18px; }
+.cfoot-bottom a { color: #8E9BB5; text-decoration: none; }
+@media (max-width: 760px) {
+  .cfoot-top { gap: 16px; }
+  .cfoot-nav { margin-left: 0; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cfoot-logo img { height: 34px; }
+}
+body.corp .hero.hero-page h1 { font-size: clamp(36px, 4.2vw, 60px); }

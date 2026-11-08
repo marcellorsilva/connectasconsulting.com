@@ -21,7 +21,8 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 
 ## Decisões já tomadas (não desfazer sem pedido)
 - **Nunca** escrever "sample", "sample data", "illustrative" ou avisos de demonstração em sites ou sistemas.
-- Sem seção Insights e sem relógio no rodapé.
+- Sem seção Insights e sem relógio no rodapé. Rodapé enxuto (logo, 6 links, e-mail, 3 links legais).
+- Aparelhos sempre realistas: iMac real (`img/dev/imac-*.webp`) e iPhone de titânio (`img/dev/ip-*.webp`). Nunca molduras pretas desenhadas.
 - Prévia do link: `og:image` = `/brand/connectas-og.png` (só o símbolo). Título com "Connectas".
 - Ícone da aba: só o símbolo.
 - Nada de Brasil ou Guiana no site.
