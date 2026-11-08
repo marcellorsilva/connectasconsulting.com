@@ -358,3 +358,18 @@ html:has(body.corp), body.corp { overflow-x: hidden; }
   .cmarq span { font-size: 13.5px; padding: 9px 14px; }
 }
 .cplat-vis img { height: auto !important; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+/* Hero: text pinned left, never under the photo */
+@media (min-width: 1001px) {
+  .chero-in { max-width: none; margin: 0; padding-left: clamp(28px, 5.5vw, 120px); padding-right: 0; width: 54%; }
+  .chero-in > * { max-width: 100%; }
+  .chero h1 { font-size: clamp(42px, 4.3vw, 80px); }
+  .chero h1 strong, .chero h1 span { white-space: normal; }
+  .chero .clead { font-size: clamp(17px, 1.3vw, 21px); max-width: 30em; }
+  .chero-img { width: 50%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%); mask-image: linear-gradient(90deg, transparent 0%, #000 18%); }
+}
+.chero h1 { margin-bottom: 40px; }
+body.corp .nav > a, body.corp .nav .dd > button { white-space: nowrap; }
+@media (min-width: 1081px) and (max-width: 1280px) { body.corp .nav > a, body.corp .nav .dd > button { padding: 10px 9px; font-size: 15px; } body.corp .hdr .btn { margin-left: 10px; padding: 0 16px; } }
+@media (min-width: 1001px) { body.corp .hdr .wrap { max-width: none; padding-left: clamp(28px, 5.5vw, 120px); padding-right: clamp(28px, 5.5vw, 120px); } }
+body.corp .hdr .btn { white-space: nowrap; }
+@media (min-width: 1001px) { .cfeat .wrap { max-width: none; padding-left: clamp(28px, 5.5vw, 120px); padding-right: clamp(28px, 5.5vw, 120px); } }
