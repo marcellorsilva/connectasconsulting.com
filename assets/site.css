@@ -543,3 +543,36 @@ legend, .flabel { font-weight: 700; color: var(--ink); font-size: 15px; margin-b
   *, *::before, *::after { animation: none !important; transition: none !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Real product screens in device frames */
+.laptop .screen img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+.devset { position: relative; padding: 0 9% 7% 0; }
+.devset .laptop { width: 100%; }
+.devset .phone { position: absolute; right: 0; bottom: 0; width: 25%; min-width: 92px; }
+.devset .phone .body { padding: 6px; border-radius: 26px; }
+.devset .phone .screen { border-radius: 20px; }
+.devset:not(:has(.phone)) { padding: 0; }
+.panel .cap { margin-top: 16px; }
+.panel.navy .cap { color: #93A3C0; }
+.phones3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4%; align-items: end; }
+.phones3 .phone:nth-child(2) { transform: translateY(-8%); }
+.phones3 .phone .body { padding: 6px; border-radius: 26px; }
+.phones3 .phone .screen { border-radius: 20px; }
+.onshot { position: absolute; inset: auto 7% -4% 7%; z-index: 1; }
+.onshot .devset { padding-bottom: 0; }
+.onshot .laptop .lid { box-shadow: 0 30px 70px rgba(0,0,0,.55); }
+.project .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,18,38,.15), rgba(7,18,38,.55)); }
+.project .shot .onshot { inset: auto 8% -10% 8%; z-index: 2; transition: transform .5s var(--ease); }
+.project:hover .shot .onshot { transform: translateY(-6px); }
+.project .shot .logo { z-index: 3; }
+.project .shot .tablet { width: 56%; margin: 0 auto; }
+.project .shot .tabwrap .body { background: #0A0F1A; border-radius: 22px; padding: 9px; box-shadow: 0 30px 70px rgba(0,0,0,.5); }
+.project .shot .tabwrap .screen { border-radius: 14px; overflow: hidden; aspect-ratio: 3 / 3.4; }
+.project .shot .tabwrap .screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.ind .vis::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,18,38,.1), rgba(7,18,38,.5)); }
+.ind .vis:not(:has(> img)) { background: linear-gradient(160deg, #1E3D75, var(--navy-950)); }
+.ind .vis .onshot { inset: auto 8% 8% 8%; z-index: 2; }
+.case-media .big .onshot { inset: auto 9% 8% 9%; }
+.case-media .side.devices .phone .screen img { object-position: top; }
+.stage .laptop .lid { padding: 1.4% 1.4% 0; }
+@media (max-width: 640px) { .devset .phone { width: 30%; } }
