@@ -9,6 +9,24 @@
     function go() { timer = setInterval(function () { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, ms); }
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { clearInterval(timer); if (es[0].isIntersecting) go(); }).observe(m); else go();
   });
+  /* Showroom: iMac screens cycle + mouse parallax */
+  $$('.sr-cycle').forEach(function (c) { var im = $$('img', c), i = 0; if (im.length < 2 || reduce) return; setInterval(function () { im[i].classList.remove('on'); i = (i + 1) % im.length; im[i].classList.add('on'); }, 3400); });
+  var st = document.querySelector('[data-parallax]');
+  if (st && !reduce && window.matchMedia('(hover: hover)').matches) {
+    var layers = $$('[data-depth]', st);
+    st.parentNode.addEventListener('pointermove', function (e) { var r = st.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      layers.forEach(function (l) { var d = +l.getAttribute('data-depth'), base = l.classList.contains('sr-imac') ? 'translateX(-50%) ' : ''; l.style.transform = base + 'translate(' + (-x * d) + 'px,' + (-y * d) + 'px)'; }); });
+  }
+  /* Departments tabs: autoplay with progress */
+  $$('[data-tabs]').forEach(function (g) {
+    var tabs = $$('.dt', g), views = $$('.dv', g), idx = 0, timer = null, user = false, vis = false;
+    function show(i) { idx = i; tabs.forEach(function (t, j) { t.classList.toggle('on', j === i); var b = t.querySelector('.dt-bar'); b.classList.remove('run'); void b.offsetWidth; if (j === i && !user && !reduce) b.classList.add('run'); }); views.forEach(function (v, j) { v.classList.toggle('on', j === i); }); }
+    function next() { clearTimeout(timer); if (user || reduce || !vis) return; timer = setTimeout(function () { show((idx + 1) % tabs.length); next(); }, 5500); }
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { user = true; clearTimeout(timer); show(i); }); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) { show(idx); next(); } else clearTimeout(timer); }, { threshold: .35 }).observe(g);
+  });
+  /* Case bands: reveal devices */
+  if ('IntersectionObserver' in window) { var co = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); co.unobserve(e.target); } }); }, { threshold: .25 }); $$('.case-band').forEach(function (b) { co.observe(b); }); } else $$('.case-band').forEach(function (b) { b.classList.add('in'); });
   /* Hero photo: gentle parallax */
   var hi = document.querySelector('.chero-img');
   if (hi && !reduce) window.addEventListener('scroll', function () { var y = Math.min(scrollY, 700); hi.style.transform = 'translateY(' + (y * .18) + 'px)'; }, { passive: true });
