@@ -16,7 +16,8 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Sem preço fixo no site. Não prometer dados "100% corretos": prometer consistência, rastreabilidade e redução de erros.
 - Swerve: ~10% do conteúdo. Nunca item principal do menu. Cada empresa contratada separadamente. Selo "Integrated project" só em projetos que realmente envolveram as duas.
 - Logo da Connectas é o único no cabeçalho.
-- Visual: tema escuro com brilho azul/violeta (`assets/fx.css` + `assets/fx.js`): partículas que formam o símbolo, grade que pisca, fitas de luz, cursor próprio, holofote no mouse, prévia flutuante nos estudos de caso, relógio da Flórida no rodapé, transições entre páginas. Títulos grandes e pesados (Inter Tight). Respeitar quem desativa movimento.
+- Visual atual (branch site-v5-corporate, gerado com CORP=1): corporativo claro, azul-marinho e branco, fotos de prédio de vidro, telas reais dentro de fotos de MacBook (`img/corp/`), fonte Plus Jakarta Sans (título em negrito + linha fina). Estilos em `assets/corp.css`, animações em `assets/corp.js`. Setores devem ser amplos, com uma faixa de mercados variados. Sem números ou depoimentos inventados.
+- Visual anterior: tema escuro com brilho azul/violeta (`assets/fx.css` + `assets/fx.js`): partículas que formam o símbolo, grade que pisca, fitas de luz, cursor próprio, holofote no mouse, prévia flutuante nos estudos de caso, relógio da Flórida no rodapé, transições entre páginas. Títulos grandes e pesados (Inter Tight). Respeitar quem desativa movimento.
 
 ## Decisões já tomadas (não desfazer sem pedido)
 - Prévia do link: `og:image` = `/brand/connectas-og.png` (só o símbolo). Título com "Connectas".
