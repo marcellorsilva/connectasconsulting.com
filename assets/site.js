@@ -100,6 +100,28 @@
     }, { passive: true });
   }
 
+
+  /* ---------- Rolling word wheel ---------- */
+  $$('.wheel').forEach(function (wh) {
+    var li = $$('li', wh), n = li.length, i = 0;
+    function lay() {
+      var h = li[0].offsetHeight * 1.12;
+      li.forEach(function (el, k) {
+        var d = k - i; if (d > n / 2) d -= n; if (d < -n / 2) d += n;
+        var a = Math.abs(d);
+        el.style.transform = 'translateY(calc(-50% + ' + (d * h) + 'px)) rotateX(' + (-d * 16) + 'deg) rotateZ(' + (d * 4.5) + 'deg) translateZ(' + (-a * 30) + 'px)';
+        el.style.filter = a ? 'blur(' + Math.min(a * 2.4, 9) + 'px)' : 'none';
+        el.style.opacity = a > 4 ? 0 : (a ? Math.max(.75 - a * .13, .15) : 1);
+        el.style.transition = a > 4 ? 'none' : '';
+      });
+    }
+    lay(); window.addEventListener('resize', lay);
+    if (reduce) return;
+    var timer = null;
+    function go() { timer = setInterval(function () { i = (i + 1) % n; lay(); }, 1400); }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { clearInterval(timer); if (es[0].isIntersecting) go(); }).observe(wh); else go();
+  });
+
   /* ---------- Header: dropdowns and mobile menu ---------- */
   $$('.dd').forEach(function (dd) {
     var btn = $('button', dd);
