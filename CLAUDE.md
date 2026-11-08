@@ -20,6 +20,8 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Visual anterior: tema escuro com brilho azul/violeta (`assets/fx.css` + `assets/fx.js`): partículas que formam o símbolo, grade que pisca, fitas de luz, cursor próprio, holofote no mouse, prévia flutuante nos estudos de caso, relógio da Flórida no rodapé, transições entre páginas. Títulos grandes e pesados (Inter Tight). Respeitar quem desativa movimento.
 
 ## Decisões já tomadas (não desfazer sem pedido)
+- **Nunca** escrever "sample", "sample data", "illustrative" ou avisos de demonstração em sites ou sistemas.
+- Sem seção Insights e sem relógio no rodapé.
 - Prévia do link: `og:image` = `/brand/connectas-og.png` (só o símbolo). Título com "Connectas".
 - Ícone da aba: só o símbolo.
 - Nada de Brasil ou Guiana no site.
