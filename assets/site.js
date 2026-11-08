@@ -49,6 +49,56 @@
     }
   });
 
+
+  /* ---------- Scroll motion ---------- */
+  (function () {
+    var groups = [
+      ['.head', 'rv'], ['.problem', 'rv'], ['.sol', 'rv'], ['.project', 'rv'], ['.ind-chip', 'rv-zoom'], ['.ind', 'rv'],
+      ['.row-copy', 'rv-left'], ['.row-visual', 'rv-right'], ['.step', 'rv'], ['.case-media', 'rv-zoom'], ['.csr > div', 'rv'],
+      ['.cols3 > div', 'rv'], ['.checks li', 'rv'], ['.flowline > div', 'rv'], ['.duo > div', 'rv'], ['.form-card', 'rv-right'],
+      ['.hub', 'rv-zoom'], ['.cx-tabs', 'rv-left'], ['.cx-panel', 'rv-right'], ['.persp-visual', 'rv-zoom'], ['.persp-copy', 'rv-left'],
+      ['.panel', 'rv-zoom'], ['.statement', 'rv'], ['.partner-band > div', 'rv'], ['.position > *', 'rv'], ['.split > div', 'rv'],
+      ['.related', 'rv'], ['.faq details', 'rv'], ['.table-wrap', 'rv'], ['.caps span', 'rv'], ['.assess-mini > div', 'rv-left']
+    ];
+    var els = [];
+    groups.forEach(function (g) {
+      $$(g[0]).forEach(function (el) {
+        if (el.closest('.hero') || el.classList.contains('rv') || el.classList.contains('rv-left') || el.classList.contains('rv-right') || el.classList.contains('rv-zoom')) return;
+        var sib = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
+        el.classList.add(g[1]); el.style.setProperty('--d', Math.min(sib, 6) * 90 + 'ms'); els.push(el);
+      });
+    });
+    $$('.sec h2, .cta h2').forEach(function (h) {
+      if (h.closest('.hero')) return;
+      var words = h.textContent.trim().split(/\s+/);
+      if (words.length > 16) return;
+      h.innerHTML = words.map(function (w, i) { return '<span class="w"><span style="--i:' + i + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span></span>'; }).join(' ');
+      h.classList.add('split-words'); els.push(h);
+    });
+    if (reduce || !('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+    setTimeout(function () { els.forEach(function (e) { var r = e.getBoundingClientRect(); if (r.top < innerHeight) e.classList.add('in'); }); }, 2500);
+  })();
+
+  /* ---------- Hero screens cycle ---------- */
+  $$('.screen.cycle').forEach(function (s) {
+    var imgs = $$('img', s); if (imgs.length < 2 || reduce) return;
+    var i = 0, ms = +s.getAttribute('data-cycle') || 4000, off = +s.getAttribute('data-offset') || 0;
+    setTimeout(function () { setInterval(function () { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, ms); }, off);
+  });
+
+  /* ---------- Hero laptop tilts with scroll ---------- */
+  var lapEl = $('.stage .laptop');
+  if (lapEl && !reduce) {
+    var tick = false;
+    lapEl.addEventListener('animationend', function () { lapEl.style.animation = 'none'; lapEl.style.transform = 'translateX(-50%)'; });
+    window.addEventListener('scroll', function () {
+      if (tick) return; tick = true;
+      requestAnimationFrame(function () { var y = Math.min(scrollY, 600); lapEl.style.transform = 'translateX(-50%) perspective(1600px) rotateX(' + (y / 60) + 'deg) translateY(' + (-y / 10) + 'px)'; tick = false; });
+    }, { passive: true });
+  }
+
   /* ---------- Header: dropdowns and mobile menu ---------- */
   $$('.dd').forEach(function (dd) {
     var btn = $('button', dd);
@@ -142,8 +192,13 @@
       }, reduce ? 0 : 200);
       if (focus) t.focus();
     }
+    var pauto = !reduce, pidx = 0, ptimer = null;
+    ptabs.forEach(function (t) { var b = document.createElement('span'); b.className = 'bar'; t.appendChild(b); });
+    function prun(i) { ptabs.forEach(function (x, j) { var b = $('.bar', x); b.classList.remove('run'); void b.offsetWidth; if (j === i && pauto) b.classList.add('run'); }); }
+    function pnext() { if (!pauto) return; clearTimeout(ptimer); ptimer = setTimeout(function () { pidx = (pidx + 1) % ptabs.length; setP(pidx); prun(pidx); pnext(); }, 4500); }
+    if ('IntersectionObserver' in window && pauto) new IntersectionObserver(function (es) { if (es[0].isIntersecting) { prun(pidx); pnext(); } else clearTimeout(ptimer); }, { threshold: .4 }).observe(ps);
     ptabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { setP(i); });
+      t.addEventListener('click', function () { pauto = false; clearTimeout(ptimer); prun(-1); pidx = i; setP(i); });
       t.addEventListener('keydown', function (e) {
         var n = null;
         if (e.key === 'ArrowRight') n = (i + 1) % ptabs.length;

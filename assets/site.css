@@ -576,3 +576,94 @@ legend, .flabel { font-weight: 700; color: var(--ink); font-size: 15px; margin-b
 .case-media .side.devices .phone .screen img { object-position: top; }
 .stage .laptop .lid { padding: 1.4% 1.4% 0; }
 @media (max-width: 640px) { .devset .phone { width: 30%; } }
+
+/* Showcase compositions */
+.project .shot.showcase { aspect-ratio: 4 / 3; }
+.project .shot.showcase::after { display: none; }
+.project .shot.showcase img { transition: transform 1s var(--ease); }
+.project:hover .shot.showcase img { transform: scale(1.035); }
+.ind .vis img.showcase { object-fit: cover; }
+.ind .vis:has(img.showcase)::after { display: none; }
+.ind-chips { grid-template-columns: repeat(3, 1fr); }
+.ind-chip { aspect-ratio: 4 / 3; padding: 24px; }
+.ind-chip b { font-size: clamp(22px, 2vw, 28px); }
+.ind-chip span { font-size: 14px; max-width: 34ch; }
+@media (max-width: 760px) { .ind-chips { grid-template-columns: 1fr; } }
+
+/* ---------- Motion ---------- */
+/* Scroll reveal (only when JS runs) */
+.js .rv { opacity: 0; transform: translateY(46px) scale(.985); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); will-change: transform, opacity; }
+.js .rv.in { opacity: 1; transform: none; }
+.js .rv-left { opacity: 0; transform: translateX(-60px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
+.js .rv-right { opacity: 0; transform: translateX(60px); transition: opacity 1s var(--ease), transform 1.1s var(--ease); transition-delay: var(--d, 0ms); }
+.js .rv-left.in, .js .rv-right.in { opacity: 1; transform: none; }
+.js .rv-zoom { opacity: 0; transform: scale(.9); transition: opacity 1.1s var(--ease), transform 1.3s var(--ease); transition-delay: var(--d, 0ms); }
+.js .rv-zoom.in { opacity: 1; transform: none; }
+/* Headings: words rise in */
+.js .split-words .w { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.js .split-words .w > span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--ease); transition-delay: calc(var(--i) * 55ms); }
+.js .split-words.in .w > span { transform: none; }
+
+/* Hero screens crossfade */
+.screen.cycle { position: relative; }
+.screen.cycle img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; opacity: 0; transform: scale(1.03); transition: opacity 1s ease, transform 4s linear; }
+.phone .screen.cycle img { object-position: top; }
+.screen.cycle img.on { opacity: 1; transform: none; }
+.stage .phone.floaty, .floaty { animation: liftp 1.2s var(--ease) .6s both, floaty 6s ease-in-out 2s infinite; }
+@keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -14px; } }
+.stage .laptop { transition: transform .2s linear; }
+
+/* Screen strip */
+.strip { background: var(--navy-950); padding-block: clamp(48px, 6vw, 80px); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.strip-track { display: flex; gap: 22px; width: max-content; animation: strip 70s linear infinite; }
+.strip:hover .strip-track { animation-play-state: paused; }
+.strip figure { margin: 0; width: clamp(280px, 30vw, 440px); border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.08); transform: perspective(1200px) rotateY(-8deg); transition: transform .5s var(--ease); }
+.strip figure:nth-child(even) { transform: perspective(1200px) rotateY(8deg) translateY(26px); }
+.strip figure:hover { transform: none; }
+.strip figure img { width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; object-position: top left; }
+@keyframes strip { to { transform: translateX(-50%); } }
+
+/* Problems: icon pulse on reveal */
+.problem.in .ic { animation: pop .7s var(--ease) both; animation-delay: calc(var(--d, 0ms) + 200ms); }
+@keyframes pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.12); } 100% { transform: none; opacity: 1; } }
+.problem .ic { transition: background .3s, color .3s; }
+.problem:hover .ic { background: var(--navy-900); color: #fff; }
+
+/* Solution tiles */
+.sol { position: relative; overflow: hidden; }
+.sol::before { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, var(--navy-900), var(--navy-700)); opacity: 0; transition: opacity .45s var(--ease); }
+.sol > * { position: relative; }
+.sol:hover::before { opacity: 1; }
+.sol:hover h3 { color: #fff; }
+.sol:hover .link { color: var(--sky); }
+.sol:hover .ic { background: rgba(255,255,255,.12); color: #fff; }
+.sol .ic { transition: background .3s, color .3s, transform .45s var(--ease); }
+.sol:hover .ic { transform: rotate(-8deg) scale(1.08); }
+
+/* Industry chips */
+.ind-chip { transition: transform .5s var(--ease), box-shadow .5s; }
+.ind-chip:hover { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(11,26,53,.25); }
+.ind-chip span { transform: translateY(6px); opacity: .85; transition: transform .4s var(--ease), opacity .4s; }
+.ind-chip:hover span { transform: none; opacity: 1; }
+
+/* Hub nodes breathe */
+.hub .node rect { animation: breathe 4s ease-in-out infinite; animation-delay: calc(var(--n, 0) * .5s); }
+@keyframes breathe { 50% { stroke: rgba(165,194,242,.7); } }
+.hub .core-glow { fill: var(--sky); opacity: .25; transform-origin: 380px 260px; animation: coreglow 3s ease-in-out infinite; }
+@keyframes coreglow { 0% { transform: scale(.85); opacity: .35; } 100% { transform: scale(1.5); opacity: 0; } }
+
+/* Perspective tabs progress */
+.persp-tab { position: relative; overflow: hidden; }
+.persp-tab .bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--sky); transform: scaleX(0); transform-origin: left; }
+.persp-tab[aria-selected="true"] .bar.run { animation: prog 4.5s linear forwards; }
+@keyframes prog { to { transform: scaleX(1); } }
+
+/* CTA band button pulse */
+.cta .btn.light { box-shadow: 0 0 0 0 rgba(165,194,242,.6); animation: ring 2.6s ease-out infinite; }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(165,194,242,.55); } 100% { box-shadow: 0 0 0 22px rgba(165,194,242,0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rv, .js .rv-left, .js .rv-right, .js .rv-zoom { opacity: 1 !important; transform: none !important; }
+  .js .split-words .w > span { transform: none !important; }
+  .strip-track { animation: none; }
+}
