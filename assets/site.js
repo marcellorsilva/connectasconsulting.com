@@ -69,7 +69,7 @@
       });
     });
     $$('.sec h2, .cta h2').forEach(function (h) {
-      if (h.closest('.hero')) return;
+      if (h.closest('.hero') || h.querySelector('i, em, b, strong, span, br')) return;
       var words = h.textContent.trim().split(/\s+/);
       if (words.length > 16) return;
       h.innerHTML = words.map(function (w, i) { return '<span class="w"><span style="--i:' + i + '">' + w.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</span></span>'; }).join(' ');
