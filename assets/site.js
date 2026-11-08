@@ -25,10 +25,10 @@
       for (var i = 0; i < lines.length; i++) {
         var L = lines[i];
         var g = ctx.createLinearGradient(0, 0, w, 0);
-        g.addColorStop(0, 'rgba(120,165,240,0)');
-        g.addColorStop(0.45, 'rgba(140,180,250,' + L.a + ')');
-        g.addColorStop(0.8, 'rgba(190,215,255,' + (L.a * 1.4) + ')');
-        g.addColorStop(1, 'rgba(120,165,240,0)');
+        g.addColorStop(0, 'rgba(255,255,255,0)');
+        g.addColorStop(0.45, 'rgba(235,233,228,' + L.a + ')');
+        g.addColorStop(0.8, 'rgba(255,255,255,' + (L.a * 1.4) + ')');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.strokeStyle = g; ctx.lineWidth = L.lw; ctx.beginPath();
         for (var x = -20; x <= w + 20; x += 14) {
           var y = L.y + x * L.tilt + Math.sin(x * L.k + L.ph + t * L.sp) * L.amp;
@@ -82,10 +82,11 @@
   })();
 
   /* ---------- Hero screens cycle ---------- */
-  $$('.screen.cycle').forEach(function (s) {
+  $$('.screen.cycle, .hx-slides.cycle').forEach(function (s) {
     var imgs = $$('img', s); if (imgs.length < 2 || reduce) return;
     var i = 0, ms = +s.getAttribute('data-cycle') || 4000, off = +s.getAttribute('data-offset') || 0;
-    setTimeout(function () { setInterval(function () { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, ms); }, off);
+    var cnt = s.getAttribute('data-counter') ? document.getElementById(s.getAttribute('data-counter')) : null;
+    setTimeout(function () { setInterval(function () { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); if (cnt) cnt.textContent = (i < 9 ? '0' : '') + (i + 1); }, ms); }, off);
   });
 
   /* ---------- Hero laptop tilts with scroll ---------- */
