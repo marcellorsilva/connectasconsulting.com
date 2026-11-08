@@ -4,7 +4,7 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 
 ## Como funciona
 - Site estático em HTML. Estilos em `assets/site.css`, interações (hub, demonstração de fluxo, perspectivas, formulários, menu) em `assets/site.js`. Imagens reais em `img/` (Propel, Nova, CMRmobility, Swerve).
-- Menu: Solutions, Industries, Our Work, Our Approach, About (Our Company, Leadership, Creative Partnership — Swerve, Referral partners), Contact.
+- Menu: Solutions, Industries, Our Work, Our Approach, About (Our Company, Creative Partnership — Swerve, Referral partners), Contact.
 - Páginas: `index.html`, `solutions.html` + `solutions/*` (7 páginas SEO), `industries.html` + `industries/*` (5), `our-work.html` (Nova, Propel, CMRmobility), `our-approach.html`, `about.html`, `creative-partnership.html`, `partners.html`, `contact.html` (Business Systems Assessment), páginas legais, `404.html`, `sitemap.xml`.
 - Páginas antigas (Brasil, Guiana, EUA, relocation, consultorias, português) são redirecionamentos. Não recriar.
 - Publicado a partir do branch `main` (Vercel, `cleanUrls`).
@@ -22,3 +22,4 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Ícone da aba: só o símbolo.
 - Nada de Brasil ou Guiana no site.
 - CMR*mobility*: "mobility" sempre em itálico.
+- Sem seção ou item de menu "Leadership".
