@@ -1,24 +1,24 @@
 # Site da Connectas — instruções para o Claude
 
-Site institucional da Connectas (connectasconsulting.com), em inglês e português.
+Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 100% personalizados para pequenas e médias empresas dos EUA (sistemas, CRM, integração e automação, sites e portais conectados, apps iOS/Android, IA, segurança). **Somente em inglês.** Slogan: "We connect your entire business."
 
 ## Como funciona
-- Este repositório guarda o site **já pronto** (HTML estático gerado pelo Astro). Não há código-fonte do Astro aqui: as alterações são feitas direto nos arquivos `.html` e no `site.css`.
-- Inglês fica na raiz (`index.html`, `solutions/…`, `about.html`…). Português fica em `pt.html` e na pasta `pt/` (`pt/solucoes/…`, `pt/tecnologia.html`…).
-- O site é publicado a partir do branch `main` (há `CNAME` e `vercel.json` com `cleanUrls`). Um push no `main` coloca a alteração no ar em 1–2 minutos.
-- Estilos e cores ficam em `site.css` (variáveis em `:root`: `--ink`, `--accent`, `--serif` Fraunces, `--sans` Manrope…).
+- Site estático em HTML. Estilos em `assets/site.css`, interações (hub, demonstração de fluxo, perspectivas, formulários, menu) em `assets/site.js`. Imagens reais em `img/` (Propel, Nova, CMRmobility, Swerve).
+- Menu: Solutions, Industries, Our Work, Our Approach, About (Our Company, Leadership, Creative Partnership — Swerve, Referral partners), Contact.
+- Páginas: `index.html`, `solutions.html` + `solutions/*` (7 páginas SEO), `industries.html` + `industries/*` (5), `our-work.html` (Nova, Propel, CMRmobility), `our-approach.html`, `about.html`, `creative-partnership.html`, `partners.html`, `contact.html` (Business Systems Assessment), páginas legais, `404.html`, `sitemap.xml`.
+- Páginas antigas (Brasil, Guiana, EUA, relocation, consultorias, português) são redirecionamentos. Não recriar.
+- Publicado a partir do branch `main` (Vercel, `cleanUrls`).
 
 ## Como trabalhar
-- Responda em português.
-- O Marcello costuma estar no celular: publique as alterações direto (commit + push no `main`), sem pedir que ele faça algo no computador.
-- Faça cada alteração nas duas versões (EN e PT), a menos que ele diga o contrário.
-- Antes de editar, faça `git pull` — ele também publica por outros caminhos.
-- Se algo for gerado de novo a partir de outra cópia do projeto, as alterações feitas aqui podem ser sobrescritas; avise quando isso parecer estar acontecendo.
+- Responda em português. O Marcello costuma estar no celular.
+- Mostre uma prévia antes de publicar mudanças grandes; mudanças pequenas podem ir direto.
+- Antes de editar, faça `git pull`.
+- Sem preço fixo no site. Não prometer dados "100% corretos": prometer consistência, rastreabilidade e redução de erros.
+- Swerve: ~10% do conteúdo. Nunca item principal do menu. Cada empresa contratada separadamente. Selo "Integrated project" só em projetos que realmente envolveram as duas.
+- Logo da Connectas é o único no cabeçalho.
 
 ## Decisões já tomadas (não desfazer sem pedido)
-- **Prévia do link** (WhatsApp, redes): `og:image` = `/brand/connectas-og.png` (só o símbolo, 600×600). O título da prévia continua com "Connectas".
-- **Ícone da aba do navegador**: só o símbolo — `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`.
-- **Abertura em PT**: o título alterna "os Estados Unidos", "Brasil", "Guiana" (sem artigo em Brasil e Guiana).
-- **Página Relocation** (EN e PT): foto do Brasil (ponte Octávio Frias de Oliveira, São Paulo) na entrada, não a da Guiana.
-- **Formulários de contato**: sem a opção "Relocation & property platform (white label)" / "Plataforma de realocação e imóveis (white label)".
-- **Banner "Integrated websites, systems & apps"** depois da abertura: foi testado e removido a pedido. Não recolocar nesse formato.
+- Prévia do link: `og:image` = `/brand/connectas-og.png` (só o símbolo). Título com "Connectas".
+- Ícone da aba: só o símbolo.
+- Nada de Brasil ou Guiana no site.
+- CMR*mobility*: "mobility" sempre em itálico.
