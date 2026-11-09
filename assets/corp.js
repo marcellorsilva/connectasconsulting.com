@@ -96,3 +96,57 @@
   window.addEventListener('scroll', t, { passive: true }); t();
   b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); var h = document.querySelector('main, h1'); if (h && h.focus) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } });
 })();
+
+/* v40: "Today" spreadsheets: each department keeps editing its own file and the totals never match */
+(function () {
+  var vis = document.querySelector('.tr-side.before .tr-vis'); if (!vis) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards = [].slice.call(vis.querySelectorAll('.xls')); if (cards.length < 3) return;
+  cards.forEach(function (c) { var i = c.querySelector('i'); i.innerHTML = '<span>' + i.textContent + '</span>'; });
+  var alert = document.createElement('span'); alert.className = 'xls-alert'; vis.appendChild(alert);
+  var q = document.createElement('span'); q.className = 'xls-q'; vis.appendChild(q);
+  var STATES = [
+    [['Sales_report_FINAL.xlsx', '$412,300', '58'], ['Ops_numbers_v3.xlsx', '$398,750', '61'], ['Finance_update (2).xlsx', '$405,900', '—']],
+    [['Sales_report_FINAL_v2.xlsx', '$415,120', '59'], ['Ops_numbers_v4.xlsx', '$401,200', '61'], ['Finance_update (3).xlsx', '$405,900', '57']],
+    [['Sales_report_FINAL_v2.xlsx', '$418,640', '60'], ['Ops_numbers_v5.xlsx', '$396,980', '63'], ['Finance_update (4).xlsx', '$409,350', '57']]
+  ];
+  var QS = ['Which number is right?', 'Did ops update theirs?', 'Who has the latest file?'];
+  var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  function num(s) { return parseFloat(String(s).replace(/[^\d.]/g, '')); }
+  function tween(el, to) {
+    var a = num(el.textContent), b = num(to);
+    if (isNaN(a) || isNaN(b) || reduce) { el.textContent = to; return; }
+    var pre = /^\$/.test(to) ? '$' : '', t0 = performance.now();
+    (function f(t) { var k = Math.min(1, (t - t0) / 900), v = Math.round(a + (b - a) * (1 - Math.pow(1 - k, 3))); el.textContent = pre + v.toLocaleString('en-US'); if (k < 1) requestAnimationFrame(f); else el.textContent = to; })(t0);
+  }
+  function set(ci, st, anim) {
+    var c = cards[ci], name = c.querySelector('i span'), b = c.querySelectorAll('b');
+    if (name.textContent !== st[0]) { if (anim) { name.classList.add('swap'); setTimeout(function () { name.textContent = st[0]; name.classList.remove('swap'); }, 200); } else name.textContent = st[0]; }
+    [1, 2].forEach(function (k) { var e = b[k - 1]; if (e.textContent !== st[k]) { e.classList.add('chg'); anim ? tween(e, st[k]) : (e.textContent = st[k]); setTimeout(function () { e.classList.remove('chg'); }, 1300); } });
+  }
+  var gen = 0, on = false;
+  async function run(my) {
+    var ok = function () { return my === gen && on; };
+    STATES[0].forEach(function (s, i) { set(i, s, false); });
+    cards.forEach(function (c) { c.querySelectorAll('b').forEach(function (b) { b.classList.remove('bad'); }); });
+    alert.classList.remove('on'); q.classList.remove('on');
+    await wait(900);
+    for (var r = 1; r < STATES.length && ok(); r++) {
+      for (var i = 0; i < 3 && ok(); i++) {
+        if (STATES[r][i].join() === STATES[r - 1][i].join()) continue;
+        cards[i].classList.add('edit'); await wait(450); set(i, STATES[r][i], true); await wait(1300); cards[i].classList.remove('edit'); await wait(250);
+      }
+      if (!ok()) return;
+      q.textContent = QS[r % QS.length]; q.classList.add('on'); await wait(1700); q.classList.remove('on'); await wait(300);
+    }
+    if (!ok()) return;
+    cards.forEach(function (c, i) { setTimeout(function () { c.querySelector('b').classList.add('bad'); }, i * 220); });
+    await wait(500); alert.textContent = '3 reports · 3 different totals'; alert.classList.add('on');
+    q.textContent = QS[0]; await wait(500); q.classList.add('on');
+    await wait(3200);
+  }
+  async function loop() { var my = ++gen; while (my === gen && on) await run(my); }
+  if (reduce) return;
+  vis.classList.add('alive');
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = on; on = es[0].isIntersecting; if (on && !was) loop(); else if (!on) gen++; }, { threshold: .35 }).observe(vis);
+})();
