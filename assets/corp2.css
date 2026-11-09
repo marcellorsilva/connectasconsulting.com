@@ -262,3 +262,6 @@ body.corp .case-head > .badge { align-self: start; justify-self: start; width: a
 .case-band.cmr .cb-bg { background-position: 70% 50%; }
 .case-band.cmr::before { background: linear-gradient(90deg, rgba(6,15,36,.85) 0%, rgba(6,15,36,.45) 40%, rgba(6,15,36,0) 70%) !important; }
 @media (max-width: 900px) { .case-band.cmr .cb-bg { background-position: 65% 50%; } .case-band.cmr::before { background: linear-gradient(180deg, rgba(6,15,36,.75), rgba(6,15,36,.2) 60%) !important; } }
+/* Nova band: real kitchen photo */
+.case-band.nova .cb-bg { background-position: 40% 55%; }
+@media (max-width: 900px) { .case-band.nova .cb-bg { background-position: 30% 50%; } }
