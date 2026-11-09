@@ -246,6 +246,8 @@
   var form = $('#assessment-form');
   if (form) {
     var params = new URLSearchParams(window.location.search);
+    if (params.get('improve') && form.elements.details) form.elements.details.value = params.get('improve');
+    ['name', 'company', 'email'].forEach(function (k) { var v = params.get(k); if (v && form.elements[k]) form.elements[k].value = v; });
     ['size', 'industry', 'challenge'].forEach(function (k) {
       var v = params.get(k); if (!v) return;
       $$('[name="' + k + '"]', form).forEach(function (el) {
@@ -276,9 +278,12 @@
         'Also needs brand strategy or creative design: ' + (val('creative') || 'Not answered'), '',
         'More about the business:', f.details.value || '-'
       ].join('\n');
-      window.location.href = 'mailto:info@connectasconsulting.com?subject=' + encodeURIComponent('Business Systems Assessment · ' + f.company.value) + '&body=' + encodeURIComponent(body);
+      var btn = form.querySelector('button[type=submit]'); btn.setAttribute('aria-busy', 'true'); btn.disabled = true;
+      msg.hidden = false; msg.className = 'form-msg'; msg.textContent = 'Opening your email app with your answers...';
+      window.location.href = 'mailto:info@connectasconsulting.com?subject=' + encodeURIComponent('Discovery call request · ' + f.company.value) + '&body=' + encodeURIComponent(body);
+      setTimeout(function () { btn.disabled = false; btn.removeAttribute('aria-busy'); }, 2500);
       msg.hidden = false; msg.className = 'form-msg ok';
-      msg.textContent = 'Your email app opened with your answers. Press send and we will reply within one business day. If it did not open, write to info@connectasconsulting.com.';
+      msg.textContent = 'Your email app opened with your request. Press send and we will reply by email to set a time for the call. If nothing opened, write to info@connectasconsulting.com.';
     });
   }
 

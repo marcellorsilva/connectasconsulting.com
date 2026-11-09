@@ -9,22 +9,52 @@
     function go() { timer = setInterval(function () { imgs[i].classList.remove('on'); i = (i + 1) % imgs.length; imgs[i].classList.add('on'); }, ms); }
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { clearInterval(timer); if (es[0].isIntersecting) go(); }).observe(m); else go();
   });
-  /* Showroom: iMac screens cycle + mouse parallax */
-  $$('.sr-cycle').forEach(function (c) { var im = $$('img', c), i = 0; if (im.length < 2 || reduce) return; setInterval(function () { im[i].classList.remove('on'); i = (i + 1) % im.length; im[i].classList.add('on'); }, 3400); });
-  var st = document.querySelector('[data-parallax]');
-  if (st && !reduce && window.matchMedia('(hover: hover)').matches) {
-    var layers = $$('[data-depth]', st);
-    st.parentNode.addEventListener('pointermove', function (e) { var r = st.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-      layers.forEach(function (l) { var d = +l.getAttribute('data-depth'), base = l.classList.contains('sr-imac') ? 'translateX(-50%) ' : ''; l.style.transform = base + 'translate(' + (-x * d) + 'px,' + (-y * d) + 'px)'; }); });
+  /* Stepped demos (flow + departments): manual selection, keyboard, pause, autoplay that stops after interaction */
+  function stepper(root, opts) {
+    var btns = $$(opts.btn, root), views = $$(opts.view, root), idx = 0, timer = null, stopped = reduce, vis = false;
+    var pause = opts.pause;
+    function show(i, focus) {
+      idx = i;
+      btns.forEach(function (b, j) { var on = j === i; b.classList.toggle('on', on); if (opts.tabs) { b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1; } else b.setAttribute('aria-pressed', on);
+        var bar = b.querySelector('.dt-bar'); if (bar) { bar.classList.remove('run'); void bar.offsetWidth; if (on && !stopped) bar.classList.add('run'); } });
+      views.forEach(function (v, j) { var on = j === i; v.classList.toggle('on', on); if (opts.tabs) v.hidden = !on; });
+      if (focus) btns[i].focus();
+      if (opts.onShow) opts.onShow(i);
+    }
+    function setPaused(p) { stopped = p; if (pause) { pause.setAttribute('aria-pressed', p); pause.querySelector('span').textContent = p ? 'Play' : 'Pause'; pause.classList.toggle('is-paused', p); } if (p) clearTimeout(timer); else next(); show(idx); }
+    function next() { clearTimeout(timer); if (stopped || !vis) return; timer = setTimeout(function () { show((idx + 1) % btns.length); next(); }, opts.ms || 5000); }
+    btns.forEach(function (b, i) {
+      b.addEventListener('click', function () { setPaused(true); show(i); });
+      b.addEventListener('keydown', function (e) {
+        var k = e.key, n = null, horiz = opts.tabs;
+        if (k === 'ArrowDown' || k === 'ArrowRight') n = (i + 1) % btns.length;
+        if (k === 'ArrowUp' || k === 'ArrowLeft') n = (i - 1 + btns.length) % btns.length;
+        if (k === 'Home') n = 0; if (k === 'End') n = btns.length - 1;
+        if (n !== null && opts.tabs) { e.preventDefault(); setPaused(true); show(n, true); }
+      });
+    });
+    if (pause) { if (reduce) { pause.hidden = true; } pause.addEventListener('click', function () { setPaused(!stopped); }); }
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) next(); else clearTimeout(timer); }, { threshold: .3 }).observe(root);
+    show(0);
   }
-  /* Departments tabs: autoplay with progress */
-  $$('[data-tabs]').forEach(function (g) {
-    var tabs = $$('.dt', g), views = $$('.dv', g), idx = 0, timer = null, user = false, vis = false;
-    function show(i) { idx = i; tabs.forEach(function (t, j) { t.classList.toggle('on', j === i); var b = t.querySelector('.dt-bar'); b.classList.remove('run'); void b.offsetWidth; if (j === i && !user && !reduce) b.classList.add('run'); }); views.forEach(function (v, j) { v.classList.toggle('on', j === i); }); }
-    function next() { clearTimeout(timer); if (user || reduce || !vis) return; timer = setTimeout(function () { show((idx + 1) % tabs.length); next(); }, 5500); }
-    tabs.forEach(function (t, i) { t.addEventListener('click', function () { user = true; clearTimeout(timer); show(i); }); });
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) { show(idx); next(); } else clearTimeout(timer); }, { threshold: .35 }).observe(g);
-  });
+  var flowEl = document.querySelector('[data-flow]');
+  if (flowEl) stepper(flowEl, { btn: '.fs', view: '.fv', pause: document.querySelector('.fl-pause'), ms: 4200 });
+  var tabsEl = document.querySelector('[data-tabs]');
+  if (tabsEl) stepper(tabsEl, { btn: '.dt', view: '.dv', tabs: true, pause: document.querySelector('.dp-pause'), ms: 5500 });
+
+  /* Screen viewer (lightbox) */
+  var zooms = $$('.dv-zoom');
+  if (zooms.length) {
+    var dlg = document.createElement('dialog'); dlg.className = 'lbox'; dlg.setAttribute('aria-label', 'Screen preview');
+    dlg.innerHTML = '<div class="lbox-in"><button type="button" class="lbox-x" aria-label="Close">&times;</button><img alt=""><p></p></div>';
+    document.body.appendChild(dlg);
+    var limg = dlg.querySelector('img'), lcap = dlg.querySelector('p'), opener = null;
+    zooms.forEach(function (z) { z.addEventListener('click', function () { opener = z; limg.src = z.getAttribute('data-src'); limg.alt = z.getAttribute('data-cap'); lcap.textContent = z.getAttribute('data-cap'); if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); dlg.querySelector('.lbox-x').focus(); }); });
+    function close() { if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
+    dlg.querySelector('.lbox-x').addEventListener('click', close);
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+    dlg.addEventListener('close', function () { if (opener) opener.focus(); });
+  }
   /* Case bands: reveal devices */
   if ('IntersectionObserver' in window) { var co = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); co.unobserve(e.target); } }); }, { threshold: .25 }); $$('.case-band').forEach(function (b) { co.observe(b); }); } else $$('.case-band').forEach(function (b) { b.classList.add('in'); });
   /* Hero photo: gentle parallax */

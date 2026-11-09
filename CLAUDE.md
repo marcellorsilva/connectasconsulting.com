@@ -28,3 +28,8 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Nada de Brasil ou Guiana no site.
 - CMR*mobility*: "mobility" sempre em itálico.
 - Sem seção ou item de menu "Leadership".
+- Home (v30): um único negócio de demonstração (Kitchen & Bath) no topo, no fluxo conectado e nas abas por departamento. Os três exemplos aparecem só depois, como "Project demonstrations". Nunca misturar telas de negócios diferentes como se fossem um sistema.
+- Nomes de clientes nunca aparecem: usar o ramo de atividade (Kitchen & Bath Company, Yacht Charter Company, Relocation & Property Company). Telas usam marcas inventadas (Halden, Seaward, Northway).
+- CTA de contato padronizado: "Book a Discovery Call". Formulário: "Request a Discovery Call" (abre o e-mail com as respostas). Our Work usa "What this enables", não "The result".
+- Processo: Discover → Define & Prototype → Build & Integrate → Validate & Launch → Support & Improve.
+
