@@ -56,3 +56,12 @@
     });
   }
 })();
+
+/* Back to top button */
+(function () {
+  var b = document.querySelector('.totop'); if (!b) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function t() { b.classList.toggle('on', window.scrollY > window.innerHeight * 0.8); }
+  window.addEventListener('scroll', t, { passive: true }); t();
+  b.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }); var h = document.querySelector('main, h1'); if (h && h.focus) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); } });
+})();

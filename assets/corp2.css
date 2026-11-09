@@ -321,3 +321,10 @@ body.corp .tr-side.after h3, body.corp .tr-side.after h3 * { color: #fff !import
 .x1 { left: 0; top: 0; } .x2 { right: 0; top: 34%; } .x3 { left: 10%; bottom: 0; }
 @media (max-width: 900px) { .xls { width: 66%; font-size: 12.5px; padding: 10px 12px 12px; } .x2 { top: 30%; } }
 .tr-side.after .tr-vis img { height: 92% !important; align-self: start; }
+/* back to top */
+.totop { position: fixed; right: clamp(16px, 2vw, 28px); bottom: calc(clamp(16px, 2vw, 28px) + env(safe-area-inset-bottom, 0px)); z-index: 60; width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fff; background: var(--blue, #1F5FD6); color: #fff; display: grid; place-items: center; cursor: pointer; box-shadow: 0 14px 30px rgba(11,26,51,.35); opacity: 0; transform: translateY(14px) scale(.9); pointer-events: none; transition: opacity .3s, transform .3s, background .2s; }
+.totop svg { width: 20px; height: 20px; }
+.totop.on { opacity: 1; transform: none; pointer-events: auto; }
+.totop:hover { background: #174CB0; }
+.totop:focus-visible { outline: 2px solid #9FC0FF; outline-offset: 3px; }
+@media (max-width: 560px) { .totop { width: 44px; height: 44px; } }
