@@ -648,3 +648,29 @@ body.corp .hero-page .media img.hero-photo { aspect-ratio: 1964 / 1240 !importan
 .fv:not(.on) { visibility: hidden; opacity: 0; }
 @media (max-width: 900px) { .fv { position: absolute !important; inset: 0 !important; } .fv:not(.on) { display: block !important; } .fl-view { display: block !important; position: relative; } }
 @media (min-width: 1001px) { .chero-live .live { left: auto !important; right: 0; transform: none !important; } .chero-img.chero-live { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%); mask-image: linear-gradient(90deg, transparent 0%, #000 16%); } }
+/* finger tap for phone actions (no mouse on apps) */
+.lv-tap { position: absolute; z-index: 5; width: calc(var(--u)*30); height: calc(var(--u)*30); margin: calc(var(--u)*-15) 0 0 calc(var(--u)*-15); border-radius: 50%; background: rgba(37,99,235,.28); box-shadow: 0 0 0 calc(var(--u)*2) rgba(255,255,255,.9); opacity: 0; transform: scale(.4); }
+.lv-tap.go { animation: lvtap .9s ease-out forwards; }
+@keyframes lvtap { 0% { opacity: 0; transform: scale(.4); } 25% { opacity: 1; transform: scale(1); } 60% { opacity: .9; transform: scale(.85); } 100% { opacity: 0; transform: scale(1.8); } }
+/* live scenes placed in existing sections */
+.tr-side.after .tr-vis { aspect-ratio: auto; display: block; }
+.tr-live .dflat { border-radius: 14px; box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+.dv-shot.live-shot { border: 0; background: transparent; box-shadow: none; overflow: visible; }
+.dv-shot.live-shot .dflat { border-radius: 16px; box-shadow: 0 30px 60px rgba(15,23,42,.22); }
+.dv-phone { display: grid; place-items: center; }
+.dv-phone .dphone { width: min(300px, 62%); filter: drop-shadow(0 30px 40px rgba(15,23,42,.3)); }
+.case-band .cb-dev { height: auto !important; aspect-ratio: auto; }
+.case-band .cb-in { grid-template-columns: .8fr 1.2fr; }
+.case-band.cmr .cb-bg { display: block; }
+.dv-shot.live-shot { width: 100%; display: block; }
+.dv-shot.live-shot .app-scene, .tr-live { width: 100%; }
+.dv-shot.live-shot .dflat, .tr-live .dflat { width: 100%; }
+.case-band:nth-child(odd) .cb-in { grid-template-columns: 1.2fr .8fr; }
+@media (max-width: 900px) { .case-band:nth-child(odd) .cb-in, .case-band .cb-in { grid-template-columns: 1fr; } }
+.case-band .cb-dev, .case-band.propel .cb-dev { aspect-ratio: auto !important; height: auto !important; }
+/* snappier page: faster reveals */
+.js .rv, .js .rv-left, .js .rv-right, .js .rv-zoom { transition-duration: .55s, .6s !important; }
+.js .rv { transform: translateY(22px); }
+.js .rv-left { transform: translateX(-28px); } .js .rv-right { transform: translateX(28px); }
+.js .split-words .w > span { transition-duration: .55s; transition-delay: calc(var(--i) * 28ms); }
+.case-band .cb-bg { transition-duration: 4s; }

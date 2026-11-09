@@ -62,15 +62,16 @@
     function move(x, y) { cur.style.left = U(x); cur.style.top = U(y); }
     function act(i, done) {
       var a = sc.actions[i]; if (!a) return;
-      cur.classList.add('on'); move(a.at[0], a.at[1]);
+      if (a.tap) { cur.classList.remove('on'); var tp = el(layer, 'lv-tap', a.at[0], a.at[1]); setTimeout(function () { tp.classList.add('go'); }, reduce ? 0 : 500); setTimeout(function () { tp.remove(); }, 1600); }
+      else { cur.classList.add('on'); move(a.at[0], a.at[1]); }
       setTimeout(function () {
-        cur.classList.add('click'); setTimeout(function () { cur.classList.remove('click'); }, 400);
+        if (!a.tap) { cur.classList.add('click'); setTimeout(function () { cur.classList.remove('click'); }, 400); }
         var keys = Object.keys(a.set); keys.forEach(function (k, j) { setTimeout(function () { setv(k, a.set[k], true); }, 120 + j * 60); });
         if (a.toast) { toast.textContent = a.toast; toast.style.left = U(Math.min(a.at[0] - 30, W - 330)); toast.style.top = U(a.at[1] + 22); toast.classList.add('on'); setTimeout(function () { toast.classList.remove('on'); }, 2400); }
         if (a.banner) { var b = a.banner; ban.style.left = U(b.x); ban.style.top = U(b.y); ban.style.width = U(b.w); ban.querySelector('b').textContent = b.t; ban.querySelector('small').textContent = b.b; ban.classList.add('on'); setTimeout(function () { ban.classList.remove('on'); }, 2800); }
-        setTimeout(function () { move(a.at[0] + 120, a.at[1] + 160); }, 1300);
+        if (!a.tap) setTimeout(function () { move(a.at[0] + 120, a.at[1] + 160); }, 1300);
         if (done) setTimeout(done, 1500);
-      }, reduce ? 0 : 950);
+      }, reduce ? 0 : (a.tap ? 650 : 950));
     }
     function apply(i) { var a = sc.actions[i]; if (a) Object.keys(a.set).forEach(function (k) { setv(k, a.set[k], false); }); }
     function park() { cur.classList.remove('on'); }
