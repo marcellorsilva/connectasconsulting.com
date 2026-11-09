@@ -105,13 +105,13 @@
     var cur = -1, views = app[kind];
     function mount(i, instant) {
       cur = i; var v = views[i], html = kind === 'desktop' ? desktop(app, v) : kind === 'tablet' ? tablet(app, v) : phone(app, v);
-      vp.innerHTML = html; vp.appendChild(ptr); vp.appendChild(notif); vp.appendChild(toast);
+      fit(); vp.innerHTML = html; vp.appendChild(ptr); vp.appendChild(notif); vp.appendChild(toast);
       var ind = vp.querySelector('.atab-ind'), on = vp.querySelector('.atabs .on'); if (ind && on) { ind.style.left = on.offsetLeft + 'px'; ind.style.width = on.offsetWidth + 'px'; }
       $$('[data-n]', vp).forEach(function (n) { var t = n.getAttribute('data-n'); var p = parse(t); if (p && !instant) { n.textContent = fmt(p, 0); count(n, t, 1100, fmt(p, 0)); } });
       if (instant || reduce) vp.classList.add('in'); else { vp.classList.remove('in'); void vp.offsetWidth; requestAnimationFrame(function () { vp.classList.add('in'); }); }
     }
     function fit() {
-      var b = scr.getBoundingClientRect(); if (!b.width) return;
+      var b = scr.getBoundingClientRect(); if (!b.width) { if (!api._retry) { api._retry = setTimeout(function () { api._retry = 0; fit(); }, 300); } return; }
       if (host.classList.contains('dimac')) { vp.style.transform = imacMatrix(host, W, H); }
       else { var s = Math.min(b.width / W, b.height / H); vp.style.transform = 'scale(' + s + ')'; }
     }
@@ -180,7 +180,7 @@
     if (btn) { if (reduce) btn.hidden = true; btn.addEventListener('click', function () { paused = !paused; btn.setAttribute('aria-pressed', paused); btn.querySelector('span').textContent = paused ? 'Play' : 'Pause'; if (!paused) loop(); else gen++; }); }
     steps.forEach(function (s, i) { s.addEventListener('click', async function () { paused = true; gen++; if (btn) { btn.setAttribute('aria-pressed', 'true'); btn.querySelector('span').textContent = 'Play'; } running = false; Object.keys(devs).forEach(function (k) { devs[k].mount(app.start && app.start[k] || 0, true); }); for (var j = 0; j < i; j++) await app.script[j](devs, function () { return Promise.resolve(); }); mark(i); app.script[i](devs, wait); }); });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) { fitAll(); loop(); } else gen++; }, { threshold: .25 }).observe(root); else { vis = true; loop(); }
-    var ro = 'ResizeObserver' in window ? new ResizeObserver(fitAll) : null; if (ro) ro.observe(root); else window.addEventListener('resize', fitAll);
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(fitAll) : null; if (ro) { ro.observe(root); $$('.scr', root).forEach(function (s) { ro.observe(s); }); } window.addEventListener('resize', fitAll); window.addEventListener('connectas:show', fitAll);
     setTimeout(fitAll, 50); fitAll();
     return { devs: devs };
   }

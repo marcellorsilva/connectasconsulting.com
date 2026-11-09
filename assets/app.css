@@ -222,3 +222,7 @@ body.corp .dv .avp .achk { gap: 8px !important; }
 body.corp .dv .avp li { font-size: inherit; font-weight: inherit; color: inherit; }
 body.corp .dv .avp .ptl { padding: 14px 16px !important; gap: 12px !important; background: #fff !important; }
 .dflat[data-h="600"] { aspect-ratio: 1280 / 600; }
+.dphone .scr, .dtab .scr, .dflat .scr { contain: paint; }
+.dv-phone .dphone { overflow: hidden; border-radius: 13% / 6.5%; }
+body.corp .dv-shot .dphone .frame, body.corp .dv-shot .dimac .frame { width: 100% !important; height: 100% !important; aspect-ratio: auto !important; object-fit: fill !important; position: absolute !important; inset: 0 !important; filter: none !important; }
+.dv-phone .dphone { overflow: visible; border-radius: 0; }

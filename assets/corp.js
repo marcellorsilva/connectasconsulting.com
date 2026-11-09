@@ -19,6 +19,7 @@
         var bar = b.querySelector('.dt-bar'); if (bar) { bar.classList.remove('run'); void bar.offsetWidth; if (on && !stopped) bar.classList.add('run'); } });
       views.forEach(function (v, j) { var on = j === i; v.classList.toggle('on', on); if (opts.tabs) v.hidden = !on; });
       if (focus) btns[i].focus();
+      setTimeout(function () { window.dispatchEvent(new Event('connectas:show')); }, 30);
       if (opts.onShow) opts.onShow(i);
     }
     function setPaused(p) { stopped = p; if (pause) { pause.setAttribute('aria-pressed', p); pause.querySelector('span').textContent = p ? 'Play' : 'Pause'; pause.classList.toggle('is-paused', p); } if (p) clearTimeout(timer); else next(); show(idx); }

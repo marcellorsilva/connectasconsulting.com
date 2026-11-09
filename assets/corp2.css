@@ -674,3 +674,4 @@ body.corp .hero-page .media img.hero-photo { aspect-ratio: 1964 / 1240 !importan
 .js .rv-left { transform: translateX(-28px); } .js .rv-right { transform: translateX(28px); }
 .js .split-words .w > span { transition-duration: .55s; transition-delay: calc(var(--i) * 28ms); }
 .case-band .cb-bg { transition-duration: 4s; }
+.dp-view { aspect-ratio: auto !important; height: auto !important; }
