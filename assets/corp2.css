@@ -675,3 +675,30 @@ body.corp .hero-page .media img.hero-photo { aspect-ratio: 1964 / 1240 !importan
 .js .split-words .w > span { transition-duration: .55s; transition-delay: calc(var(--i) * 28ms); }
 .case-band .cb-bg { transition-duration: 4s; }
 .dp-view { aspect-ratio: auto !important; height: auto !important; }
+
+/* v39: Haikei-style layered backgrounds (generated SVG) */
+.truth, .ind2, .custom { position: relative; isolation: isolate; }
+.truth::after, .ind2::after, .custom::after { content: ""; position: absolute; inset: auto 0 0 0; height: min(320px, 34%); background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'><path d='M0 320 L0 69 C103 69 103 94 206 94 C309 94 309 80 411 80 C514 80 514 98 617 98 C720 98 720 100 823 100 C926 100 926 55 1029 55 C1131 55 1131 51 1234 51 C1337 51 1337 117 1440 117 L1440 320Z' fill='%23F3F7FD'/><path d='M0 320 L0 129 C103 129 103 118 206 118 C309 118 309 142 411 142 C514 142 514 122 617 122 C720 122 720 115 823 115 C926 115 926 142 1029 142 C1131 142 1131 183 1234 183 C1337 183 1337 174 1440 174 L1440 320Z' fill='%23EAF1FB'/><path d='M0 320 L0 220 C103 220 103 229 206 229 C309 229 309 234 411 234 C514 234 514 245 617 245 C720 245 720 229 823 229 C926 229 926 244 1029 244 C1131 244 1131 172 1234 172 C1337 172 1337 207 1440 207 L1440 320Z' fill='%23E1EAF8'/></svg>") bottom / 100% 100% no-repeat; z-index: -1; pointer-events: none; }
+.custom::after { transform: scaleX(-1); }
+.listen::after, .proc2::after, .cta2::after { content: ""; position: absolute; inset: auto 0 0 0; height: min(300px, 40%); background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'><path d='M0 320 L0 86 C103 86 103 95 206 95 C309 95 309 124 411 124 C514 124 514 87 617 87 C720 87 720 91 823 91 C926 91 926 97 1029 97 C1131 97 1131 65 1234 65 C1337 65 1337 91 1440 91 L1440 320Z' fill='rgba%2859,123,240,.10%29'/><path d='M0 320 L0 148 C103 148 103 163 206 163 C309 163 309 163 411 163 C514 163 514 121 617 121 C720 121 720 111 823 111 C926 111 926 140 1029 140 C1131 140 1131 132 1234 132 C1337 132 1337 175 1440 175 L1440 320Z' fill='rgba%2859,123,240,.08%29'/><path d='M0 320 L0 191 C103 191 103 225 206 225 C309 225 309 225 411 225 C514 225 514 238 617 238 C720 238 720 185 823 185 C926 185 926 188 1029 188 C1131 188 1131 182 1234 182 C1337 182 1337 188 1440 188 L1440 320Z' fill='rgba%28255,255,255,.04%29'/></svg>") bottom / 100% 100% no-repeat; z-index: 0; pointer-events: none; }
+.proc2 { position: relative; isolation: isolate; overflow: hidden; }
+.proc2 > .wrap, .listen > .wrap, .cta2 > .wrap { position: relative; z-index: 1; }
+.listen::before, .proc2::before { content: ""; position: absolute; width: 640px; height: 640px; right: -180px; top: -220px; background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'><defs><radialGradient id='g' cx='50%25' cy='50%25' r='50%25'><stop offset='0' stop-color='%233B7BF0' stop-opacity='.35'/><stop offset='1' stop-color='%233B7BF0' stop-opacity='0'/></radialGradient></defs><path fill='url%28%23g%29' d='M421 92c58 44 108 112 101 180s-70 136-138 170-142 34-200 2S80 344 72 276s26-140 84-182 207-46 265-2z'/></svg>") center / contain no-repeat; z-index: 0; pointer-events: none; animation: blobDrift 18s ease-in-out infinite alternate; }
+.proc2::before { right: auto; left: -220px; top: auto; bottom: -260px; }
+@keyframes blobDrift { to { transform: translate(-40px, 30px) rotate(14deg) scale(1.06); } }
+
+/* v39: Uiverse-style buttons */
+.cbtn, body.corp .hdr .btn, body.corp .cta .btn.light { position: relative; overflow: hidden; isolation: isolate; transition: background .25s, transform .2s var(--ease), box-shadow .3s, color .25s, border-color .25s; }
+.cbtn:not(.ghost):not(.white) { background: linear-gradient(120deg, var(--navy) 0%, var(--navy-3) 50%, var(--navy) 100%); background-size: 220% 100%; background-position: 0 0; }
+.cbtn:not(.ghost):not(.white):hover { background-position: 100% 0; box-shadow: 0 0 0 4px rgba(59,123,240,.18), 0 16px 34px rgba(11,26,51,.28); }
+.cbtn::after, body.corp .hdr .btn::after { animation: btnShine 6s var(--ease) 2s infinite; }
+body.corp .hdr .btn::after { content: ""; position: absolute; top: 0; bottom: 0; left: -60%; width: 40%; background: linear-gradient(100deg, transparent, rgba(31,95,214,.18), transparent); transform: skewX(-18deg); }
+@keyframes btnShine { 0%, 78% { left: -60%; } 100% { left: 130%; } }
+.cbtn.ghost::before { content: ""; position: absolute; inset: 0; background: #EEF3FB; transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); z-index: -1; }
+.cbtn.ghost:hover::before { transform: scaleX(1); }
+.cbtn:active, body.corp .hdr .btn:active, body.corp .cta .btn.light:active { transform: scale(.97); }
+.cbtn:focus-visible, body.corp .hdr .btn:focus-visible { outline: 3px solid var(--blue-2); outline-offset: 3px; }
+body.corp .hdr .btn:hover, body.corp .cta .btn.light:hover { box-shadow: 0 0 0 4px rgba(255,255,255,.18), 0 12px 26px rgba(0,0,0,.18); transform: translateY(-1px); }
+body.corp .hdr .btn svg, body.corp .cta .btn.light svg { transition: transform .3s var(--ease); }
+body.corp .hdr .btn:hover svg, body.corp .cta .btn.light:hover svg { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) { .cbtn::after, body.corp .hdr .btn::after, .listen::before, .proc2::before { animation: none; } }
