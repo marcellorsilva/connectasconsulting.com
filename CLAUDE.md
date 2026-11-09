@@ -32,4 +32,5 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Nomes de clientes nunca aparecem: usar o ramo de atividade (Kitchen & Bath Company, Yacht Charter Company, Relocation & Property Company). Telas usam marcas inventadas (Halden, Seaward, Northway).
 - CTA de contato padronizado: "Book a Discovery Call". Formulário: "Request a Discovery Call" (abre o e-mail com as respostas). Our Work usa "What this enables", não "The result".
 - Processo: Discover → Define & Prototype → Build & Integrate → Validate & Launch → Support & Improve.
-
+- Painéis vivos (v32): telas em `img/live/` (finance, ops, crm, overview) com números que atualizam após um clique simulado. Posições e valores em `assets/live-scenes.json`, script `assets/live.js`. Sem iMac em excesso: preferir fotos do MacBook (`img/corp/mac-*.webp`).
+- Sem página de Referral partners (redireciona para /about).
