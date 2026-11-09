@@ -117,3 +117,11 @@
 .hx4-film .fm { aspect-ratio: 16 / 10.5; }
 .hx4-film .fm-pause { right: 14px; bottom: 14px; }
 @media (max-width: 1000px) { .hx4-in { grid-template-columns: 1fr; padding-inline: 20px; } .hx4-film .fm { aspect-ratio: 16 / 12; } }
+/* v40: the film blends into the hero instead of sitting in its own box */
+@media (max-width: 700px) {
+  .chero.hx4 { padding-bottom: 0; }
+  .hx4-film { margin: 6px -20px 0; }
+  .hx4-film .fm { aspect-ratio: 4 / 4.2; background: transparent; box-shadow: none; overflow: hidden; border-radius: 0; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 91%, transparent 100%); }
+  .hx4-film .fm-world { border-radius: 0; box-shadow: none; }
+  .hx4-film .fm-pause { right: 20px; bottom: 22px; }
+}

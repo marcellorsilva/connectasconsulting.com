@@ -14,6 +14,7 @@
     opts = opts || {};
     var W = root.clientWidth, H = root.clientHeight, s = Math.min(W / w, H / h) * (opts.pad || .9);
     var tx = W / 2 - (x + w / 2) * s, ty = H / 2 - (y + h / 2) * s;
+    if (W < 700) { opts.tilt = 0; s = Math.max(s, Math.max(W / VW, H / VH)); tx = W / 2 - (x + w / 2) * s; ty = H / 2 - (y + h / 2) * s; tx = Math.min(0, Math.max(W - VW * s, tx)); ty = Math.min(0, Math.max(H - VH * s, ty)); }
     cam.style.transitionDuration = (opts.ms || 1400) + 'ms';
     cam.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')' + (opts.tilt ? ' perspective(1600px) rotateX(' + opts.tilt + 'deg)' : '');
   }
