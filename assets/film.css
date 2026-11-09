@@ -108,3 +108,12 @@
 @keyframes fmring { from { opacity: .9; transform: scale(.4); } to { opacity: 0; transform: scale(3.4); } }
 .fm-press { transform: scale(.94); }
 @media (prefers-reduced-motion: reduce) { .fm-cam, .fm-b, .fm-dots, .fm-dots circle { transition: none !important; animation: none !important; } }
+/* hero: text left, film right */
+.chero.hx4 { display: block; min-height: 0; padding: clamp(36px, 4vw, 70px) 0; background: linear-gradient(90deg, #F7F8FA 0%, #EEF1F5 100%); overflow: hidden; }
+.hx4-in { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(24px, 3vw, 56px); align-items: center; padding-left: clamp(20px, 5.5vw, 120px); padding-right: clamp(16px, 2.5vw, 48px); }
+.hx4-copy h1 { font-size: clamp(38px, 3.9vw, 72px); margin: 0 0 22px; }
+.hx4-copy .clead { color: #333A47; font-size: clamp(16px, 1.25vw, 20px); margin-bottom: 30px; max-width: 32em; }
+.hx4-film { position: relative; }
+.hx4-film .fm { aspect-ratio: 16 / 10.5; }
+.hx4-film .fm-pause { right: 14px; bottom: 14px; }
+@media (max-width: 1000px) { .hx4-in { grid-template-columns: 1fr; padding-inline: 20px; } .hx4-film .fm { aspect-ratio: 16 / 12; } }

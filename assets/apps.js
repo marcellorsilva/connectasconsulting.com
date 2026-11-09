@@ -18,7 +18,7 @@
     }],
     tablet: [{
       title: 'Installation schedule', me: 'EC', layout: 'one',
-      get body() { return B([['cal', { t: 'Crews · this week', r: 'Oct 21 – 25', rows: [{ l: 'Crew A', b: [{ s: 1, w: 3, t: 'Walsh · install', c: 'c1' }] }, { l: 'Crew B', b: [{ s: 2, w: 2, t: 'Park · measure', c: 'c2' }, { s: 4, w: 1, t: 'Hill · demo', c: 'c3' }] }, { l: 'Delivery', b: [{ s: 1, w: 1, t: 'Cabinets', c: 'c4' }, { s: 3, w: 1, t: 'Tops', c: 'c4' }] }] }]]); }
+      get body() { return B([['kpis', [{ k: 'tjobs', l: 'Jobs this week', v: '14', d: '+3 vs last week', icon: 'cal' }, { k: 'tcrew', l: 'Crews out today', v: '3', icon: 'users' }, { k: 'tdel', l: 'Deliveries', v: '5', d: '2 today', icon: 'box' }, { k: 'tdone', l: 'On-time rate', v: '94%', d: '+2 pts', icon: 'check' }]], ['cal', { i: 4, t: 'Crews · this week', r: 'Oct 21 – 25', rows: [{ l: 'Crew A', b: [{ s: 1, w: 3, t: 'Walsh · install', c: 'c1' }] }, { l: 'Crew B', b: [{ s: 2, w: 2, t: 'Park · measure', c: 'c2' }, { s: 4, w: 1, t: 'Hill · demo', c: 'c3' }] }, { l: 'Delivery', b: [{ s: 1, w: 1, t: 'Cabinets', c: 'c4' }, { s: 3, w: 1, t: 'Tops', c: 'c4' }] }, { l: 'Service', b: [{ s: 2, w: 1, t: 'Ortega · fix', c: 'c3' }, { s: 5, w: 1, t: 'Bennett · touch-up', c: 'c2' }] }] }], ['rows', { k: 'tl', t: 'Today', i: 5, rows: [{ a: 'Walsh Kitchen · install day 2', b: 'Crew A · 48 Glen Haven Dr', p: 'On site', c: 'blue' }, { a: 'Cabinet delivery · Park Kitchen', b: 'Cabinetworks · 1:00 PM', p: 'In transit', c: 'yellow' }, { a: 'Final walkthrough · Bennett Bath', b: 'Emma C. · 4:30 PM', p: 'Scheduled', c: 'purple' }] }]]); }
     }],
     phone: [{
       kicker: 'Welcome to Halden', title: 'Good morning, Sarah',
@@ -45,7 +45,7 @@
     }],
     tablet: [{
       title: 'Departure readiness', me: 'LM', layout: 'one',
-      get body() { return B([['check', { t: 'Sea Breeze · Friday 9:00 AM', p: '50%', items: [{ t: 'Fuel and fluids', d: 1 }, { t: 'Safety equipment', d: 1 }, { t: 'Guest list received' }, { t: 'Hull and deck photos', ph: 1 }] }]]); }
+      get body() { return B([['kpis', [{ l: 'Guests', v: '10', icon: 'users' }, { l: 'Departure', v: '9:00', d: 'Friday · Pier 4', icon: 'cal' }, { l: 'Fuel', v: '92%', icon: 'boat' }, { l: 'Open defects', v: '0', icon: 'wrench' }]], ['check', { i: 4, t: 'Sea Breeze · Friday 9:00 AM', p: '50%', items: [{ t: 'Fuel and fluids', d: 1 }, { t: 'Safety equipment', d: 1 }, { t: 'Guest list received' }, { t: 'Hull and deck photos', ph: 1 }] }], ['rows', { t: 'Crew on board', i: 5, rows: [{ a: 'Leo Marsh', b: 'Captain', p: 'Confirmed', c: 'green' }, { a: 'Ana Ruiz', b: 'Stewardess', p: 'Confirmed', c: 'green' }, { a: 'Sam Ortega', b: 'Deckhand', p: 'Pending', c: 'yellow' }] }]]); }
     }],
     phone: [{
       kicker: 'Seaward · Owner', title: 'Your yachts, at a glance',
@@ -72,7 +72,7 @@
     }],
     tablet: [{
       title: 'Move-in inspection', me: 'AC', layout: 'one',
-      get body() { return B([['check', { t: '12 Oak Park Ave · Unit 4B', p: '40%', items: [{ t: 'Living room and kitchen', d: 1, ph: 1 }, { t: 'Bedrooms and closets', d: 1, ph: 1 }, { t: 'Appliances working', ph: 1 }, { t: 'Meter readings', ph: 1 }, { t: 'Keys handed over' }] }]]); }
+      get body() { return B([['kpis', [{ l: 'Resident', v: 'S. van Dijk', icon: 'users' }, { l: 'Move-in', v: 'Oct 26', icon: 'cal' }, { l: 'Rooms', v: '3', icon: 'key' }, { l: 'Photos', v: '18', icon: 'camera' }]], ['check', { i: 4, t: '12 Oak Park Ave · Unit 4B', p: '40%', items: [{ t: 'Living room and kitchen', d: 1, ph: 1 }, { t: 'Bedrooms and closets', d: 1, ph: 1 }, { t: 'Appliances working', ph: 1 }, { t: 'Meter readings', ph: 1 }, { t: 'Keys handed over' }] }], ['rows', { t: 'Notes for the landlord', i: 5, rows: [{ a: 'Small scratch · hallway floor', b: 'Photo 7 · existing before move-in', p: 'Noted', c: 'gray' }, { a: 'Dishwasher filter', b: 'Replace within 30 days', p: 'Landlord', c: 'yellow' }] }]]); }
     }],
     phone: [{
       kicker: 'Northway · Resident', title: 'Welcome home, Sophie',

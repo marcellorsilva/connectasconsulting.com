@@ -226,3 +226,7 @@ body.corp .dv .avp .ptl { padding: 14px 16px !important; gap: 12px !important; b
 .dv-phone .dphone { overflow: hidden; border-radius: 13% / 6.5%; }
 body.corp .dv-shot .dphone .frame, body.corp .dv-shot .dimac .frame { width: 100% !important; height: 100% !important; aspect-ratio: auto !important; object-fit: fill !important; position: absolute !important; inset: 0 !important; filter: none !important; }
 .dv-phone .dphone { overflow: visible; border-radius: 0; }
+.at-body.one { grid-template-columns: 1fr; gap: 14px; padding: 16px 20px; }
+.at .ak-row { gap: 10px; } .at .ak { padding: 11px 13px 10px; } .at .ak-v { font-size: 22px; }
+.at .achk li { padding: 9px 12px; font-size: 14px; } .at .achk { gap: 6px; }
+.at .acal .rr { height: 38px; } .at .arows li { padding: 8px 0; }
