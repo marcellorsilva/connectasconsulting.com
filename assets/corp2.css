@@ -250,10 +250,10 @@ body.corp .sec.dark .btn.outline-light, body.corp .sec.dark .btn.outline { color
 /* phone footer: short version */
 .cfoot-col .mo { display: none; }
 @media (max-width: 560px) {
-  .cfoot-col.sol, .cfoot-col.ind { display: none; }
+  .cfoot-col.fc-sol, .cfoot-col.fc-ind { display: none; }
   .cfoot-col .mo { display: list-item; }
-  .cfoot-col.co ul { grid-template-columns: 1fr 1fr; column-gap: 18px; }
-  .cfoot-col.co { grid-column: 1 / -1; }
+  .cfoot-col.fc-co ul { grid-template-columns: 1fr 1fr; column-gap: 18px; }
+  .cfoot-col.fc-co { grid-column: 1 / -1; }
 }
 body.corp .case-head > .badge { align-self: start; justify-self: start; width: auto; }
 @media (max-width: 600px) { body.corp .table-wrap td { white-space: normal; word-break: break-word; } }
