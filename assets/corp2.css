@@ -461,7 +461,7 @@ body.corp .brand img { height: 58px; }
 .ci-role { position: absolute; margin: 0; width: 30%; text-align: center; transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
 .ci-role img { width: 100%; height: auto; filter: drop-shadow(0 30px 40px rgba(0,0,0,.5)); }
 .ci-role figcaption { color: #fff; font-weight: 700; font-size: 14px; margin-top: 6px; }
-.ci-role.p1 { left: 2%; top: 6%; } .ci-role.p2 { left: 35%; top: 0; } .ci-role.p3 { left: 68%; top: 6%; }
+.ci-role.r1 { left: 2%; top: 6%; } .ci-role.r2 { left: 35%; top: 0; } .ci-role.r3 { left: 68%; top: 6%; }
 @media (max-width: 900px) { .ci-flow { grid-template-columns: 1fr 1fr; } .case-band.propel .cb-dev { aspect-ratio: 1 / 1.05; } }
 
 /* ---- Industries ---- */
@@ -526,3 +526,47 @@ body.corp .brand img { height: 58px; }
   .xls b { font-size: 13px; } .xls i { font-size: 11px; }
   .x1 { left: 0; top: 0; } .x2 { right: 0; top: 33%; } .x3 { left: 6%; bottom: 0; top: auto; }
 }
+
+/* =========================================================
+   v31 · previous look restored, new copy kept
+   ========================================================= */
+/* hero: photo on the right like before */
+.chero.sx-hero { min-height: 640px; }
+.chero.sx-hero .chero-img img { object-position: 22% 50%; }
+.chero.sx-hero .clead { color: #333A47; }
+.chero.sx-hero .hx2-steps { margin-top: 26px; }
+@media (max-width: 1000px) { .chero.sx-hero .chero-img { height: 300px; } .chero.sx-hero .chero-img img { object-position: 30% 45%; } }
+
+/* flow: real devices on the dark stage */
+.fl-view { aspect-ratio: 1640 / 1500; }
+.fv, .fv:not(.phone) { background: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; height: auto; max-height: none; align-items: center; }
+.fv img { width: 100%; height: auto; filter: drop-shadow(0 40px 50px rgba(0,0,0,.5)); }
+.fv.phone img { width: auto !important; height: 88% !important; max-height: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+.fv figcaption, .fv:not(.phone) figcaption { background: none !important; border: 0 !important; color: #B9C7E3 !important; text-align: center; padding: 6px 0 0 !important; }
+@media (max-width: 900px) {
+  .fl-view { aspect-ratio: auto; }
+  .fv-d, .fv.phone .fv-d { background: transparent !important; border: 0 !important; color: #C9D6F3 !important; text-align: left; padding: 0 0 10px !important; }
+  .fv-d b { color: #fff !important; }
+  .fv.phone img { height: auto !important; width: min(260px, 64%) !important; }
+}
+
+/* truth: MacBook photo */
+.tr-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+
+/* departments: clean product shots */
+.dv-shot { border: 0; box-shadow: 0 30px 60px rgba(15,23,42,.22); }
+.dv.phone .dv-shot { border: 0; border-radius: 0; background: none; box-shadow: none; width: min(320px, 72%); }
+.dv.phone .dv-shot img { aspect-ratio: auto; border-radius: 30px; box-shadow: 0 30px 60px rgba(15,23,42,.3); }
+
+/* cases */
+.case-band.cmr { background: #0B1F36; }
+.case-band.cmr::before { display: block; }
+.ci-front { box-shadow: 0 40px 70px rgba(0,0,0,.5); }
+
+/* inner pages + panels: MacBook photos */
+.mphoto { border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(11,26,51,.22); }
+.mphoto img { display: block; width: 100%; height: auto; }
+body.corp .panel .mphoto { box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+body.corp .hero-page .media img.hero-photo { aspect-ratio: 1964 / 1240 !important; object-position: center; max-height: none; }
+.case-band.cmr .ci-flow li { background: rgba(8,21,48,.82); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.case-band .cb-dev { min-height: 0; }
