@@ -622,3 +622,29 @@ body.corp .hero-page .media img.hero-photo { aspect-ratio: 1964 / 1240 !importan
 .chero-live .live > img { animation: none !important; transform: none !important; object-fit: fill; object-position: 0 0; width: 100% !important; height: 100% !important; }
 .lv-p { padding-left: 0; padding-right: calc(var(--u)*2); }
 @media (max-width: 1000px) { .chero-live .lv-pause { right: 8px; bottom: 8px; padding: 5px 9px; font-size: 12px; } }
+
+/* =========================================================
+   v33 · multi-action live screens + generic connected flow
+   ========================================================= */
+.lv-p { opacity: 0; transition: opacity .25s ease, background-color .5s ease, box-shadow .5s ease; }
+.lv-p.on { opacity: 1; }
+.lv-pill { position: absolute; display: flex; align-items: center; justify-content: center; border-radius: 99px; font-weight: 600; font-size: calc(var(--u) * 11.5); white-space: nowrap; box-shadow: 0 0 0 calc(var(--u)*3) var(--page); opacity: 0; transition: opacity .3s, background-color .3s, color .3s, transform .3s; font-family: inherit; }
+.lv-pill.on { opacity: 1; }
+.lv-pill.pop { transform: scale(1.12); }
+.lv-bar { opacity: 0; transition: opacity .3s; }
+.lv-bar.on { opacity: 1; }
+.lv-ban { position: absolute; z-index: 4; display: flex; gap: calc(var(--u)*7); align-items: center; padding: calc(var(--u)*7) calc(var(--u)*8); border-radius: calc(var(--u)*12); background: rgba(255,255,255,.96); box-shadow: 0 calc(var(--u)*8) calc(var(--u)*22) rgba(15,23,42,.28); opacity: 0; transform: translateY(calc(var(--u)*-18)) scale(.96); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.9,.25,1.2); }
+.lv-ban.on { opacity: 1; transform: none; }
+.lv-ban i { flex: none; width: calc(var(--u)*22); height: calc(var(--u)*22); border-radius: calc(var(--u)*6); background: #0B1A33 url("/brand/connectas-og.png") center / 120% no-repeat; }
+.lv-ban span { display: grid; gap: calc(var(--u)*1); min-width: 0; }
+.lv-ban b { font-size: calc(var(--u)*10.5); color: #0F172A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lv-ban small { font-size: calc(var(--u)*9.5); color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lv-toast { font-size: calc(var(--u) * 12); }
+
+/* flow panes hold live screens */
+.fl-view { aspect-ratio: 1672 / 941 !important; }
+.fv { display: block !important; }
+.fv .live { border-radius: 16px; box-shadow: 0 40px 80px rgba(0,0,0,.45); }
+.fv:not(.on) { visibility: hidden; opacity: 0; }
+@media (max-width: 900px) { .fv { position: absolute !important; inset: 0 !important; } .fv:not(.on) { display: block !important; } .fl-view { display: block !important; position: relative; } }
+@media (min-width: 1001px) { .chero-live .live { left: auto !important; right: 0; transform: none !important; } .chero-img.chero-live { -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%); mask-image: linear-gradient(90deg, transparent 0%, #000 16%); } }

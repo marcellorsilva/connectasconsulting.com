@@ -28,9 +28,9 @@ Site da Connectas (connectasconsulting.com): ecossistemas digitais empresariais 
 - Nada de Brasil ou Guiana no site.
 - CMR*mobility*: "mobility" sempre em itálico.
 - Sem seção ou item de menu "Leadership".
-- Home (v30): um único negócio de demonstração (Kitchen & Bath) no topo, no fluxo conectado e nas abas por departamento. Os três exemplos aparecem só depois, como "Project demonstrations". Nunca misturar telas de negócios diferentes como se fossem um sistema.
+- Home (v33): o fluxo "One system. Every step connected." é genérico (não fala dos 3 clientes): Request comes in → Proposal sent → Deal won → Work scheduled → Updated from the field → Invoiced and paid → Customer kept informed, usando as telas vivas genéricas. Os três exemplos aparecem só depois, como "Project demonstrations". Nunca misturar telas de negócios diferentes como se fossem um sistema.
 - Nomes de clientes nunca aparecem: usar o ramo de atividade (Kitchen & Bath Company, Yacht Charter Company, Relocation & Property Company). Telas usam marcas inventadas (Halden, Seaward, Northway).
 - CTA de contato padronizado: "Book a Discovery Call". Formulário: "Request a Discovery Call" (abre o e-mail com as respostas). Our Work usa "What this enables", não "The result".
 - Processo: Discover → Define & Prototype → Build & Integrate → Validate & Launch → Support & Improve.
-- Painéis vivos (v32): telas em `img/live/` (finance, ops, crm, overview) com números que atualizam após um clique simulado. Posições e valores em `assets/live-scenes.json`, script `assets/live.js`. Sem iMac em excesso: preferir fotos do MacBook (`img/corp/mac-*.webp`).
+- Painéis vivos (v33): telas em `img/live/` (finance, ops, crm, overview) com o logo da Connectas, cada uma com 4 a 6 ações simuladas (cliques que mudam números, status, barras e notificações nos celulares). Posições e valores em `assets/live-scenes.json`, script `assets/live.js`. Sem iMac em excesso: preferir fotos do MacBook (`img/corp/mac-*.webp`).
 - Sem página de Referral partners (redireciona para /about).
