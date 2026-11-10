@@ -150,3 +150,15 @@
   vis.classList.add('alive');
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { var was = on; on = es[0].isIntersecting; if (on && !was) loop(); else if (!on) gen++; }, { threshold: .35 }).observe(vis);
 })();
+
+/* v41: hero video: pause button, reduced motion, pause when off screen */
+(function () {
+  var box = document.querySelector('.hv'); if (!box) return;
+  var v = box.querySelector('video'), btn = box.querySelector('.hv-pause'); if (!v) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches, user = reduce;
+  function sync() { if (btn) { btn.setAttribute('aria-pressed', user); btn.querySelector('span').textContent = user ? 'Play' : 'Pause'; } }
+  if (reduce) { v.removeAttribute('autoplay'); v.pause(); }
+  if (btn) btn.addEventListener('click', function () { user = !user; if (user) v.pause(); else { var p = v.play(); if (p && p.catch) p.catch(function () {}); } sync(); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { if (es[0].isIntersecting && !user) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } else v.pause(); }, { threshold: .2 }).observe(v);
+  sync();
+})();
